@@ -10,6 +10,26 @@ Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **C
 - **Hackatón:** Hackatón México, con entregas el 12-dic y resultados el 14-dic. ⚪ Sus bases no están verificadas: ábrelas y anótalas en K01.7.
 - **Cobros reales con pey:** ninguno todavía. Lo de pey sale de su documentación, no de pruebas en producción.
 
+## Pey en WhatsApp (el proyecto)
+
+Paga servicios y recargas con CoDi desde WhatsApp: sin apps extra, sin comisiones, con botones. Qué es y por qué: [`docs/PRD.md`](docs/PRD.md). Cómo se conectan los 3 módulos sin pisarse en Git: [`docs/MODULOS.md`](docs/MODULOS.md).
+
+```bash
+npm install
+cp .env.example .env      # llena PEY_API_KEY y, si ya tienes, las de WhatsApp
+npm run dev               # http://localhost:3000/dev → chat de pruebas en el navegador
+npm test                  # firmas de webhooks, idempotencia y tope de cobros
+```
+
+| Ruta | Para qué |
+|---|---|
+| `GET/POST /webhooks/whatsapp` | Webhook de WhatsApp Cloud API (verify token + firma `X-Hub-Signature-256`) |
+| `POST /webhooks/pey` | Webhook de pey (Standard Webhooks) |
+| `GET /salud` | Qué está configurado (sin mostrar secretos) |
+| `/dev` | Chat de pruebas; "Simular pago" se marca SIMULACIÓN |
+
+Stack: Node 24 (TypeScript sin compilar), Express 5 y SQLite integrado (`node:sqlite`). Despliegue: `render.yaml`.
+
 ## Cómo trabajamos
 1. **Todo agente empieza por [`AGENTS.md`](AGENTS.md)** y por el [índice](conocimiento/INDICE.md); lee solo los archivos que su tarea necesita.
 2. **Una tarea a la vez:** plan corto → construir → verificar → evidencia → commit. "Creo que funciona" no es evidencia.

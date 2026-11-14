@@ -1,0 +1,33 @@
+# Despliegue en Render (plan gratuito): conecta el repo en dashboard.render.com → New → Blueprint.
+# Los valores secretos (sync: false) se capturan en el panel de Render, nunca aquí.
+services:
+  - type: web
+    name: pey-whatsapp
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.ts
+    healthCheckPath: /salud
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DEV_TOOLS
+        value: "1"   # deja /dev como plan B de la demo; pon "0" cuando ya no se necesite
+      - key: MAX_MONTO_MXN
+        value: "1"
+      - key: DEMO_COBRO_MXN
+        value: "0.01"
+      - key: WA_API_VERSION
+        value: v23.0
+      - key: PEY_API_KEY
+        sync: false
+      - key: PEY_WEBHOOK_SECRET
+        sync: false
+      - key: WA_TOKEN
+        sync: false
+      - key: WA_PHONE_NUMBER_ID
+        sync: false
+      - key: WA_APP_SECRET
+        sync: false
+      - key: WA_VERIFY_TOKEN
+        sync: false
