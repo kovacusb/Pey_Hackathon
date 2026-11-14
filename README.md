@@ -1,34 +1,27 @@
 # Pey_Hackathon
 
-Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero: todavía no hay idea elegida ni código. Este primer paso deja listas dos cosas:
+Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero. Lo que construimos es **Paga Fácil** (antes «peybot»): un bot de WhatsApp para pagar servicios y recargas, comprar en una tiendita y, después, cobrar al instante entre personas, todo con CoDi vía pey, más una app Android para el comercio ([PRD](docs/PRD.md)). Es un proyecto independiente: no es un producto de pey ni de Banxico. La base del proyecto son dos cosas:
 
 1. **Una base de conocimiento** sobre pey, CoDi, la ley de pagos digitales y el contexto de los comercios en México. Está en español de México, cada dato trae su fuente y lo no verificado está marcado con ⚪. La investigación se hizo entre el 5 y el 7 de noviembre de 2026 y no se ha reconsultado.
 2. **Una forma de trabajar con agentes de IA** (Claude Code, Codex, Cursor, ChatGPT): reglas en [`AGENTS.md`](AGENTS.md) y [`CLAUDE.md`](CLAUDE.md), más scripts que mantienen la base verificable.
 
 ## Estado (14-nov-2026)
-- **Idea:** por definir. Cuando exista, el PRD irá en `docs/PRD.md`.
-- **Hackatón:** Hackatón México, con entregas el 12-dic y resultados el 14-dic. ⚪ Sus bases no están verificadas: ábrelas y anótalas en K01.7.
-- **Cobros reales con pey:** ninguno todavía. Lo de pey sale de su documentación, no de pruebas en producción.
+- **Idea:** Paga Fácil ([docs/PRD.md](docs/PRD.md)). Un solo bot y un solo servidor con módulos: servicios y recargas, tiendita, centro de ayuda y (por definir) cobro rápido P2P ([docs/MODULOS.md](docs/MODULOS.md)).
+- **Hackatón:** Hackatón México: postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic. Reglas oficiales resumidas en K01.8.
+- **Cobros reales con pey:** una push CoDi de $0.01 creada, pagada desde BBVA y confirmada por la API el 14-nov.
 
-## Pey en WhatsApp (el proyecto)
-
-Paga servicios y recargas con CoDi desde WhatsApp: sin apps extra, sin comisiones, con botones. Qué es y por qué: [`docs/PRD.md`](docs/PRD.md). Cómo se conectan los 3 módulos sin pisarse en Git: [`docs/MODULOS.md`](docs/MODULOS.md).
+## Correr el proyecto
 
 ```bash
+cp .env.example .env      # en la raíz: llena PEY_API_KEY y, cuando las tengas, las de WhatsApp
+cd apps/api
 npm install
-cp .env.example .env      # llena PEY_API_KEY y, si ya tienes, las de WhatsApp
-npm run dev               # http://localhost:3000/dev → chat de pruebas en el navegador
-npm test                  # firmas de webhooks, idempotencia y tope de cobros
+npm run dev               # http://localhost:3000/dev → el bot en el navegador, con cobros reales de pey
+npm test                  # sin red: firmas, idempotencia, tope, motor de la tiendita y flujo completo
+npm run typecheck
 ```
 
-| Ruta | Para qué |
-|---|---|
-| `GET/POST /webhooks/whatsapp` | Webhook de WhatsApp Cloud API (verify token + firma `X-Hub-Signature-256`) |
-| `POST /webhooks/pey` | Webhook de pey (Standard Webhooks) |
-| `GET /salud` | Qué está configurado (sin mostrar secretos) |
-| `/dev` | Chat de pruebas; "Simular pago" se marca SIMULACIÓN |
-
-Stack: Node 24 (TypeScript sin compilar), Express 5 y SQLite integrado (`node:sqlite`). Despliegue: `render.yaml`.
+Detalle de rutas, variables y conexión con Meta: [`apps/api/README.md`](apps/api/README.md). Despliegue: [`render.yaml`](render.yaml).
 
 ## Cómo trabajamos
 1. **Todo agente empieza por [`AGENTS.md`](AGENTS.md)** y por el [índice](conocimiento/INDICE.md); lee solo los archivos que su tarea necesita.
@@ -63,6 +56,9 @@ Stack: Node 24 (TypeScript sin compilar), Express 5 y SQLite integrado (`node:sq
 | [K04 · Contexto de pagos y comercios](conocimiento/04-contexto-pagos-y-comercios-mx.md) | Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas, datos para el pitch y oportunidades. |
 | [`pey/`](pey/README.md) | Documentación de pey en Markdown: 11 endpoints, 4 webhooks, tipos, errores, marca, changelog y tutoriales. |
 | [`codi/`](codi/README.md) | Documentación de CoDi: qué es, flujo, actores, seguridad, regulación, cifras, marca, SPEI y DiMo, y cómo encaja pey. |
+| [`docs/PRD.md`](docs/PRD.md) | Qué construimos: Paga Fácil, alcance del demo, arquitectura, plan por tareas y entregables. |
+| [`docs/MODULOS.md`](docs/MODULOS.md) | Cómo se conectan los módulos del bot y quién es dueño de qué. |
+| [`apps/api`](apps/api/README.md) | API de Paga Fácil: webhooks de WhatsApp y pey, router de módulos y cobros CoDi (Node + TypeScript). |
 | [`docs/REVISION-PEY-2026-11-07.md`](docs/REVISION-PEY-2026-11-07.md) | Revisión de pey: decisiones de ingeniería para un checkout y preguntas para pey. |
 | [`AGENTS.md`](AGENTS.md) · [`CLAUDE.md`](CLAUDE.md) | Reglas para agentes: dinero real, llaves, webhooks, datos personales y marca. |
 | [`.env.example`](.env.example) | Nombres de las variables de pey (sin valores). |

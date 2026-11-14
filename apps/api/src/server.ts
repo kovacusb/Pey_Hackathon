@@ -1,20 +1,20 @@
-// Servidor único: un webhook de WhatsApp y un webhook de pey para todos los módulos.
+// Servidor único de Paga Fácil: un webhook de WhatsApp y un webhook de pey para todos los módulos.
 import express from "express";
 import { config, waConfigurado } from "./config.ts";
 import { procesarMensaje, registrarModulo } from "./core/bot.ts";
 import { iniciarPolling, procesarEventoPey } from "./core/cobros.ts";
 import { primeraVez } from "./core/db.ts";
-import { firmaPeyValida } from "./core/pey/firma.ts";
+import { verificarWebhookPey } from "./core/pey/firma.ts";
 import { extraerMensajes, firmaMetaValida } from "./core/whatsapp/recibir.ts";
 import { rutasDev } from "./dev/rutas.ts";
 import { ayuda } from "./modules/ayuda/index.ts";
-import { negocios } from "./modules/negocios/index.ts";
+import { tienda } from "./modules/tienda/index.ts";
 import { p2p } from "./modules/p2p/index.ts";
 import { servicios } from "./modules/servicios/index.ts";
 
 // El orden define el orden del menú principal.
 registrarModulo(servicios);
-registrarModulo(negocios);
+registrarModulo(tienda);
 registrarModulo(p2p);
 registrarModulo(ayuda);
 
@@ -23,7 +23,7 @@ app.disable("x-powered-by");
 const crudo = express.raw({ type: "*/*", limit: "1mb" });
 
 app.get("/", (_req, res) => {
-  res.type("text/plain").send("Pey en WhatsApp · ok");
+  res.type("text/plain").send("Paga Fácil · ok");
 });
 
 app.get("/salud", (_req, res) => {
@@ -37,7 +37,7 @@ app.get("/salud", (_req, res) => {
 });
 
 // ---------- WhatsApp Cloud API ----------
-app.get("/webhooks/whatsapp", (req, res) => {
+app.get("/api/whatsapp", (req, res) => {
   const ok = req.query["hub.mode"] === "subscribe" && config.wa.verifyToken && req.query["hub.verify_token"] === config.wa.verifyToken;
   if (ok) {
     res.type("text/plain").send(String(req.query["hub.challenge"] ?? ""));
@@ -46,7 +46,7 @@ app.get("/webhooks/whatsapp", (req, res) => {
   res.sendStatus(403);
 });
 
-app.post("/webhooks/whatsapp", crudo, (req, res) => {
+app.post("/api/whatsapp", crudo, (req, res) => {
   const cuerpo = req.body as Buffer;
   if (config.wa.appSecret) {
     if (!firmaMetaValida(config.wa.appSecret, cuerpo, req.get("x-hub-signature-256"))) {
@@ -72,18 +72,16 @@ app.post("/webhooks/whatsapp", crudo, (req, res) => {
 });
 
 // ---------- pey (Standard Webhooks) ----------
-app.post("/webhooks/pey", crudo, async (req, res) => {
+app.post("/api/webhook-pey", crudo, async (req, res) => {
   const cuerpo = (req.body as Buffer).toString("utf8");
   const id = req.get("webhook-id");
-  const valido = firmaPeyValida({
-    secreto: config.pey.webhookSecret,
-    id,
-    timestamp: req.get("webhook-timestamp"),
-    firmas: req.get("webhook-signature"),
+  const firma = verificarWebhookPey(
+    config.pey.webhookSecret,
+    { id, timestamp: req.get("webhook-timestamp"), firma: req.get("webhook-signature") },
     cuerpo,
-  });
-  if (!valido) {
-    console.warn("[pey] webhook con firma inválida o sin secreto configurado");
+  );
+  if (!firma.valida) {
+    console.warn("[pey] webhook rechazado", { motivo: firma.motivo });
     res.sendStatus(401);
     return;
   }
@@ -112,7 +110,7 @@ if (config.devTools) app.use("/dev", rutasDev());
 
 iniciarPolling();
 app.listen(config.port, () => {
-  console.log(`Pey en WhatsApp escuchando en :${config.port}`);
+  console.log(`Paga Fácil escuchando en :${config.port}`);
   console.log(`  pey: ${config.pey.apiKey ? "llave cargada" : "SIN LLAVE"} · webhook pey: ${config.pey.webhookSecret ? "con secreto" : "sin secreto (solo polling)"}`);
   console.log(`  WhatsApp: ${waConfigurado() ? "configurado" : "sin configurar (solo /dev)"} · tope por cobro: $${config.maxCobroCentavos / 100}`);
   if (config.devTools) console.log(`  Chat de pruebas: http://localhost:${config.port}/dev`);

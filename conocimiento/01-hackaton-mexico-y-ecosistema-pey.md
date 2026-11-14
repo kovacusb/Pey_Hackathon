@@ -1,7 +1,7 @@
 ---
 id: K01
 titulo: "Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados"
-resumen: "Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea."
+resumen: "Hackatón México (14 nov–12 dic 2026): datos y reglas oficiales consultadas el 14-nov (integración mínima, entrega, criterios, trabajo previo), quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea y antes de entregar."
 responde:
   - "¿Qué es el Hackatón México, cuándo es y quién lo organiza?"
   - "¿Qué es pey, qué ofrece y qué éxito busca con su API abierta?"
@@ -9,41 +9,42 @@ responde:
   - "¿Por qué CoDi importa y por qué no ha despegado?"
   - "¿Qué conquista a pey y a los organizadores, y qué los aleja?"
   - "¿Qué falta confirmar con pey y con los organizadores?"
+  - "¿Qué exigen las reglas: integración mínima, entrega, criterios y trabajo previo?"
 actualizado: 2026-11-14
 confianza: media
-fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64]
+fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64, SA55, SA56, SA57]
 ---
 
 # K01 · Hackatón México y el ecosistema de pey
 
-> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
+> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Excepción: los datos y las reglas del Hackatón México (K01.1 y K01.8) se tomaron del sitio oficial el 2026-11-14.
 
 ## TL;DR
 
-- **Hackatón México** (hackatonmexico.com): del 14 de noviembre al 12 de diciembre de 2026, con CoDi y la API de pey; individual o en equipo; más de 1 millón de pesos en premios, créditos y recursos; lo organizan AI Builders México, pey y SpaceXAI; entregas el 12-dic y resultados el 14-dic [SA03][SB37]. ⚪ Bases, criterios, jurado y herramientas permitidas: no verificados.
+- **Hackatón México** (hackatonmexico.com): del 14-nov al 12-dic-2026, con CoDi y la API de pey; individual o en equipos de hasta 5; más de 1 millón de pesos en premios, créditos y recursos; lo organizan SpaceXAI, pey y AI Builders México. Postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic [SA55][SA56].
+- **Lo que obliga:** crear al menos un Mensaje de Cobro CoDi con la API de pey **en ambiente productivo** y reaccionar a su resultado; una integración simulada descalifica. Criterios: uso de CoDi y de la API 30 %, impacto 25 %, ejecución técnica 15 %, experiencia y diseño 15 %, originalidad 15 % [SA56] (K01.8).
 - **pey** es una API CoDi autoservicio, gratuita «por el momento», que funciona con cualquier banco y deposita directo en la cuenta del comercio. Se presenta como certificada por Banxico y quiere ser el procesador de pagos de los negocios informales [SB01][SB03][SA12][SB38].
 - **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03].
 - **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K04.4).
 - **Los aleja:** cobro simulado sin decirlo, IA decorativa o que decide montos, datos inventados, llaves expuestas y afirmaciones falsas sobre la ley (K01.6).
 
-## K01.1 · Hackatón México: lo que se sabe (al 7-nov-2026)
+## K01.1 · Hackatón México: datos del evento
 
 | Dato | Valor | Fuente |
 |---|---|---|
-| Nombre y sitio | Hackatón México · hackatonmexico.com (⚪ el sitio no se abrió) | [SA03] |
-| Fechas | 14 de noviembre a 12 de diciembre de 2026 | [SA03][SB37] |
-| Reto | Construir con CoDi y la API de pey | [SA03] |
-| Participación | Individual o en equipo | [SA03] |
-| Premios | Más de 1 millón de pesos en premios, créditos y recursos | [SA03][SB37] |
-| Organizan | AI Builders México, pey y SpaceXAI | [SA03][SB37] |
-| Entregas / resultados | 12 de diciembre / 14 de diciembre | [SA03] |
-| Arranque | Sábado 14 de noviembre: arranque presencial del "Cursor Hackatón México" en 7 ciudades | [SA03] |
+| Nombre y sitio | Hackatón México · hackatonmexico.com | [SA55] |
+| Reto | Crear nuevas experiencias de pago digital con CoDi y la API de pey, de la idea a un demo real | [SA55] |
+| Participación | Individual o en equipos de hasta 5 personas; registro, equipos, postulación y entregas en el portal pey.build | [SA55][SA56] |
+| Calendario | 14-nov arranque · 30-nov límite para publicar bounties · 10-dic 23:59 cierre de postulación · 12-dic 23:59 cierre de entregas (sin entregas tardías) · 12 a 14-dic evaluación · 14-dic resultados; hora de la Ciudad de México | [SA56] |
+| Premios | Más de 1 millón de pesos en efectivo, créditos y recursos; categorías y montos en un Documento de Premios aparte (⚪ no lo abrí) | [SA55][SA56] |
+| Organizan | SpaceXAI, pey y AI Builders México; el logo de SEDECO también aparece (⚪ su papel no se describe) | [SA55] |
+| Arranque | 14-nov: presencial en CDMX, Monterrey, Guadalajara, Puebla, Villahermosa, León y Culiacán, más participación digital | [SA55][SA56] |
 | Evento relacionado | Hackatón de Cursor en Mérida (13–14 nov), registrado en Luma con una dirección que incluye "spacexai" | [SA39] |
 
-- ⚪ No está claro si el arranque presencial del "Cursor Hackatón México" del 14-nov es el inicio del mismo Hackatón México o un evento aparte. La fuente los lista por separado.
+- El sitio oficial no menciona a Cursor; el nombre "Cursor Hackatón México" solo aparece en el newsletter del 31-oct [SA03].
 - El día de resultados (14-dic) coincide con la fecha límite de Banxico para que los bancos homologuen sus apps, incluido el pago de mensajes de cobro CoDi (K02.5).
 
-**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, qué se permite traer de antes del arranque y si es presencial o en línea (K01.7).
+**Recomendación:** regístrate en pey.build, postula el proyecto mucho antes del 10-dic y pide el ambiente productivo de pey cuanto antes: se atiende por orden de llegada (K01.8).
 
 ## K01.2 · Quién organiza: AI Builders México y SpaceXAI
 
@@ -106,7 +107,7 @@ Síntesis; las fuentes van en cada punto:
 ## K01.6 · Lo que aleja
 
 Síntesis de riesgos; las fuentes van en cada punto:
-- Un proyecto sin pey ni CoDi, o con cobro solo simulado sin decirlo [SA03].
+- Un proyecto sin pey ni CoDi, o con una integración «decorativa, simulada o solo prometida»: las reglas la descalifican [SA03][SA56].
 - Un chat genérico sin conexión con el cobro ni con el comercio.
 - Un modelo que decide montos sin validación determinista ni confirmación humana [SA45].
 - Datos, comercios o testimonios inventados presentados como reales.
@@ -120,13 +121,11 @@ Síntesis de riesgos; las fuentes van en cada punto:
 
 ## K01.7 · Preguntas abiertas (⚪)
 
-**A los organizadores del Hackatón México**
-1. Bases, criterios de evaluación con sus pesos, y jurado.
-2. Herramientas exigidas o permitidas (¿Cursor, OpenAI, Claude, SpaceXAI/Grok?) y cómo quieren la evidencia de uso.
-3. Formato y lugar de la entrega: repo, demo desplegada, video (¿duración?), presentación o formulario.
-4. ¿Qué se permite traer de antes del arranque del 14-nov (código, investigación, diseños) y cómo hay que declararlo?
-5. ¿Es presencial, en línea o mixto? ¿En qué ciudades? ¿Hay mentorías o demo day?
-6. Elegibilidad, reparto de premios y créditos, y política de datos de comercios reales.
+**A los organizadores del Hackatón México** (las reglas del 4-nov ya responden criterios, equipos, entrega, herramientas de IA y trabajo previo: K01.8)
+1. Fecha recomendada para pedir el ambiente productivo de pey: se publicará en el portal [SA56].
+2. Documento de Premios: categorías, montos y patrocinadores.
+3. Bounties: se publican a más tardar el 30-nov [SA56].
+4. Jurado: se publica antes del cierre de entregas [SA56].
 
 **A pey** (también en [docs/REVISION-PEY-2026-11-07.md](../docs/REVISION-PEY-2026-11-07.md) y K03.6)
 1. ¿Hay sandbox o llaves de prueba para el hackatón? La página comercial las menciona y la documentación técnica no (K03.3).
@@ -135,8 +134,28 @@ Síntesis de riesgos; las fuentes van en cada punto:
 4. ¿Hay eventos de pago rechazado o vencido? ¿Se puede cancelar un QR o una push, o devolver por API?
 5. ¿Qué pasa con una push si el celular del cliente no tiene CoDi activo? pey no documenta el error ([pey/04](../pey/04-api-codi-qr-y-push.md)).
 6. Requisitos y plazo para dar de alta comercios reales (la CLABE propia tarda 5 días hábiles) y la comisión por tarjeta en las ligas de pago.
+7. Cómo se cumple la cláusula 3.2 de los Términos del API para el ambiente productivo y cuánto tarda la aprobación [SA56].
+8. ¿Cobrar a nombre de varios comercios (CLABEs registradas con `POST /bank-account`) choca con la prohibición de «cobros o dispersión de pagos de terceros» de las reglas [SA56]?
+9. ¿Se puede usar «pey» dentro del nombre de un proyecto? La página de marca no dice nada sobre nombres ([pey/12](../pey/12-recursos-de-marca.md)).
 
 **Recomendación:** anota cada respuesta aquí con su fecha y su fuente, y actualiza K03 si pey cambia algo de la API.
+
+## K01.8 · Reglas oficiales: lo que obliga y lo que descalifica
+
+Resumen propio de las Reglas (actualizadas el 4-nov-2026) y de los Términos (27-oct-2026), leídos el 2026-11-14. Ante cualquier duda, manda el texto de la fuente [SA56][SA57].
+
+- **Integración mínima:** el Proyecto genera al menos un Mensaje de Cobro CoDi (QR, notificación push o liga de pago) con la API de pey y reacciona a su resultado, por ejemplo con webhooks de estatus. Debe funcionar en **ambiente productivo**; una integración «decorativa, simulada o solo prometida» no cumple [SA56].
+- **Ambiente productivo:** exige cumplir la cláusula 3.2 de los Términos del API; pey atiende las solicitudes por orden de llegada y no garantiza aprobar antes del cierre. El API en producción es gratuito durante el hackatón, con límites de solicitudes [SA56].
+- **Postulación (obligatoria, hasta el 10-dic):** nombre, descripción breve (qué es y cómo usa CoDi con la API de pey), categoría o reto si aplica, e integrantes. Sin postulación no hay entrega [SA56].
+- **Entrega (hasta el 12-dic, 23:59):** descripción de hasta 500 palabras que explique el uso de la API de pey · **demo pública** sin invitación (con credenciales de prueba si pide login) · **video de hasta 3 min** con un cobro CoDi completo, desde el Mensaje de Cobro hasta la reacción del Proyecto · repositorio opcional (público o privado con acceso de lectura) · **declaración de componentes previos y de terceros** · instrucciones de prueba de hasta 1000 palabras · lista final de integrantes. Una demo o un video que no funcionen al cierre cuentan como no entregados [SA56].
+- **Criterios:** uso de CoDi y de la API de pey 30 %, impacto y relevancia 25 %, ejecución técnica 15 %, experiencia y diseño 15 %, originalidad 15 %; cada uno de 1 a 10. Desempate: uso de CoDi y de la API, luego impacto. El jurado puede pedir una demostración de hasta 20 min [SA56].
+- **Trabajo previo:** solo se evalúa lo hecho desde el 14-nov. Preparar ideas, bocetos e investigación antes del arranque es válido. Se puede reutilizar código o diseños propios si se declaran (qué existía y qué se construyó); lo no declarado se presume hecho durante el hackatón y una declaración falsa descalifica. **La integración con CoDi debe ser nueva** [SA56].
+- **IA:** permitida para código, diseño, texto, imágenes y audio, sin obligación de declararla; el equipo responde por el resultado [SA56].
+- **Dinero real y giros:** cobrar dinero real es responsabilidad del Proyecto. Prohibido engañar al pagador, cobros masivos no solicitados, phishing y eludir límites técnicos; hay giros prohibidos (apuestas, cripto, remesas, entre otros). No se permite competir con el API (revenderlo o montar infraestructura de cobro que compita); puntos de venta, sistemas de gestión y comercios electrónicos sí [SA56].
+- **Datos y credenciales:** en demos, videos y repos, solo datos ficticios o propios (nada de teléfonos, CLABEs ni datos reales de terceros); aviso de privacidad propio según la LFPDPPP. Una credencial comprometida se notifica a pey en **24 h**, y usar credenciales compartidas con personas ajenas al equipo descalifica [SA56].
+- **Propiedad:** el equipo conserva sus derechos; los organizadores reciben una licencia no exclusiva solo para difundir el hackatón [SA56][SA57].
+
+**Recomendación:** escribe la integración con pey desde cero en este repo (K03.7 sirve como documentación, no como código a copiar), declara la base de conocimiento como investigación previa al arranque y pide hoy el ambiente productivo.
 
 ## Fuentes
 
@@ -167,5 +186,8 @@ Síntesis de riesgos; las fuentes van en cada punto:
 | SB37 | Merca2.0: Pey, AI Builders México y SpaceXAI realizarán hackatón de pagos digitales (noviembre 2026) | https://www.merca20.com/pey-ai-builders-mexico-y-spacexai-realizaran-hackaton-de-pagos-digitales-en-mexico/ | 2026-11-06 |
 | SB38 | InformaBTL: el 14 de diciembre cambiarán las transferencias; Pey apuesta por pagos QR sin comisiones (noviembre 2026) | https://www.informabtl.com/pagos-qr-mexico-14-diciembre-2026-pey-codi/ | 2026-11-06 |
 | SD64 | DOF · Ley de Economía Digital: texto y transitorios | https://sidof.segob.gob.mx/notas/docFuente/5803017 | 2026-11-07 |
+| SA55 | Hackatón México: sitio oficial | https://hackatonmexico.com | 2026-11-14 |
+| SA56 | Hackatón México: Reglas (actualizadas el 4-nov-2026) | https://hackatonmexico.com/reglas | 2026-11-14 |
+| SA57 | Hackatón México: Términos y condiciones (actualizados el 27-oct-2026) | https://hackatonmexico.com/terminos | 2026-11-14 |
 
 (previo) = dato verificado antes de la sesión del 6-nov y no reconsultado.

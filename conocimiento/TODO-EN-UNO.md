@@ -5,6 +5,7 @@
 
 ## Contenido
 - `conocimiento/INDICE.md` — Índice de la base de conocimiento
+- `docs/PRD.md` — PRD · peybot
 - `conocimiento/01-hackaton-mexico-y-ecosistema-pey.md` — Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados
 - `conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md` — Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 - `conocimiento/03-codi-y-api-pey.md` — CoDi y API de Pey
@@ -55,7 +56,7 @@
 ## Archivos
 | ID | Archivo | Qué cubre | Confianza | Marcas ⚪ |
 |---|---|---|---|---|
-| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea. | media | 8 |
+| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Hackatón México (14 nov–12 dic 2026): datos y reglas oficiales consultadas el 14-nov (integración mínima, entrega, criterios, trabajo previo), quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea y antes de entregar. | media | 7 |
 | **K02** | [Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar](02-ley-pagos-digitales-y-plazo-14-dic.md) | La Ley de Economía Digital para Pagos Digitales y Electrónicos (decreto del 4-nov-2026) en lo esencial: qué es, transitorios, qué no obliga y lo que no se puede afirmar. Además, el plazo distinto del 14-dic-2026 de las Circulares 9/2026 y 10/2026 de Banxico. Léelo antes de mencionar la ley en el producto o en el pitch. | media | 3 |
 | **K03** | [CoDi y API de Pey](03-codi-y-api-pey.md) | Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos de referencia en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro. | media | 23 |
 | **K04** | [Contexto: pagos, comercios y personas en México](04-contexto-pagos-y-comercios-mx.md) | Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y la CDMX; léelo al definir problema, 'por qué ahora', personas y datos del pitch. | media | 19 |
@@ -69,6 +70,7 @@
 | ¿Por qué CoDi importa y por qué no ha despegado? | K01 |
 | ¿Qué conquista a pey y a los organizadores, y qué los aleja? | K01 |
 | ¿Qué falta confirmar con pey y con los organizadores? | K01 |
+| ¿Qué exigen las reglas: integración mínima, entrega, criterios y trabajo previo? | K01 |
 | ¿Qué es la Ley de Economía Digital para Pagos Digitales y Electrónicos y desde cuándo rige? | K02 |
 | ¿La ley obliga a los comercios a aceptar QR o pagos digitales? | K02 |
 | ¿Qué pasa el 14 de diciembre de 2026 y en qué se distingue de la ley? | K02 |
@@ -97,13 +99,14 @@
 ### K01 · Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados
 Archivo: [`01-hackaton-mexico-y-ecosistema-pey.md`](01-hackaton-mexico-y-ecosistema-pey.md)
 
-- `K01.1` Hackatón México: lo que se sabe (al 7-nov-2026)
+- `K01.1` Hackatón México: datos del evento
 - `K01.2` Quién organiza: AI Builders México y SpaceXAI
 - `K01.3` pey: empresa, API y qué éxito busca
 - `K01.4` Por qué CoDi importa y por qué no ha despegado
 - `K01.5` Lo que conquista
 - `K01.6` Lo que aleja
 - `K01.7` Preguntas abiertas (⚪)
+- `K01.8` Reglas oficiales: lo que obliga y lo que descalifica
 
 ### K02 · Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 Archivo: [`02-ley-pagos-digitales-y-plazo-14-dic.md`](02-ley-pagos-digitales-y-plazo-14-dic.md)
@@ -146,12 +149,108 @@ Archivo: [`04-contexto-pagos-y-comercios-mx.md`](04-contexto-pagos-y-comercios-m
 
 <!-- ===== FIN: conocimiento/INDICE.md ===== -->
 
+<!-- ===== INICIO: docs/PRD.md ===== -->
+
+# PRD · peybot
+
+Versión 0.1 · 14-nov-2026 · Estado: alcance acordado, en construcción.
+
+> «peybot» es el nombre de trabajo. ⚪ Falta confirmar con pey que se puede usar «pey» en el nombre (K01.7, pregunta 9). Mientras tanto, el bot y la app dicen que es un proyecto independiente, no un producto de pey (AGENTS.md §4).
+
+## Problema
+Una tiendita cobra en efectivo o con transferencias que se "comprueban" con una captura de pantalla. Cobrar con tarjeta le cuesta hasta 3.95 % por venta, y CoDi, que no cobra comisión, casi no se usa: hay 21.8 M de cuentas validadas, pero solo 2.5 M han pagado alguna vez (K04.3, K04.4). Además, pedir y cobrar por WhatsApp se hace a mano.
+
+## Solución
+- **peybot (WhatsApp):** el cliente le escribe a la tienda, elige productos de su catálogo y recibe el cobro CoDi: una **notificación push** al mismo número desde el que escribe o, si lo prefiere, un **QR** que importa en la app de su banco. Cuando pey confirma el pago, el bot responde «Pago recibido» y la tienda lo ve.
+- **App del comercio (Android):** el dueño configura su bot (nombre, saludo, horario, encendido), su catálogo, y ve pedidos y pagos en tiempo real.
+- **Agente (más adelante):** Claude entiende pedidos en texto libre («dame dos papas y un refresco») por medio de herramientas; el código decide precios y montos (K03.9).
+
+## Para quién
+- **Comprador:** persona con **CoDi ya activo** en la app de su banco. No hay ruta con tarjeta ni ligas de pago.
+- **Comercio del demo:** una tiendita, con datos ficticios.
+
+## Alcance del demo (MVP)
+1. Un comercio, un número de WhatsApp y el catálogo de abajo.
+2. Flujo de compra: menú → producto → carrito → «Pagar» → «A mi número» (push, `POST /codi/pn`) o «Mándame QR» (`POST /codi/qr`) → webhook de pey verificado → «Pago recibido» en WhatsApp y en la app ([pey/04](../pey/04-api-codi-qr-y-push.md), [pey/09](../pey/09-webhooks.md)).
+3. App Android: pantallas Bot, Productos, Pedidos y Pagos.
+4. Cobros de $0.01 a $1, con tope impuesto por el servidor (`MAX_MONTO_MXN`).
+
+**Fuera de alcance:** tarjetas y ligas de pago, varios comercios, devoluciones, facturación, NFC.
+
+### Catálogo de demo (precios de prueba)
+
+| SKU | Producto | Precio |
+|---|---|---|
+| `chicle` | Chicle | $0.10 |
+| `paleta` | Paleta de dulce | $0.20 |
+| `galleta` | Galletas | $0.25 |
+| `agua` | Agua 600 ml | $0.30 |
+| `pan` | Pan dulce | $0.30 |
+| `papas` | Papas | $0.35 |
+| `jugo` | Jugo | $0.35 |
+| `refresco` | Refresco | $0.40 |
+
+## Arquitectura
+
+```
+Comprador (WhatsApp) ─▶ Meta Cloud API ─▶ POST /api/whatsapp ─▶ motor del bot (+ agente, después)
+                                                                      │
+App Android (Expo) ◀─▶ API propia (apps/api) ◀─▶ Postgres (catálogo, pedidos, estados, dedupe)
+                                                                      │
+                                         pey: POST /codi/pn o /codi/qr (servidor, nunca la app)
+                                                                      │
+App del banco (CoDi) ─ paga ─▶ pey ─▶ POST /api/webhook-pey (firma Standard Webhooks)
+                                                                      │
+                         «Pago recibido» por WhatsApp + pedido «pagado» en la app ◀┘
+```
+
+| Pieza | Tecnología | Carpeta |
+|---|---|---|
+| API y webhooks | Node 24+ con TypeScript, Hono | [`apps/api`](../apps/api/README.md) |
+| App del comercio | Expo (React Native + TypeScript) para Android; la misma base exporta una versión web para la demo pública | `apps/movil` (pendiente) |
+| Base de datos | Postgres (Docker en local; servicio administrado al desplegar) | pendiente |
+| WhatsApp | WhatsApp Cloud API de Meta (oficial) | — |
+| IA | Claude por API, solo en el servidor | pendiente |
+
+## Reglas que el diseño respeta
+- **Dinero:** confirmación humana con botón, tope en el servidor, «pagado» solo con `PAID` del cobro o webhook firmado, sin reintentos a ciegas, centavos internos (AGENTS.md §3).
+- **Llaves y datos:** llaves solo en el servidor; la app nunca habla con pey. El número de WhatsApp se usa para responder y para la push; los logs solo llevan IDs (AGENTS.md §4).
+- **Hackatón:** cobro real en ambiente productivo con reacción a su resultado; integración con pey escrita desde cero en este repo; solo datos propios o ficticios en el demo (K01.8).
+
+## Plan por tareas
+
+| # | Tarea | Listo cuando |
+|---|---|---|
+| 1 | Bot de WhatsApp sin cobro: webhook verificado, menú, carrito, confirmación | Pruebas pasan; con las credenciales de Meta, el bot responde en tu WhatsApp |
+| 2 | Cobro real: cliente de pey nuevo, pedidos en Postgres, push y QR, webhook de pey verificado y deduplicado | Un pago real de $0.01 cambia el pedido a «pagado» y el bot avisa |
+| 3 | App Android: Bot, Productos, Pedidos y Pagos contra la API | Se ve en el emulador y en tu teléfono con datos reales del demo |
+| 4 | Agente: texto libre → herramientas → carrito | «dos papas y un refresco» arma el carrito correcto; el modelo nunca fija montos |
+| 5 | Entrega: despliegue estable, demo pública, video de 3 min, textos y declaración | Todo lo de K01.8 listo antes del 10-dic (postulación) y del 12-dic (entrega) |
+
+## Entregables del hackatón (K01.8)
+
+| Pide la regla | Cómo lo cubrimos |
+|---|---|
+| Demo pública sin invitación | Versión web de la app (Expo) con credenciales de prueba y número de WhatsApp del bot; ⚪ un número de prueba de Meta solo escribe a 5 destinatarios, así que para jueces hace falta un número real |
+| Video de hasta 3 min | Pantalla dividida: WhatsApp del comprador y app del comercio; pago real de $0.01 a $1 |
+| Descripción (≤ 500 palabras) e instrucciones (≤ 1000) | Se redactan en la tarea 5 a partir de este PRD |
+| Declaración de componentes previos | Base de conocimiento (`conocimiento/`, `pey/`, `codi/`, `docs/REVISION-PEY-2026-11-07.md`): investigación consultada del 5 al 7-nov. Todo el código se escribe desde el 14-nov |
+
+## Riesgos y preguntas abiertas
+- **Ambiente productivo de pey:** sin aprobación no hay entrega válida; se pide por orden de llegada (K01.8).
+- **Push a un número sin CoDi:** comportamiento no documentado; el QR queda como alternativa (K01.7, pey).
+- **Formato del número de WhatsApp:** pey pide 10 dígitos; WhatsApp manda la lada del país (⚪ confirmar con un número mexicano real).
+- **Usuarios de WhatsApp sin número visible:** Meta puede omitir el número si la persona usa nombre de usuario; entonces solo se ofrece QR.
+- **Nombre «peybot»:** ver la nota del inicio.
+
+<!-- ===== FIN: docs/PRD.md ===== -->
+
 <!-- ===== INICIO: conocimiento/01-hackaton-mexico-y-ecosistema-pey.md ===== -->
 
 ---
 id: K01
 titulo: "Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados"
-resumen: "Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea."
+resumen: "Hackatón México (14 nov–12 dic 2026): datos y reglas oficiales consultadas el 14-nov (integración mínima, entrega, criterios, trabajo previo), quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea y antes de entregar."
 responde:
   - "¿Qué es el Hackatón México, cuándo es y quién lo organiza?"
   - "¿Qué es pey, qué ofrece y qué éxito busca con su API abierta?"
@@ -159,41 +258,42 @@ responde:
   - "¿Por qué CoDi importa y por qué no ha despegado?"
   - "¿Qué conquista a pey y a los organizadores, y qué los aleja?"
   - "¿Qué falta confirmar con pey y con los organizadores?"
+  - "¿Qué exigen las reglas: integración mínima, entrega, criterios y trabajo previo?"
 actualizado: 2026-11-14
 confianza: media
-fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64]
+fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64, SA55, SA56, SA57]
 ---
 
 # K01 · Hackatón México y el ecosistema de pey
 
-> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
+> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Excepción: los datos y las reglas del Hackatón México (K01.1 y K01.8) se tomaron del sitio oficial el 2026-11-14.
 
 ## TL;DR
 
-- **Hackatón México** (hackatonmexico.com): del 14 de noviembre al 12 de diciembre de 2026, con CoDi y la API de pey; individual o en equipo; más de 1 millón de pesos en premios, créditos y recursos; lo organizan AI Builders México, pey y SpaceXAI; entregas el 12-dic y resultados el 14-dic [SA03][SB37]. ⚪ Bases, criterios, jurado y herramientas permitidas: no verificados.
+- **Hackatón México** (hackatonmexico.com): del 14-nov al 12-dic-2026, con CoDi y la API de pey; individual o en equipos de hasta 5; más de 1 millón de pesos en premios, créditos y recursos; lo organizan SpaceXAI, pey y AI Builders México. Postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic [SA55][SA56].
+- **Lo que obliga:** crear al menos un Mensaje de Cobro CoDi con la API de pey **en ambiente productivo** y reaccionar a su resultado; una integración simulada descalifica. Criterios: uso de CoDi y de la API 30 %, impacto 25 %, ejecución técnica 15 %, experiencia y diseño 15 %, originalidad 15 % [SA56] (K01.8).
 - **pey** es una API CoDi autoservicio, gratuita «por el momento», que funciona con cualquier banco y deposita directo en la cuenta del comercio. Se presenta como certificada por Banxico y quiere ser el procesador de pagos de los negocios informales [SB01][SB03][SA12][SB38].
 - **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03].
 - **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K04.4).
 - **Los aleja:** cobro simulado sin decirlo, IA decorativa o que decide montos, datos inventados, llaves expuestas y afirmaciones falsas sobre la ley (K01.6).
 
-## K01.1 · Hackatón México: lo que se sabe (al 7-nov-2026)
+## K01.1 · Hackatón México: datos del evento
 
 | Dato | Valor | Fuente |
 |---|---|---|
-| Nombre y sitio | Hackatón México · hackatonmexico.com (⚪ el sitio no se abrió) | [SA03] |
-| Fechas | 14 de noviembre a 12 de diciembre de 2026 | [SA03][SB37] |
-| Reto | Construir con CoDi y la API de pey | [SA03] |
-| Participación | Individual o en equipo | [SA03] |
-| Premios | Más de 1 millón de pesos en premios, créditos y recursos | [SA03][SB37] |
-| Organizan | AI Builders México, pey y SpaceXAI | [SA03][SB37] |
-| Entregas / resultados | 12 de diciembre / 14 de diciembre | [SA03] |
-| Arranque | Sábado 14 de noviembre: arranque presencial del "Cursor Hackatón México" en 7 ciudades | [SA03] |
+| Nombre y sitio | Hackatón México · hackatonmexico.com | [SA55] |
+| Reto | Crear nuevas experiencias de pago digital con CoDi y la API de pey, de la idea a un demo real | [SA55] |
+| Participación | Individual o en equipos de hasta 5 personas; registro, equipos, postulación y entregas en el portal pey.build | [SA55][SA56] |
+| Calendario | 14-nov arranque · 30-nov límite para publicar bounties · 10-dic 23:59 cierre de postulación · 12-dic 23:59 cierre de entregas (sin entregas tardías) · 12 a 14-dic evaluación · 14-dic resultados; hora de la Ciudad de México | [SA56] |
+| Premios | Más de 1 millón de pesos en efectivo, créditos y recursos; categorías y montos en un Documento de Premios aparte (⚪ no lo abrí) | [SA55][SA56] |
+| Organizan | SpaceXAI, pey y AI Builders México; el logo de SEDECO también aparece (⚪ su papel no se describe) | [SA55] |
+| Arranque | 14-nov: presencial en CDMX, Monterrey, Guadalajara, Puebla, Villahermosa, León y Culiacán, más participación digital | [SA55][SA56] |
 | Evento relacionado | Hackatón de Cursor en Mérida (13–14 nov), registrado en Luma con una dirección que incluye "spacexai" | [SA39] |
 
-- ⚪ No está claro si el arranque presencial del "Cursor Hackatón México" del 14-nov es el inicio del mismo Hackatón México o un evento aparte. La fuente los lista por separado.
+- El sitio oficial no menciona a Cursor; el nombre "Cursor Hackatón México" solo aparece en el newsletter del 31-oct [SA03].
 - El día de resultados (14-dic) coincide con la fecha límite de Banxico para que los bancos homologuen sus apps, incluido el pago de mensajes de cobro CoDi (K02.5).
 
-**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, qué se permite traer de antes del arranque y si es presencial o en línea (K01.7).
+**Recomendación:** regístrate en pey.build, postula el proyecto mucho antes del 10-dic y pide el ambiente productivo de pey cuanto antes: se atiende por orden de llegada (K01.8).
 
 ## K01.2 · Quién organiza: AI Builders México y SpaceXAI
 
@@ -256,7 +356,7 @@ Síntesis; las fuentes van en cada punto:
 ## K01.6 · Lo que aleja
 
 Síntesis de riesgos; las fuentes van en cada punto:
-- Un proyecto sin pey ni CoDi, o con cobro solo simulado sin decirlo [SA03].
+- Un proyecto sin pey ni CoDi, o con una integración «decorativa, simulada o solo prometida»: las reglas la descalifican [SA03][SA56].
 - Un chat genérico sin conexión con el cobro ni con el comercio.
 - Un modelo que decide montos sin validación determinista ni confirmación humana [SA45].
 - Datos, comercios o testimonios inventados presentados como reales.
@@ -270,13 +370,11 @@ Síntesis de riesgos; las fuentes van en cada punto:
 
 ## K01.7 · Preguntas abiertas (⚪)
 
-**A los organizadores del Hackatón México**
-1. Bases, criterios de evaluación con sus pesos, y jurado.
-2. Herramientas exigidas o permitidas (¿Cursor, OpenAI, Claude, SpaceXAI/Grok?) y cómo quieren la evidencia de uso.
-3. Formato y lugar de la entrega: repo, demo desplegada, video (¿duración?), presentación o formulario.
-4. ¿Qué se permite traer de antes del arranque del 14-nov (código, investigación, diseños) y cómo hay que declararlo?
-5. ¿Es presencial, en línea o mixto? ¿En qué ciudades? ¿Hay mentorías o demo day?
-6. Elegibilidad, reparto de premios y créditos, y política de datos de comercios reales.
+**A los organizadores del Hackatón México** (las reglas del 4-nov ya responden criterios, equipos, entrega, herramientas de IA y trabajo previo: K01.8)
+1. Fecha recomendada para pedir el ambiente productivo de pey: se publicará en el portal [SA56].
+2. Documento de Premios: categorías, montos y patrocinadores.
+3. Bounties: se publican a más tardar el 30-nov [SA56].
+4. Jurado: se publica antes del cierre de entregas [SA56].
 
 **A pey** (también en [docs/REVISION-PEY-2026-11-07.md](../docs/REVISION-PEY-2026-11-07.md) y K03.6)
 1. ¿Hay sandbox o llaves de prueba para el hackatón? La página comercial las menciona y la documentación técnica no (K03.3).
@@ -285,8 +383,28 @@ Síntesis de riesgos; las fuentes van en cada punto:
 4. ¿Hay eventos de pago rechazado o vencido? ¿Se puede cancelar un QR o una push, o devolver por API?
 5. ¿Qué pasa con una push si el celular del cliente no tiene CoDi activo? pey no documenta el error ([pey/04](../pey/04-api-codi-qr-y-push.md)).
 6. Requisitos y plazo para dar de alta comercios reales (la CLABE propia tarda 5 días hábiles) y la comisión por tarjeta en las ligas de pago.
+7. Cómo se cumple la cláusula 3.2 de los Términos del API para el ambiente productivo y cuánto tarda la aprobación [SA56].
+8. ¿Cobrar a nombre de varios comercios (CLABEs registradas con `POST /bank-account`) choca con la prohibición de «cobros o dispersión de pagos de terceros» de las reglas [SA56]?
+9. ¿Se puede usar «pey» dentro del nombre de un proyecto? La página de marca no dice nada sobre nombres ([pey/12](../pey/12-recursos-de-marca.md)).
 
 **Recomendación:** anota cada respuesta aquí con su fecha y su fuente, y actualiza K03 si pey cambia algo de la API.
+
+## K01.8 · Reglas oficiales: lo que obliga y lo que descalifica
+
+Resumen propio de las Reglas (actualizadas el 4-nov-2026) y de los Términos (27-oct-2026), leídos el 2026-11-14. Ante cualquier duda, manda el texto de la fuente [SA56][SA57].
+
+- **Integración mínima:** el Proyecto genera al menos un Mensaje de Cobro CoDi (QR, notificación push o liga de pago) con la API de pey y reacciona a su resultado, por ejemplo con webhooks de estatus. Debe funcionar en **ambiente productivo**; una integración «decorativa, simulada o solo prometida» no cumple [SA56].
+- **Ambiente productivo:** exige cumplir la cláusula 3.2 de los Términos del API; pey atiende las solicitudes por orden de llegada y no garantiza aprobar antes del cierre. El API en producción es gratuito durante el hackatón, con límites de solicitudes [SA56].
+- **Postulación (obligatoria, hasta el 10-dic):** nombre, descripción breve (qué es y cómo usa CoDi con la API de pey), categoría o reto si aplica, e integrantes. Sin postulación no hay entrega [SA56].
+- **Entrega (hasta el 12-dic, 23:59):** descripción de hasta 500 palabras que explique el uso de la API de pey · **demo pública** sin invitación (con credenciales de prueba si pide login) · **video de hasta 3 min** con un cobro CoDi completo, desde el Mensaje de Cobro hasta la reacción del Proyecto · repositorio opcional (público o privado con acceso de lectura) · **declaración de componentes previos y de terceros** · instrucciones de prueba de hasta 1000 palabras · lista final de integrantes. Una demo o un video que no funcionen al cierre cuentan como no entregados [SA56].
+- **Criterios:** uso de CoDi y de la API de pey 30 %, impacto y relevancia 25 %, ejecución técnica 15 %, experiencia y diseño 15 %, originalidad 15 %; cada uno de 1 a 10. Desempate: uso de CoDi y de la API, luego impacto. El jurado puede pedir una demostración de hasta 20 min [SA56].
+- **Trabajo previo:** solo se evalúa lo hecho desde el 14-nov. Preparar ideas, bocetos e investigación antes del arranque es válido. Se puede reutilizar código o diseños propios si se declaran (qué existía y qué se construyó); lo no declarado se presume hecho durante el hackatón y una declaración falsa descalifica. **La integración con CoDi debe ser nueva** [SA56].
+- **IA:** permitida para código, diseño, texto, imágenes y audio, sin obligación de declararla; el equipo responde por el resultado [SA56].
+- **Dinero real y giros:** cobrar dinero real es responsabilidad del Proyecto. Prohibido engañar al pagador, cobros masivos no solicitados, phishing y eludir límites técnicos; hay giros prohibidos (apuestas, cripto, remesas, entre otros). No se permite competir con el API (revenderlo o montar infraestructura de cobro que compita); puntos de venta, sistemas de gestión y comercios electrónicos sí [SA56].
+- **Datos y credenciales:** en demos, videos y repos, solo datos ficticios o propios (nada de teléfonos, CLABEs ni datos reales de terceros); aviso de privacidad propio según la LFPDPPP. Una credencial comprometida se notifica a pey en **24 h**, y usar credenciales compartidas con personas ajenas al equipo descalifica [SA56].
+- **Propiedad:** el equipo conserva sus derechos; los organizadores reciben una licencia no exclusiva solo para difundir el hackatón [SA56][SA57].
+
+**Recomendación:** escribe la integración con pey desde cero en este repo (K03.7 sirve como documentación, no como código a copiar), declara la base de conocimiento como investigación previa al arranque y pide hoy el ambiente productivo.
 
 ## Fuentes
 
@@ -317,6 +435,9 @@ Síntesis de riesgos; las fuentes van en cada punto:
 | SB37 | Merca2.0: Pey, AI Builders México y SpaceXAI realizarán hackatón de pagos digitales (noviembre 2026) | https://www.merca20.com/pey-ai-builders-mexico-y-spacexai-realizaran-hackaton-de-pagos-digitales-en-mexico/ | 2026-11-06 |
 | SB38 | InformaBTL: el 14 de diciembre cambiarán las transferencias; Pey apuesta por pagos QR sin comisiones (noviembre 2026) | https://www.informabtl.com/pagos-qr-mexico-14-diciembre-2026-pey-codi/ | 2026-11-06 |
 | SD64 | DOF · Ley de Economía Digital: texto y transitorios | https://sidof.segob.gob.mx/notas/docFuente/5803017 | 2026-11-07 |
+| SA55 | Hackatón México: sitio oficial | https://hackatonmexico.com | 2026-11-14 |
+| SA56 | Hackatón México: Reglas (actualizadas el 4-nov-2026) | https://hackatonmexico.com/reglas | 2026-11-14 |
+| SA57 | Hackatón México: Términos y condiciones (actualizados el 27-oct-2026) | https://hackatonmexico.com/terminos | 2026-11-14 |
 
 (previo) = dato verificado antes de la sesión del 6-nov y no reconsultado.
 
@@ -3758,7 +3879,7 @@ Fuente: [Banco de México: CoDi® Cobro Digital](https://www.banxico.org.mx/sist
 Instrucciones para cualquier agente (Claude Code, Codex, Cursor, ChatGPT) que trabaje en este repo. Léelas completas antes de actuar.
 
 ## 1. Misión
-Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; ⚪ bases por confirmar, K01). El proyecto arrancó desde cero el 14-nov-2026: el problema, el alcance y el stack **están por definir** y, cuando existan, vivirán en `docs/PRD.md`.
+Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026. Qué construimos (**peybot**), su alcance, su arquitectura y el plan por tareas están en `docs/PRD.md`: léelo antes de construir.
 
 ## 2. Cómo usar la base de conocimiento
 1. Empieza por `README.md` y `conocimiento/INDICE.md` (qué archivo responde cada pregunta).
@@ -3771,6 +3892,8 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 | Cobros con pey (síntesis, código de referencia, plan B, IA como herramienta) | K03 y luego `pey/` (empieza en `pey/README.md`) |
 | Qué es CoDi, cómo funciona, reglas de Banxico, cifras y marca | `codi/` (empieza en `codi/README.md`) |
 | Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas y datos para el pitch | K04 |
+| El producto, su alcance y el plan por tareas | `docs/PRD.md` |
+| La API y el bot de WhatsApp | `apps/api/README.md` |
 
 3. En la descripción del PR o del commit, cita los IDs que usaste ("según K03.4…").
 4. Lo marcado ⚪ no está verificado. Si necesitas un dato que no está (endpoint, campo, error, precio), **no lo inventes**: consulta la documentación oficial; si no puedes, deja `TODO(⚪): …` visible en el código y dilo.
@@ -3782,6 +3905,7 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 - **Verdad de pago:** "pagado" solo si pey lo confirma: `PAID` vinculado al cobro con el monto y la moneda esperados, o un webhook con firma válida. Nunca por una captura de pantalla, un recibo ni la redirección de una liga de pago (K03.4, K03.5, [pey/06](../pey/06-api-ligas-de-pago.md)).
 - **SIMULACIÓN visible:** si existe un modo de simulación, la interfaz dice "SIMULACIÓN" de forma visible y nunca se presenta como pago real.
 - **Sin reintentos a ciegas:** no repitas la creación de un QR o de una push tras un timeout sin reconciliar antes; pey no documenta idempotencia (K03.8).
+- **Para la entrega:** el demo crea al menos un Mensaje de Cobro CoDi real en producción y reacciona a su resultado; la simulación solo sirve como plan B y no cuenta como integración (K01.8).
 - **Montos:** pey recibe pesos con decimales, no centavos. Internamente, conviene manejar centavos enteros y convertir solo al llamar a pey ([docs/REVISION-PEY-2026-11-07.md](../docs/REVISION-PEY-2026-11-07.md)).
 
 ## 4. Reglas de seguridad y datos
@@ -3793,7 +3917,15 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 - Marca: usa solo los archivos oficiales de pey y de CoDi, descargados y sin redibujar ([pey/12](../pey/12-recursos-de-marca.md), [codi/09](../codi/09-marca-logotipos-y-material.md)). No afirmes patrocinio ni aval de pey ni de Banxico.
 - Ley: no afirmes que aceptar pagos digitales o QR ya es obligatorio (K02.4).
 
-## 5. Mantener la base
+## 5. Código
+- Cada app vive en `apps/<nombre>` con su README, `npm test` y `npm run typecheck`. Los dos pasan antes de cada commit.
+- TypeScript que Node 24+ ejecuta sin compilar; nombres, comentarios y textos para usuarios en español de México.
+- La lógica de negocio es pura y se prueba sola (`apps/api/src/bot.ts`); la red vive en adaptadores (`whatsapp.ts` y, en la tarea 2, el cliente de pey).
+- Las pruebas no usan la red: Meta, pey y la IA se simulan con un `fetch` falso y datos ficticios.
+- Cada API externa lleva en el código la URL de su documentación y la fecha de consulta; lo no verificado queda como `TODO(⚪)`.
+- La integración con pey se escribe nueva en este repo: K03.7 es documentación, no código para copiar (K01.8).
+
+## 6. Mantener la base
 - No modifiques `conocimiento/`, `pey/` ni `codi/` salvo que la tarea lo pida. Si agregas un dato, agrega su fuente (tabla "## Fuentes" en `conocimiento/`, línea "Fuente:" en `pey/` y `codi/`).
 - Después de editar la base, corre:
   ```bash

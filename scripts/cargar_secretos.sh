@@ -13,7 +13,9 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 REPO="${REPO:-kovacusb/Pey_Hackathon}"
-VARIABLES=(PEY_API_KEY PEY_WEBHOOK_SECRET MAX_MONTO_MXN)
+VARIABLES=(PEY_API_KEY PEY_WEBHOOK_SECRET MAX_MONTO_MXN
+           WHATSAPP_TOKEN WHATSAPP_PHONE_NUMBER_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN
+           ANTHROPIC_API_KEY)
 
 [ -f .env ] || { echo "No existe .env (copia .env.example y llénalo)"; exit 1; }
 git check-ignore -q .env || { echo "ALTO: .env no está en .gitignore"; exit 1; }

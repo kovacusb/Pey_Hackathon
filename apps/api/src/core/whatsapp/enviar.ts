@@ -74,7 +74,7 @@ export function destinoWhatsApp(waId: string): string {
 async function llamarGraph(ruta: string, init: RequestInit) {
   const res = await fetch(graph(ruta), {
     ...init,
-    headers: { Authorization: `Bearer ${config.wa.token}`, ...(init.headers ?? {}) },
+    headers: { Authorization: `Bearer ${config.wa.accessToken}`, ...(init.headers ?? {}) },
     signal: AbortSignal.timeout(15_000),
   });
   const datos: any = await res.json().catch(() => null);
@@ -148,7 +148,7 @@ async function enviarCloud(waId: string, m: Saliente) {
 
 export async function enviar(waId: string, mensaje: Saliente): Promise<void> {
   const m = normalizar(mensaje);
-  if (esUsuarioDev(waId) || !config.wa.token) {
+  if (esUsuarioDev(waId) || !config.wa.accessToken) {
     capturar(waId, m);
     if (!esUsuarioDev(waId)) console.warn("[wa] sin WA_TOKEN: mensaje capturado, no enviado");
     return;

@@ -42,7 +42,7 @@ export const GUIAS: Guia[] = [
     resumen: "La forma más fácil: te llega la solicitud a tu celular",
     texto:
       "*Pagar con notificación:*\n\n" +
-      "1. En Pey toca *Pagar*.\n" +
+      "1. En Paga Fácil toca *Pagar*.\n" +
       "2. Te llega una *notificación* de tu banco.\n" +
       "3. Revisa el monto y el concepto.\n" +
       "4. Autoriza con tu *NIP o huella*.\n\n" +
@@ -68,7 +68,7 @@ export const GUIAS: Guia[] = [
     texto:
       "*Tu dinero está protegido:*\n\n" +
       "• *Nada se cobra sin tu autorización*: una solicitud de cobro no mueve dinero hasta que tú aceptas.\n" +
-      "• Pey *no ve* tu NIP ni los datos de tu cuenta.\n" +
+      "• Paga Fácil *no ve* tu NIP ni los datos de tu cuenta.\n" +
       "• Puedes *bloquear* cobros que no pediste desde tu app.\n\n" +
       "🚩 No autorices si el *monto* o el *nombre* no coinciden con lo que vas a pagar.",
     video_url: null,

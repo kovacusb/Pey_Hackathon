@@ -92,6 +92,6 @@ export interface Modulo {
   menu: Fila[];
   /** Atiende un mensaje cuando el botón tiene su prefijo o la sesión está en este módulo. */
   atender(ctx: Contexto, entrada: Entrada): Promise<void>;
-  /** Pey confirmó el pago de un cobro de este módulo. Se llama una sola vez por grupo. */
+  /** pey confirmó el pago de un cobro de este módulo. Se llama una sola vez por grupo. */
   onPagado?(ctx: Contexto, cobro: Cobro): Promise<void>;
 }

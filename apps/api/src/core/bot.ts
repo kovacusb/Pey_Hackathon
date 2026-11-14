@@ -16,7 +16,8 @@ export function registrarModulo(m: Modulo) {
   modulos.set(m.id, m);
 }
 
-const SALUDOS = /^(hola|holi|buenas|buenos dias|buenos días|buenas tardes|buenas noches|menu|menú|inicio|empezar|start|0|hi|hello)\b/i;
+// Sin \b al final: en JS "ú" no es carácter de palabra y "menú" nunca coincidiría.
+const SALUDOS = /^(hola|holi|buenas|buenos dias|buenos días|buenas tardes|buenas noches|menu|menú|inicio|empezar|start|0|hi|hello)(?=$|[\s!.,?¡¿])/i;
 
 export function crearContexto(waId: string, nombre: string | null): Contexto {
   const sesion = leerSesion(waId);
@@ -48,10 +49,10 @@ export async function enviarMenu(ctx: Contexto) {
   const filas = [...modulos.values()].flatMap((m) => m.menu);
   const hola = ctx.nombre ? `¡Hola, ${ctx.nombre.split(" ")[0]}! 👋` : "¡Hola! 👋";
   await ctx.responder.lista(
-    `${hola} Soy *Pey*.\nPaga tus servicios y recargas con CoDi desde aquí: directo desde tu banco y sin comisiones.`,
+    `${hola} Soy *Paga Fácil*.\nPaga servicios, recargas y compras con CoDi desde aquí: directo desde tu banco y sin comisiones.`,
     "Ver opciones",
     [{ titulo: "¿Qué quieres hacer?", filas }],
-    { pie: "Escribe *menú* cuando quieras volver aquí" },
+    { pie: "Proyecto independiente · cobros vía la API de pey" },
   );
 }
 

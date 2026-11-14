@@ -33,16 +33,17 @@ export const config = {
   vigenciaPushSeg: num("VIGENCIA_PUSH_SEG", 360),
   pollingMs: num("POLLING_MS", 4000),
 
+  // WhatsApp Cloud API de Meta. v27.0: versión de los ejemplos de Meta consultados el 2026-11-14.
   wa: {
-    token: process.env.WA_TOKEN ?? "",
-    phoneNumberId: process.env.WA_PHONE_NUMBER_ID ?? "",
-    appSecret: process.env.WA_APP_SECRET ?? "",
-    verifyToken: process.env.WA_VERIFY_TOKEN ?? "",
-    apiVersion: process.env.WA_API_VERSION ?? "v23.0",
+    accessToken: process.env.WHATSAPP_TOKEN ?? "",
+    phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID ?? "",
+    appSecret: process.env.WHATSAPP_APP_SECRET ?? "",
+    verifyToken: process.env.WHATSAPP_VERIFY_TOKEN ?? "",
+    apiVersion: process.env.WHATSAPP_GRAPH_VERSION || "v27.0",
   },
 
   // Chat de pruebas en /dev y pagos simulados. Nunca encendido en producción salvo que se pida.
   devTools: (process.env.DEV_TOOLS ?? (process.env.NODE_ENV === "production" ? "0" : "1")) === "1",
 };
 
-export const waConfigurado = () => Boolean(config.wa.token && config.wa.phoneNumberId);
+export const waConfigurado = () => Boolean(config.wa.accessToken && config.wa.phoneNumberId);

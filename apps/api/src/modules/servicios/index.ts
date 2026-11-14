@@ -82,7 +82,7 @@ async function pagar(ctx: Contexto, metodo: MetodoCobro) {
 async function mostrarHistorial(ctx: Contexto) {
   const pagos = historial(ctx.waId, "svc", 5);
   if (pagos.length === 0) {
-    await ctx.responder.botones("Aún no tienes pagos con Pey.", [{ id: "svc:servicios", titulo: "Pagar un servicio" }, { id: "core:menu", titulo: "Menú" }]);
+    await ctx.responder.botones("Aún no tienes pagos con Paga Fácil.", [{ id: "svc:servicios", titulo: "Pagar un servicio" }, { id: "core:menu", titulo: "Menú" }]);
     return;
   }
   const lineas = pagos.map((p) => {
@@ -179,7 +179,7 @@ async function onPagado(ctx: Contexto, cobro: Cobro) {
     ...(enDemo() || cobro.centavos !== orden.centavosReal ? [`Cobrado vía CoDi: ${mxn(cobro.centavos)}`] : []),
     `Fecha: ${fecha}`,
     ...(cobro.rastreo ? [`Clave de rastreo: ${cobro.rastreo}`] : []),
-    `Folio Pey: ${cobro.numRef}`,
+    `Folio Paga Fácil: ${cobro.numRef}`,
     `Folio ${orden.nombre}: ${liquidacion.folio}${liquidacion.simulado ? " (SIMULACIÓN)" : ""}`,
     ``,
     cobro.simulado ? `⚠️ SIMULACIÓN: no se movió dinero` : `Sin comisiones · Pagado con CoDi`,

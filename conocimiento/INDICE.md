@@ -12,7 +12,7 @@
 ## Archivos
 | ID | Archivo | Qué cubre | Confianza | Marcas ⚪ |
 |---|---|---|---|---|
-| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea. | media | 8 |
+| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Hackatón México (14 nov–12 dic 2026): datos y reglas oficiales consultadas el 14-nov (integración mínima, entrega, criterios, trabajo previo), quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea y antes de entregar. | media | 7 |
 | **K02** | [Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar](02-ley-pagos-digitales-y-plazo-14-dic.md) | La Ley de Economía Digital para Pagos Digitales y Electrónicos (decreto del 4-nov-2026) en lo esencial: qué es, transitorios, qué no obliga y lo que no se puede afirmar. Además, el plazo distinto del 14-dic-2026 de las Circulares 9/2026 y 10/2026 de Banxico. Léelo antes de mencionar la ley en el producto o en el pitch. | media | 3 |
 | **K03** | [CoDi y API de Pey](03-codi-y-api-pey.md) | Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos de referencia en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro. | media | 23 |
 | **K04** | [Contexto: pagos, comercios y personas en México](04-contexto-pagos-y-comercios-mx.md) | Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y la CDMX; léelo al definir problema, 'por qué ahora', personas y datos del pitch. | media | 19 |
@@ -26,6 +26,7 @@
 | ¿Por qué CoDi importa y por qué no ha despegado? | K01 |
 | ¿Qué conquista a pey y a los organizadores, y qué los aleja? | K01 |
 | ¿Qué falta confirmar con pey y con los organizadores? | K01 |
+| ¿Qué exigen las reglas: integración mínima, entrega, criterios y trabajo previo? | K01 |
 | ¿Qué es la Ley de Economía Digital para Pagos Digitales y Electrónicos y desde cuándo rige? | K02 |
 | ¿La ley obliga a los comercios a aceptar QR o pagos digitales? | K02 |
 | ¿Qué pasa el 14 de diciembre de 2026 y en qué se distingue de la ley? | K02 |
@@ -54,13 +55,14 @@
 ### K01 · Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados
 Archivo: [`01-hackaton-mexico-y-ecosistema-pey.md`](01-hackaton-mexico-y-ecosistema-pey.md)
 
-- `K01.1` Hackatón México: lo que se sabe (al 7-nov-2026)
+- `K01.1` Hackatón México: datos del evento
 - `K01.2` Quién organiza: AI Builders México y SpaceXAI
 - `K01.3` pey: empresa, API y qué éxito busca
 - `K01.4` Por qué CoDi importa y por qué no ha despegado
 - `K01.5` Lo que conquista
 - `K01.6` Lo que aleja
 - `K01.7` Preguntas abiertas (⚪)
+- `K01.8` Reglas oficiales: lo que obliga y lo que descalifica
 
 ### K02 · Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 Archivo: [`02-ley-pagos-digitales-y-plazo-14-dic.md`](02-ley-pagos-digitales-y-plazo-14-dic.md)
