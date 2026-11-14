@@ -27,6 +27,8 @@ En `.env` de la raíz del repo (nombres en [`.env.example`](../../.env.example);
 | `WHATSAPP_PHONE_NUMBER_ID` | La misma pantalla: «Phone number ID» del número de prueba. |
 | `WHATSAPP_APP_SECRET` | App settings → Basic → App secret. Firma cada webhook. |
 | `WHATSAPP_VERIFY_TOKEN` | Lo inventas (`openssl rand -hex 16`); lo copias a Meta en el paso 3. |
+| `DEV_CLAVE`, `PANEL_CLAVE` | Claves (≥ 12 caracteres) para abrir `/dev` y `/panel` desde fuera de tu máquina |
+| `FACTURAMA_USUARIO`, `FACTURAMA_CLAVE`, `FACTURAMA_LUGAR_EXPEDICION` | Opcionales: facturas timbradas con Facturama. Sin ellas, SIMULACIÓN |
 
 ## Conectar con WhatsApp (Meta)
 
@@ -45,7 +47,8 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `GET /api/whatsapp` | Verificación de Meta: `hub.mode=subscribe`, `hub.verify_token` y `hub.challenge` |
 | `POST /api/whatsapp` | Mensajes. Firma `X-Hub-Signature-256` verificada sobre el cuerpo crudo; responde 200 de inmediato y atiende cada mensaje una sola vez |
 | `POST /api/webhook-pey` | Pagos de pey (Standard Webhooks): firma, ventana de 5 min y deduplicación por `webhook-id` |
-| `/dev` | Chat de pruebas (solo con `DEV_TOOLS=1`) |
+| `/dev/` | Chat de pruebas (solo con `DEV_TOOLS=1`). Local libre; desde fuera, `?clave=<DEV_CLAVE>` |
+| `/panel/` | Panel del negocio: cobros en tiempo real. Local libre; desde fuera, `?clave=<PANEL_CLAVE>` |
 
 ## Diseño
 
@@ -61,7 +64,10 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `src/modules/servicios/` | Módulo 1: servicios y recargas; `agregador.ts` es SIMULACIÓN detrás de una interfaz |
 | `src/modules/ayuda/` | Centro de ayuda: guías de CoDi con `video_url` opcional |
 | `src/modules/tienda/` | Módulo 2: `motor.ts` (puro: estado + evento → mensajes + cobro), `catalogo.ts` y el adaptador `index.ts` |
-| `src/modules/p2p/` | Módulo 3 (por definir) |
+| `src/modules/p2p/` | Módulo 3: cobro rápido (QR o push a un tercero con aceptación explícita) y factura express |
+| `src/core/facturacion/` | Facturador detrás de una interfaz: Facturama o SIMULACIÓN; `pdf.ts` genera el PDF sin dependencias |
+| `src/panel/` | Panel web del negocio (solo IDs y últimos 4 dígitos) |
+| `src/core/acceso.ts` | Acceso a `/dev` y `/panel`: local o con clave |
 | `src/dev/` | Chat de pruebas en el navegador |
 
 La bitácora solo lleva IDs (cobro, `transactionId`, `codiQrId`, `webhook-id`) y montos: nunca números de teléfono ni lo que escribe la persona (AGENTS.md §4).
@@ -73,3 +79,4 @@ La bitácora solo lleva IDs (cobro, `transactionId`, `codiQrId`, `webhook-id`) y
 - Meta: [Mensajes de lista](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-list-messages) y [de botones](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-reply-buttons-messages) (límites)
 - pey: [OpenAPI](https://docs.pey.mx/openapi.json) y [webhooks](https://docs.pey.mx/docs/webhooks/introduction), consultados el 2026-11-07 ([pey/04](../../pey/04-api-codi-qr-y-push.md), [pey/07](../../pey/07-api-transacciones.md), [pey/09](../../pey/09-webhooks.md)); `POST /codi/qr`, `POST /codi/pn` y `GET /transaction/{id}` probados en vivo el 2026-11-14
 - [Standard Webhooks](https://www.standardwebhooks.com/) (vector de prueba de su implementación de referencia)
+- Facturama: [Crear CFDI](https://facturama.mx/docs/es/api-web/crear-cfdi) (`POST /3/cfdis`, consultada el 2026-11-14); la descarga del PDF queda ⚪

@@ -7,6 +7,7 @@ import { primeraVez } from "./core/db.ts";
 import { verificarWebhookPey } from "./core/pey/firma.ts";
 import { extraerMensajes, firmaMetaValida } from "./core/whatsapp/recibir.ts";
 import { rutasDev } from "./dev/rutas.ts";
+import { rutasPanel } from "./panel/rutas.ts";
 import { ayuda } from "./modules/ayuda/index.ts";
 import { tienda } from "./modules/tienda/index.ts";
 import { p2p } from "./modules/p2p/index.ts";
@@ -107,6 +108,7 @@ app.post("/api/webhook-pey", crudo, async (req, res) => {
 });
 
 if (config.devTools) app.use("/dev", rutasDev());
+app.use("/panel", rutasPanel());
 
 iniciarPolling();
 app.listen(config.port, () => {
@@ -114,4 +116,5 @@ app.listen(config.port, () => {
   console.log(`  pey: ${config.pey.apiKey ? "llave cargada" : "SIN LLAVE"} · webhook pey: ${config.pey.webhookSecret ? "con secreto" : "sin secreto (solo polling)"}`);
   console.log(`  WhatsApp: ${waConfigurado() ? "configurado" : "sin configurar (solo /dev)"} · tope por cobro: $${config.maxCobroCentavos / 100}`);
   if (config.devTools) console.log(`  Chat de pruebas: http://localhost:${config.port}/dev`);
+  console.log(`  Panel del negocio: http://localhost:${config.port}/panel/`);
 });

@@ -24,6 +24,8 @@ export interface Respuesta {
   botones(cuerpo: string, botones: Boton[], opciones?: { encabezado?: string; pie?: string }): Promise<void>;
   lista(cuerpo: string, textoBoton: string, secciones: Seccion[], opciones?: { encabezado?: string; pie?: string }): Promise<void>;
   imagen(png: Buffer, pie?: string): Promise<void>;
+  /** Documento (p. ej. PDF de una factura). */
+  documento(archivo: Buffer, nombre: string, pie?: string): Promise<void>;
 }
 
 /** Mensaje entrante ya normalizado. */
@@ -51,6 +53,11 @@ export interface SolicitudCobro {
   metodo: MetodoCobro;
   /** Datos propios del módulo; regresan en onPagado. */
   payload: Record<string, unknown>;
+  /** Push a OTRO celular (10 dígitos). Solo con confirmación explícita de que esa persona aceptó el cobro (codi/05).
+   *  Sin él, la push va al celular de quien está en el chat. */
+  celular?: string;
+  /** "tercero": quien paga está frente a la persona del chat (le muestra el QR). Cambia los textos del cobro. */
+  audiencia?: "propia" | "tercero";
 }
 
 /** Cobro tal como lo guarda el núcleo. */
@@ -69,6 +76,7 @@ export interface Cobro {
   peyTxId: string | null;
   rastreo: string | null;
   simulado: boolean;
+  creadoEn: number;
   payload: Record<string, unknown>;
 }
 

@@ -34,3 +34,11 @@ services:
         sync: false
       - key: DEV_CLAVE
         sync: false
+      - key: PANEL_CLAVE
+        sync: false
+      - key: FACTURAMA_USUARIO
+        sync: false
+      - key: FACTURAMA_CLAVE
+        sync: false
+      - key: FACTURAMA_LUGAR_EXPEDICION
+        sync: false

@@ -6,7 +6,7 @@ Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **C
 2. **Una forma de trabajar con agentes de IA** (Claude Code, Codex, Cursor, ChatGPT): reglas en [`AGENTS.md`](AGENTS.md) y [`CLAUDE.md`](CLAUDE.md), más scripts que mantienen la base verificable.
 
 ## Estado (14-nov-2026)
-- **Idea:** Paga Fácil ([docs/PRD.md](docs/PRD.md)). Un solo bot y un solo servidor con módulos: servicios y recargas, tiendita, centro de ayuda y (por definir) cobro rápido P2P ([docs/MODULOS.md](docs/MODULOS.md)).
+- **Idea:** Paga Fácil ([docs/PRD.md](docs/PRD.md)). Un solo bot y un solo servidor con módulos: servicios y recargas, tiendita, cobro rápido con factura y centro de ayuda, más un panel web del negocio ([docs/MODULOS.md](docs/MODULOS.md)).
 - **Hackatón:** Hackatón México: postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic. Reglas oficiales resumidas en K01.8.
 - **Cobros reales con pey:** una push CoDi de $0.01 creada, pagada desde BBVA y confirmada por la API el 14-nov.
 
@@ -16,12 +16,12 @@ Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **C
 cp .env.example .env      # en la raíz: llena PEY_API_KEY y, cuando las tengas, las de WhatsApp
 cd apps/api
 npm install
-npm run dev               # http://localhost:3000/dev → el bot en el navegador, con cobros reales de pey
-npm test                  # sin red: firmas, idempotencia, tope, motor de la tiendita y flujo completo
+npm run dev               # http://localhost:3000/dev (bot en el navegador) y /panel/ (panel del negocio)
+npm test                  # 29 pruebas sin red: firmas, idempotencia, tope, tiendita, cobro rápido y factura
 npm run typecheck
 ```
 
-Detalle de rutas, variables y conexión con Meta: [`apps/api/README.md`](apps/api/README.md). Despliegue: [`render.yaml`](render.yaml).
+Detalle de rutas y variables: [`apps/api/README.md`](apps/api/README.md). Desplegar y conectar Meta y pey: [`docs/DESPLIEGUE.md`](docs/DESPLIEGUE.md). Guion de demo: [`docs/DEMO.md`](docs/DEMO.md). Textos para el formulario de entrega: [`docs/ENTREGA.md`](docs/ENTREGA.md).
 
 ## Cómo trabajamos
 1. **Todo agente empieza por [`AGENTS.md`](AGENTS.md)** y por el [índice](conocimiento/INDICE.md); lee solo los archivos que su tarea necesita.

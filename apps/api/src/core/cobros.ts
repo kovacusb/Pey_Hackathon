@@ -42,8 +42,34 @@ function aCobro(f: any): Cobro {
     peyTxId: f.pey_tx_id,
     rastreo: f.rastreo,
     simulado: f.simulado === 1,
+    creadoEn: f.creado_en,
     payload: JSON.parse(f.payload),
   };
+}
+
+/** Datos extra que no son parte del contrato público (destino de la push y para quién son los textos). */
+function extrasDe(id: string): { destino: string | null; audiencia: "propia" | "tercero" } {
+  const f = db.prepare("SELECT destino, audiencia FROM cobros WHERE id = ?").get(id) as any;
+  return { destino: f?.destino ?? null, audiencia: f?.audiencia === "tercero" ? "tercero" : "propia" };
+}
+
+/** Agrega datos al payload de un cobro (p. ej. la factura emitida). */
+export function actualizarPayload(id: string, cambios: Record<string, unknown>) {
+  const c = cobroPorId(id);
+  if (!c) return;
+  db.prepare("UPDATE cobros SET payload = ? WHERE id = ?").run(JSON.stringify({ ...c.payload, ...cambios }), id);
+}
+
+export interface FilaPanel extends Cobro {
+  cancelado: boolean;
+}
+
+/** Últimos cobros para el panel del comercio (más recientes primero). */
+export function cobrosRecientes(n = 50, modulo?: string): FilaPanel[] {
+  const filas = (modulo
+    ? db.prepare("SELECT * FROM cobros WHERE modulo = ? ORDER BY seq DESC LIMIT ?").all(modulo, n)
+    : db.prepare("SELECT * FROM cobros ORDER BY seq DESC LIMIT ?").all(n)) as any[];
+  return filas.map((f) => ({ ...aCobro(f), cancelado: f.cancelado === 1 }));
 }
 
 export function cobroPorId(id: string): Cobro | null {
@@ -89,22 +115,29 @@ export async function iniciarCobro(waId: string, modulo: string, s: SolicitudCob
     return;
   }
   let metodo: MetodoCobro = s.metodo;
-  const celular = celularDe(waId);
+  if (s.celular !== undefined && !/^\d{10}$/.test(s.celular)) {
+    await r.texto("⚠️ El celular debe tener 10 dígitos.");
+    return;
+  }
+  const audiencia = s.audiencia ?? "propia";
+  // Push a un tercero solo si el módulo lo pasó explícito (confirmado por la persona del chat); si no, al propio celular.
+  const celular = s.celular ?? (audiencia === "propia" ? celularDe(waId) : null);
   if (metodo === "pn" && !celular) metodo = "qr";
+  const tercero = audiencia === "tercero";
 
   const id = crypto.randomUUID();
   const grupo = grupoExistente ?? crypto.randomUUID();
   const ins = db
     .prepare(
-      `INSERT INTO cobros (id, grupo, modulo, wa_id, metodo, centavos, concepto, num_ref, estado, payload, creado_en)
-       VALUES (?, ?, ?, ?, ?, ?, ?, '0', 'creando', ?, ?)`,
+      `INSERT INTO cobros (id, grupo, modulo, wa_id, metodo, centavos, concepto, num_ref, estado, payload, creado_en, destino, audiencia)
+       VALUES (?, ?, ?, ?, ?, ?, ?, '0', 'creando', ?, ?, ?, ?)`,
     )
-    .run(id, grupo, modulo, waId, metodo, s.centavos, s.concepto, JSON.stringify(s.payload), Date.now());
+    .run(id, grupo, modulo, waId, metodo, s.centavos, s.concepto, JSON.stringify(s.payload), Date.now(), s.celular ?? null, audiencia);
   // Referencia numérica de 1 a 7 dígitos derivada del consecutivo (pey/04).
   const numRef = String(Number(ins.lastInsertRowid) % 10_000_000 || 1);
   db.prepare("UPDATE cobros SET num_ref = ? WHERE id = ?").run(numRef, id);
 
-  await r.texto("⏳ Generando tu cobro CoDi…");
+  await r.texto(tercero ? "⏳ Generando el cobro CoDi…" : "⏳ Generando tu cobro CoDi…");
   const metadata = { cobro: id, modulo };
 
   try {
@@ -114,12 +147,14 @@ export async function iniciarCobro(waId: string, modulo: string, s: SolicitudCob
         push.transactionId, Date.now() + config.vigenciaPushSeg * 1000, id);
       console.log("[cobro] push creada", { cobro: id, transactionId: push.transactionId });
       await r.botones(
-        `📲 *Revisa la app de tu banco*\nTe llegó una solicitud CoDi por *${mxn(s.centavos)}*.\nÁbrela y autoriza con tu NIP o huella.\n\n⏱️ Vence en ${minutos(config.vigenciaPushSeg)} min. Te aviso aquí cuando se confirme.`,
+        tercero
+          ? `📲 *Solicitud enviada al celular •••• ${celular!.slice(-4)}*\nPídele que abra la notificación de su banco y autorice *${mxn(s.centavos)}* con su NIP o huella.\n\n⏱️ Vence en ${minutos(config.vigenciaPushSeg)} min. Te aviso aquí cuando se confirme.`
+          : `📲 *Revisa la app de tu banco*\nTe llegó una solicitud CoDi por *${mxn(s.centavos)}*.\nÁbrela y autoriza con tu NIP o huella.\n\n⏱️ Vence en ${minutos(config.vigenciaPushSeg)} min. Te aviso aquí cuando se confirme.`,
         [
           { id: `pago:qr:${grupo}`, titulo: "📷 Mejor un QR" },
           { id: `pago:cancelar:${grupo}`, titulo: "Cancelar" },
         ],
-        { pie: "¿No te llegó? Pide el QR." },
+        { pie: tercero ? "¿No le llegó? Muéstrale el QR." : "¿No te llegó? Pide el QR." },
       );
     } else {
       const qr = await pey.crearQr({ centavos: s.centavos, concepto: s.concepto, numRef, vigenciaSeg: config.vigenciaQrSeg === 0 ? 0 : Math.max(360, config.vigenciaQrSeg), metadata });
@@ -129,14 +164,16 @@ export async function iniciarCobro(waId: string, modulo: string, s: SolicitudCob
       if (qr.qrImage) {
         await r.imagen(
           Buffer.from(qr.qrImage.replace(/^data:image\/png;base64,/, ""), "base64"),
-          `📷 Paga *${mxn(s.centavos)}* con CoDi\n1. Abre la app de tu banco → CoDi → Pagar\n2. Escanea este QR o impórtalo desde tu galería\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`,
+          tercero
+            ? `📷 Muéstrale este QR a quien te paga (*${mxn(s.centavos)}*)\nLo escanea en la app de su banco → CoDi → Pagar.\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`
+            : `📷 Paga *${mxn(s.centavos)}* con CoDi\n1. Abre la app de tu banco → CoDi → Pagar\n2. Escanea este QR o impórtalo desde tu galería\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`,
         );
       } else {
         // TODO(⚪): dibujar el QR desde qrString si pey no regresa imagen (pey/04: qrImage puede ser null).
         await r.texto("No pudimos dibujar la imagen del QR. Intenta con la solicitud a tu celular.");
       }
       await r.botones("Te aviso aquí en cuanto se confirme ✅", [
-        ...(celular ? [{ id: `pago:pn:${grupo}`, titulo: "📲 A mi celular" }] : []),
+        ...(celular ? [{ id: `pago:pn:${grupo}`, titulo: tercero ? "📲 A su celular" : "📲 A mi celular" }] : []),
         { id: `pago:cancelar:${grupo}`, titulo: "Cancelar" },
       ]);
     }
@@ -179,7 +216,13 @@ export async function atenderBotonPago(waId: string, id: string): Promise<boolea
   if (accion === "qr" || accion === "pn" || accion === "otro") {
     db.prepare("UPDATE cobros SET cancelado = 0 WHERE grupo = ?").run(grupo);
     const metodo: MetodoCobro = accion === "otro" ? ultimo.metodo : (accion as MetodoCobro);
-    await iniciarCobro(waId, ultimo.modulo, { centavos: ultimo.centavos, concepto: ultimo.concepto, metodo, payload: ultimo.payload }, grupo);
+    const { destino, audiencia } = extrasDe(ultimo.id);
+    await iniciarCobro(
+      waId,
+      ultimo.modulo,
+      { centavos: ultimo.centavos, concepto: ultimo.concepto, metodo, payload: ultimo.payload, audiencia, ...(destino ? { celular: destino } : {}) },
+      grupo,
+    );
     return true;
   }
   return false;

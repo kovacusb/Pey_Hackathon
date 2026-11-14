@@ -27,7 +27,9 @@ export function extraerMensajes(payload: any): MensajeEntrante[] {
       const nombres = new Map<string, string>();
       for (const c of value.contacts ?? []) if (c?.wa_id) nombres.set(c.wa_id, c?.profile?.name ?? null);
       for (const m of value.messages) {
-        salida.push({ idMensaje: m.id, waId: m.from, nombre: nombres.get(m.from) ?? null, entrada: normalizar(m) });
+        // TODO(⚪): Meta puede omitir "from" si la persona usa nombre de usuario; sin número no podemos responder ni cobrar.
+        if (!m?.id || !m?.from) continue;
+        salida.push({ idMensaje: m.id, waId: String(m.from), nombre: nombres.get(m.from) ?? null, entrada: normalizar(m) });
       }
     }
   }

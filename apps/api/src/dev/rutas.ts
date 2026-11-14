@@ -5,27 +5,14 @@ import { readFileSync } from "node:fs";
 import { procesarMensaje } from "../core/bot.ts";
 import { pendientesDe, simularPago } from "../core/cobros.ts";
 import { buzon, esUsuarioDev } from "../core/whatsapp/enviar.ts";
+import { soloEquipo } from "../core/acceso.ts";
 
 const html = readFileSync(new URL("./chat.html", import.meta.url), "utf8");
 
-/** /dev solo desde esta máquina. Desde fuera (túnel o Render) pide ?clave=<DEV_CLAVE>; sin DEV_CLAVE, nadie de fuera entra.
- *  Evita que un desconocido mande solicitudes de cobro reales a cualquier celular (K01.8 prohíbe cobros no solicitados). */
-function soloAutorizados(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const viaProxy = Boolean(req.get("cf-connecting-ip") || req.get("x-forwarded-for"));
-  const local = !viaProxy && ["localhost", "127.0.0.1", "::1"].includes(req.hostname);
-  if (local) return next();
-  const clave = process.env.DEV_CLAVE ?? "";
-  const dada = String(req.query.clave ?? "") || (req.get("cookie") ?? "").match(/(?:^|;\s*)dev_clave=([^;]+)/)?.[1] || "";
-  if (clave.length >= 12 && dada === clave) {
-    res.cookie?.("dev_clave", clave, { httpOnly: true, sameSite: "strict", secure: true });
-    return next();
-  }
-  res.status(403).type("text/plain").send("Chat de pruebas disponible solo para el equipo.");
-}
-
 export function rutasDev(): Router {
   const r = Router();
-  r.use(soloAutorizados);
+  // Solo local o con DEV_CLAVE: evita que un desconocido mande cobros reales a cualquier celular (K01.8).
+  r.use(soloEquipo("DEV_CLAVE", "dev_clave"));
   r.use(express.json());
 
   r.get("/", (_req, res) => {

@@ -53,6 +53,10 @@ function abrir(ruta: string): DatabaseSync {
       creado_en INTEGER NOT NULL
     );
   `);
+  // Migraciones simples (columnas agregadas después).
+  const columnas = (db.prepare("PRAGMA table_info(cobros)").all() as { name: string }[]).map((c) => c.name);
+  if (!columnas.includes("destino")) db.exec("ALTER TABLE cobros ADD COLUMN destino TEXT"); // celular de un tercero (push)
+  if (!columnas.includes("audiencia")) db.exec("ALTER TABLE cobros ADD COLUMN audiencia TEXT NOT NULL DEFAULT 'propia'");
   return db;
 }
 

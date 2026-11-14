@@ -6,7 +6,8 @@ export type Saliente =
   | { tipo: "texto"; cuerpo: string }
   | { tipo: "botones"; cuerpo: string; botones: Boton[]; encabezado?: string; pie?: string }
   | { tipo: "lista"; cuerpo: string; textoBoton: string; secciones: Seccion[]; encabezado?: string; pie?: string }
-  | { tipo: "imagen"; png: Buffer; pie?: string };
+  | { tipo: "imagen"; png: Buffer; pie?: string }
+  | { tipo: "documento"; archivo: Buffer; nombre: string; pie?: string };
 
 // --- Límites de WhatsApp (se recorta para que Meta no rechace el mensaje) ---
 const corta = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
@@ -44,7 +45,10 @@ function normalizar(m: Saliente): Saliente {
 export interface Capturado {
   n: number;
   en: number;
-  mensaje: Exclude<Saliente, { tipo: "imagen" }> | { tipo: "imagen"; dataUrl: string; pie?: string };
+  mensaje:
+    | Exclude<Saliente, { tipo: "imagen" } | { tipo: "documento" }>
+    | { tipo: "imagen"; dataUrl: string; pie?: string }
+    | { tipo: "documento"; dataUrl: string; nombre: string; pie?: string };
 }
 const buzones = new Map<string, Capturado[]>();
 let contador = 0;
@@ -55,7 +59,12 @@ export function buzon(waId: string, desde = 0): Capturado[] {
 
 function capturar(waId: string, m: Saliente) {
   const lista = buzones.get(waId) ?? [];
-  const mensaje = m.tipo === "imagen" ? { tipo: "imagen" as const, dataUrl: `data:image/png;base64,${m.png.toString("base64")}`, pie: m.pie } : m;
+  const mensaje: Capturado["mensaje"] =
+    m.tipo === "imagen"
+      ? { tipo: "imagen", dataUrl: `data:image/png;base64,${m.png.toString("base64")}`, pie: m.pie }
+      : m.tipo === "documento"
+        ? { tipo: "documento", dataUrl: `data:application/pdf;base64,${m.archivo.toString("base64")}`, nombre: m.nombre, pie: m.pie }
+        : m;
   lista.push({ n: ++contador, en: Date.now(), mensaje });
   buzones.set(waId, lista.slice(-200));
 }
@@ -85,11 +94,11 @@ async function llamarGraph(ruta: string, init: RequestInit) {
   return datos;
 }
 
-async function subirImagen(png: Buffer): Promise<string> {
+async function subirMedio(archivo: Buffer, tipoMime: string, nombre: string): Promise<string> {
   const form = new FormData();
   form.append("messaging_product", "whatsapp");
-  form.append("type", "image/png");
-  form.append("file", new Blob([new Uint8Array(png)], { type: "image/png" }), "cobro.png");
+  form.append("type", tipoMime);
+  form.append("file", new Blob([new Uint8Array(archivo)], { type: tipoMime }), nombre);
   const r = await llamarGraph(`${config.wa.phoneNumberId}/media`, { method: "POST", body: form });
   return r.id as string;
 }
@@ -134,8 +143,13 @@ async function enviarCloud(waId: string, m: Saliente) {
       };
       break;
     case "imagen": {
-      const mediaId = await subirImagen(m.png);
+      const mediaId = await subirMedio(m.png, "image/png", "cobro.png");
       cuerpo = { ...base, type: "image", image: { id: mediaId, ...(m.pie ? { caption: m.pie } : {}) } };
+      break;
+    }
+    case "documento": {
+      const mediaId = await subirMedio(m.archivo, "application/pdf", m.nombre);
+      cuerpo = { ...base, type: "document", document: { id: mediaId, filename: m.nombre, ...(m.pie ? { caption: m.pie } : {}) } };
       break;
     }
   }
@@ -167,5 +181,6 @@ export function respuestaPara(waId: string): Respuesta {
     botones: (cuerpo, botones, o) => enviar(waId, { tipo: "botones", cuerpo, botones, ...o }),
     lista: (cuerpo, textoBoton, secciones, o) => enviar(waId, { tipo: "lista", cuerpo, textoBoton, secciones, ...o }),
     imagen: (png, pie) => enviar(waId, { tipo: "imagen", png, pie }),
+    documento: (archivo, nombre, pie) => enviar(waId, { tipo: "documento", archivo, nombre, pie }),
   };
 }

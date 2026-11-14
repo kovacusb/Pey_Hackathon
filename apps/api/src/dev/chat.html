@@ -94,10 +94,14 @@
     if (m.tipo === "imagen") {
       const i = document.createElement("img"); i.src = m.dataUrl; i.alt = "QR CoDi"; d.appendChild(i);
       if (m.pie) { const p = document.createElement("div"); p.style.marginTop = "6px"; texto(p, m.pie); d.appendChild(p); }
+    } else if (m.tipo === "documento") {
+      const a = document.createElement("a"); a.href = m.dataUrl; a.download = m.nombre; a.textContent = "📄 " + m.nombre; a.target = "_blank";
+      d.appendChild(a);
+      if (m.pie) { const p = document.createElement("div"); p.style.marginTop = "6px"; texto(p, m.pie); d.appendChild(p); }
     } else {
       const c = document.createElement("div"); texto(c, m.cuerpo); d.appendChild(c);
     }
-    if (m.pie && m.tipo !== "imagen") { const p = document.createElement("div"); p.className = "pie"; p.textContent = m.pie; d.appendChild(p); }
+    if (m.pie && m.tipo !== "imagen" && m.tipo !== "documento") { const p = document.createElement("div"); p.className = "pie"; p.textContent = m.pie; d.appendChild(p); }
     if (m.tipo === "botones") {
       const a = document.createElement("div"); a.className = "acciones";
       m.botones.forEach((b) => boton(a, b.titulo, b.id)); d.appendChild(a);

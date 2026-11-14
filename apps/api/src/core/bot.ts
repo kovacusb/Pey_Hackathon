@@ -60,6 +60,10 @@ async function despachar(waId: string, nombre: string | null, entrada: Entrada) 
   const ctx = crearContexto(waId, nombre);
 
   if (entrada.tipo === "texto" && SALUDOS.test(entrada.texto ?? "")) return ctx.menu();
+  if (entrada.tipo === "otro") {
+    // Audio, foto, sticker, ubicación…: no los interpretamos (no adivinamos montos ni datos).
+    return ctx.responder.botones("Por ahora solo entiendo texto y botones 🙂", [{ id: "core:menu", titulo: "Menú" }]);
+  }
 
   if (entrada.tipo === "boton" && entrada.id) {
     const prefijo = entrada.id.split(":")[0];

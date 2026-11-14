@@ -4,6 +4,7 @@
 import { config } from "../../config.ts";
 import { celularDe, historial } from "../../core/cobros.ts";
 import { mxn } from "../../core/dinero.ts";
+import { enDemo, montoACobrar } from "../../core/demo.ts";
 import type { Cobro, Contexto, Entrada, MetodoCobro, Modulo } from "../../core/tipos.ts";
 import { agregador } from "./agregador.ts";
 import { MONTOS_RECARGA, OPERADORES, SERVICIOS, operadorPorClave, servicioPorClave } from "./catalogo.ts";
@@ -22,13 +23,6 @@ interface Orden {
 const ocultar = (ref: string) => (ref.length > 4 ? `•••• ${ref.slice(-4)}` : ref);
 const soloDigitos = (s: string) => s.replace(/[\s-]/g, "");
 
-/** Cuánto se cobra de verdad: en la demo, un monto de prueba; si no, el monto real dentro del tope (AGENTS.md §3). */
-function montoACobrar(centavosReal: number): number | null {
-  if (config.demoCobroCentavos > 0) return Math.min(config.demoCobroCentavos, config.maxCobroCentavos);
-  return centavosReal <= config.maxCobroCentavos ? centavosReal : null;
-}
-
-const enDemo = () => config.demoCobroCentavos > 0;
 
 async function listaServicios(ctx: Contexto) {
   await ctx.responder.lista("¿Qué servicio quieres pagar?", "Elegir servicio", [

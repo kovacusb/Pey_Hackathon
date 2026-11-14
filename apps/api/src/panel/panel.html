@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paga Fácil · Panel</title>
+<style>
+  :root {
+    --fondo: #f6f7f9; --tarjeta: #ffffff; --texto: #14181f; --sutil: #5f6b7a; --borde: #e3e7ed;
+    --acento: #0f766e; --acento-suave: #ccfbf1; --ok: #15803d; --ok-suave: #dcfce7; --pend: #b45309; --pend-suave: #fef3c7;
+    --mal: #b91c1c; --mal-suave: #fee2e2; --gris-suave: #eef0f3; --sim: #854d0e; --sim-suave: #fef9c3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #0d1117; --tarjeta: #161b22; --texto: #e6edf3; --sutil: #8b949e; --borde: #30363d;
+      --acento: #2dd4bf; --acento-suave: #134e4a; --ok: #4ade80; --ok-suave: #14532d; --pend: #fbbf24; --pend-suave: #451a03;
+      --mal: #f87171; --mal-suave: #450a0a; --gris-suave: #21262d; --sim: #fde047; --sim-suave: #422006;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .contenedor { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; }
+  header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  header h1 { font-size: 20px; margin: 0; flex: 1; }
+  header h1 small { display: block; font-size: 12px; font-weight: 500; color: var(--sutil); }
+  .vivo { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--sutil); }
+  .vivo i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: pulso 2s infinite; }
+  .vivo.caido i { background: var(--mal); animation: none; }
+  @keyframes pulso { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  button { font: inherit; cursor: pointer; }
+  .boton { background: var(--tarjeta); color: var(--texto); border: 1px solid var(--borde); border-radius: 8px; padding: 6px 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .kpi { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 14px 16px; }
+  .kpi span { font-size: 12px; color: var(--sutil); text-transform: uppercase; letter-spacing: .04em; }
+  .kpi b { display: block; font-size: 26px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .pestanas { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .pestanas button { border: 1px solid var(--borde); background: var(--tarjeta); color: var(--sutil); border-radius: 999px; padding: 6px 14px; }
+  .pestanas button[aria-pressed="true"] { background: var(--acento); border-color: var(--acento); color: var(--tarjeta); }
+  .lista { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; overflow: hidden; }
+  .fila { display: grid; grid-template-columns: 70px 1fr 120px 110px 120px; gap: 12px; align-items: center; padding: 12px 16px; border-top: 1px solid var(--borde); }
+  .fila:first-child { border-top: 0; }
+  .fila.encabezado { font-size: 12px; color: var(--sutil); text-transform: uppercase; letter-spacing: .04em; background: var(--gris-suave); }
+  .fila.nueva { animation: nueva 2.4s ease-out; }
+  @keyframes nueva { from { background: var(--ok-suave); } to { background: transparent; } }
+  .hora { color: var(--sutil); font-variant-numeric: tabular-nums; font-size: 13px; }
+  .det b { display: block; font-weight: 600; }
+  .det small { color: var(--sutil); font-size: 12px; }
+  .monto { text-align: right; font-variant-numeric: tabular-nums; }
+  .monto small { display: block; color: var(--sutil); font-size: 12px; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .pagado { background: var(--ok-suave); color: var(--ok); }
+  .pendiente { background: var(--pend-suave); color: var(--pend); }
+  .vencido, .cancelado, .creando { background: var(--gris-suave); color: var(--sutil); }
+  .fallido, .duplicado, .monto_distinto { background: var(--mal-suave); color: var(--mal); }
+  .sim { background: var(--sim-suave); color: var(--sim); margin-left: 4px; }
+  .modulo { background: var(--acento-suave); color: var(--acento); }
+  .vacio { padding: 40px 16px; text-align: center; color: var(--sutil); }
+  footer { margin-top: 16px; font-size: 12px; color: var(--sutil); }
+  @media (max-width: 720px) {
+    .fila { grid-template-columns: 1fr auto; grid-template-areas: "det monto" "hora estado"; }
+    .fila.encabezado { display: none; }
+    .fila .hora { grid-area: hora; } .fila .det { grid-area: det; } .fila .monto { grid-area: monto; } .fila .est { grid-area: estado; text-align: right; }
+    .fila .met { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header>
+    <h1>Paga Fácil · Panel del negocio<small>Pagos CoDi en tiempo real · sin comisiones</small></h1>
+    <span class="vivo" id="vivo"><i></i><span>En vivo</span></span>
+    <button class="boton" id="sonido" type="button" aria-pressed="false">🔔 Activar sonido</button>
+  </header>
+
+  <section class="kpis" aria-label="Resumen de hoy">
+    <div class="kpi"><span>Pagos de hoy</span><b id="k-pagos">–</b></div>
+    <div class="kpi"><span>Cobrado hoy vía CoDi</span><b id="k-cobrado">–</b></div>
+    <div class="kpi"><span>Esperando pago</span><b id="k-pend">–</b></div>
+    <div class="kpi"><span>Último pago</span><b id="k-ultimo">–</b></div>
+  </section>
+
+  <nav class="pestanas" aria-label="Filtrar por módulo">
+    <button type="button" data-m="" aria-pressed="true">Todos</button>
+    <button type="button" data-m="tienda" aria-pressed="false">Tiendita</button>
+    <button type="button" data-m="svc" aria-pressed="false">Servicios</button>
+    <button type="button" data-m="p2p" aria-pressed="false">Cobro rápido</button>
+  </nav>
+
+  <div class="lista" id="lista" aria-live="polite">
+    <div class="vacio">Cargando…</div>
+  </div>
+
+  <footer>Solo se muestran los últimos 4 dígitos de cada cliente. «Pagado» aparece únicamente cuando pey confirma el cobro. Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico.</footer>
+</div>
+<script>
+  const $ = (s) => document.querySelector(s);
+  const dinero = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" });
+  const mxn = (c) => dinero.format(c / 100);
+  const hora = (ms) => new Date(ms).toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit", timeZone: "America/Mexico_City" });
+  const ESTADOS = { pagado: "Pagado", pendiente: "Esperando pago", vencido: "Vencido", cancelado: "Cancelado", fallido: "Falló", duplicado: "Pago duplicado", monto_distinto: "Monto distinto", creando: "Creando" };
+  let modulo = "";
+  let pagadosVistos = null;
+  let sonido = false;
+  let audio;
+
+  function hace(ms) {
+    if (!ms) return "–";
+    const s = Math.max(0, Math.round((Date.now() - ms) / 1000));
+    if (s < 60) return `hace ${s} s`;
+    if (s < 3600) return `hace ${Math.round(s / 60)} min`;
+    return hora(ms);
+  }
+  function beep() {
+    if (!sonido) return;
+    audio = audio || new AudioContext();
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.frequency.value = 880; o.connect(g); g.connect(audio.destination);
+    g.gain.setValueAtTime(0.15, audio.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.4);
+    o.start(); o.stop(audio.currentTime + 0.4);
+  }
+  function el(tag, clase, texto) { const e = document.createElement(tag); if (clase) e.className = clase; if (texto !== undefined) e.textContent = texto; return e; }
+
+  function pintar(datos) {
+    $("#k-pagos").textContent = datos.kpis.pagosHoy;
+    $("#k-cobrado").textContent = mxn(datos.kpis.cobradoHoyCentavos);
+    $("#k-pend").textContent = datos.kpis.pendientes;
+    $("#k-ultimo").textContent = hace(datos.kpis.ultimoPago);
+
+    const pagados = new Set(datos.cobros.filter((c) => c.estado === "pagado").map((c) => c.id));
+    const nuevos = pagadosVistos ? [...pagados].filter((id) => !pagadosVistos.has(id)) : [];
+    if (nuevos.length) beep();
+    pagadosVistos = pagados;
+
+    const lista = $("#lista");
+    lista.replaceChildren();
+    if (!datos.cobros.length) { lista.appendChild(el("div", "vacio", "Todavía no hay cobros. Cuando alguien pague por WhatsApp, aparecerá aquí al instante.")); return; }
+    const enc = el("div", "fila encabezado");
+    ["Hora", "Detalle", "Monto", "Método", "Estado"].forEach((t, i) => { const s = el("span", i === 2 ? "monto" : i === 3 ? "met" : "", t); enc.appendChild(s); });
+    lista.appendChild(enc);
+    for (const c of datos.cobros) {
+      const f = el("div", "fila" + (nuevos.includes(c.id) ? " nueva" : ""));
+      f.appendChild(el("span", "hora", hora(c.pagadoEn || c.creadoEn)));
+      const det = el("div", "det");
+      const titulo = el("b", "", c.detalle);
+      det.appendChild(titulo);
+      const sub = [`${c.modulo}`, `Folio ${c.folio}`, `Cliente •••• ${c.cliente}`];
+      if (c.rastreo) sub.push(`Rastreo ${c.rastreo}`);
+      if (c.factura) sub.push(`Factura ${c.factura.folio}${c.factura.simulada ? " (simulada)" : ""}`);
+      det.appendChild(el("small", "", sub.join(" · ")));
+      f.appendChild(det);
+      const m = el("div", "monto", mxn(c.realCentavos));
+      if (c.realCentavos !== c.cobradoCentavos) m.appendChild(el("small", "", `cobrado ${mxn(c.cobradoCentavos)} (demo)`));
+      f.appendChild(m);
+      f.appendChild(el("span", "met", c.metodo === "Push" ? "📲 Push" : "📷 QR"));
+      const est = el("span", "est");
+      est.appendChild(el("span", "pill " + c.estado, ESTADOS[c.estado] || c.estado));
+      if (c.simulado) est.appendChild(el("span", "pill sim", "SIMULACIÓN"));
+      f.appendChild(est);
+      lista.appendChild(f);
+    }
+  }
+
+  async function actualizar() {
+    try {
+      const r = await fetch(`api/resumen${modulo ? `?modulo=${modulo}` : ""}`, { cache: "no-store" });
+      if (!r.ok) throw new Error(r.status);
+      pintar(await r.json());
+      $("#vivo").classList.remove("caido"); $("#vivo span").textContent = "En vivo";
+    } catch {
+      $("#vivo").classList.add("caido"); $("#vivo span").textContent = "Sin conexión";
+    }
+  }
+
+  document.querySelectorAll(".pestanas button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".pestanas button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    modulo = b.dataset.m; pagadosVistos = null; actualizar();
+  }));
+  $("#sonido").addEventListener("click", () => {
+    sonido = !sonido;
+    $("#sonido").setAttribute("aria-pressed", String(sonido));
+    $("#sonido").textContent = sonido ? "🔔 Sonido activado" : "🔔 Activar sonido";
+    if (sonido) { audio = audio || new AudioContext(); beep(); }
+  });
+  actualizar();
+  setInterval(actualizar, 2000);
+</script>
+</body>
+</html>

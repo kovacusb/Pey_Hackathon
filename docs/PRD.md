@@ -15,7 +15,7 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 |---|---|---|---|
 | 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | Funcional. Cobro CoDi real con pey (push de $0.01 verificada en BBVA). Pago al servicio SIMULADO |
 | 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Bot funcional y conectado al cobro real. App Android pendiente |
-| 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Por definir. Factura detrás de una interfaz (PAC sandbox) |
+| 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Funcional: QR o push al celular del cliente (con aceptación explícita), factura PDF en el chat. Factura SIMULADA sin credenciales; conector de Facturama listo |
 
 - **App del comercio (Android, módulo 2):** el dueño configura su bot (nombre, saludo, horario, encendido), su catálogo, y ve pedidos y pagos en tiempo real.
 - **Agente (más adelante):** Claude entiende pedidos en texto libre («dame dos papas y un refresco») por medio de herramientas; el código decide precios y montos (K03.9).
@@ -84,7 +84,7 @@ Cómo se reparte el trabajo sin conflictos de Git: [MODULOS.md](MODULOS.md).
 |---|---|---|---|
 | 1 | Bot de WhatsApp: webhook verificado, menú, carrito, confirmación | Pruebas pasan; con las credenciales de Meta, el bot responde en tu WhatsApp | Pruebas ✅ · Meta pendiente |
 | 2 | Cobro real: cliente de pey nuevo, push y QR, webhook de pey verificado y deduplicado | Un pago real de $0.01 cambia la orden a «pagado» y el bot avisa | ✅ push real de $0.01 confirmada (14-nov) |
-| 3 | App Android: Bot, Productos, Pedidos y Pagos contra la API | Se ve en el emulador y en tu teléfono con datos reales del demo | Pendiente |
+| 3 | App Android: Bot, Productos, Pedidos y Pagos contra la API | Se ve en el emulador y en tu teléfono con datos reales del demo | Panel web `/panel/` listo (pagos y pedidos en tiempo real); Android pendiente |
 | 4 | Agente: texto libre → herramientas → carrito | «dos papas y un refresco» arma el carrito correcto; el modelo nunca fija montos | Pendiente |
 | 5 | Entrega: despliegue estable, demo pública, video de 3 min, textos y declaración | Todo lo de K01.8 listo antes del 10-dic (postulación) y del 12-dic (entrega) | Render configurado (`render.yaml`) |
 
