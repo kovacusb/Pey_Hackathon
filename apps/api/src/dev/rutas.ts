@@ -10,7 +10,7 @@ const html = readFileSync(new URL("./chat.html", import.meta.url), "utf8");
 
 /** /dev solo desde esta máquina. Desde fuera (túnel o Render) pide ?clave=<DEV_CLAVE>; sin DEV_CLAVE, nadie de fuera entra.
  *  Evita que un desconocido mande solicitudes de cobro reales a cualquier celular (K01.8 prohíbe cobros no solicitados). */
-function soloAutorizados(req: express.Request, res: express.Response, next: express.NextFunction) {
+export function soloAutorizados(req: express.Request, res: express.Response, next: express.NextFunction) {
   const viaProxy = Boolean(req.get("cf-connecting-ip") || req.get("x-forwarded-for"));
   const local = !viaProxy && ["localhost", "127.0.0.1", "::1"].includes(req.hostname);
   if (local) return next();

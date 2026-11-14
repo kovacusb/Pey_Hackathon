@@ -1,15 +1,18 @@
 // Panel web del comercio (/panel): manejar el bot de la tienda y ver pedidos y pagos en vivo.
 // Reemplaza a la app Android en la demo. Junto al panel, un WhatsApp simulado que usa las rutas de /dev.
-// Solo se monta con DEV_TOOLS=1 (como /dev): todavía no tiene inicio de sesión.
+// Solo se monta con DEV_TOOLS=1 y con la misma protección que /dev: desde esta máquina, o desde fuera con
+// ?clave=<DEV_CLAVE>. Todavía no tiene inicio de sesión propio.
 import express, { Router } from "express";
 import { readFileSync } from "node:fs";
 import { config } from "../../config.ts";
+import { soloAutorizados } from "../../dev/rutas.ts";
 import { actualizarProducto, borrarProducto, crearProducto, DatoInvalido, guardarAjustes, leerAjustes, listarPedidos, listarProductos, resumen } from "./datos.ts";
 
 const html = readFileSync(new URL("./panel.html", import.meta.url), "utf8");
 
 export function rutasPanel(): Router {
   const r = Router();
+  r.use(soloAutorizados);
   r.use(express.json({ limit: "20kb" }));
 
   r.get("/", (_req, res) => {

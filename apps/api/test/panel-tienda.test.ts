@@ -142,3 +142,15 @@ test("rutas HTTP del panel: estado, ajustes y productos con errores legibles", a
   const borrar = await fetch(`${base}/panel/api/productos/no-existe`, { method: "DELETE" });
   assert.equal(borrar.status, 400);
 });
+
+test("desde fuera (túnel o proxy) y sin DEV_CLAVE, el panel no deja entrar, igual que /dev", async () => {
+  const deFuera = await fetch(`${base}/panel/api/estado`, { headers: { "x-forwarded-for": "203.0.113.7" } });
+  assert.equal(deFuera.status, 403);
+  const cambio = await fetch(`${base}/panel/api/ajustes`, {
+    method: "PUT",
+    headers: { "content-type": "application/json", "cf-connecting-ip": "203.0.113.7" },
+    body: JSON.stringify({ nombre: "Intruso" }),
+  });
+  assert.equal(cambio.status, 403);
+  assert.notEqual(datos.leerAjustes().nombre, "Intruso");
+});

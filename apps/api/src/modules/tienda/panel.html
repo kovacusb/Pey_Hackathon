@@ -115,7 +115,7 @@
   <!-- Comprador: WhatsApp simulado -->
   <section class="col-tel" aria-label="WhatsApp del cliente (simulado)">
     <p class="etiqueta">Lo que ve tu cliente en WhatsApp</p>
-    <label class="campo">Celular del cliente (opcional; la push CoDi llega aquí)
+    <label class="campo">Celular del cliente (10 dígitos para recibir la push CoDi; vacío = pago con QR)
       <input id="cel" inputmode="numeric" maxlength="10" placeholder="10 dígitos" />
     </label>
     <div class="telefono">
@@ -208,7 +208,8 @@
   const chat = $("#chat");
   let desde = 0;
   try { $("#cel").value = localStorage.getItem("panel-cel") || ""; } catch {}
-  const waId = () => "dev" + ($("#cel").value.replace(/\D/g, "") || "0000000000");
+  // Sin un celular de 10 dígitos, el cliente simulado no tiene número: no se ofrece push y el cobro sale por QR.
+  const waId = () => { const d = $("#cel").value.replace(/\D/g, ""); return d.length === 10 ? "dev" + d : "devsincelular"; };
   $("#cel").addEventListener("change", () => {
     try { localStorage.setItem("panel-cel", $("#cel").value); } catch {}
     chat.innerHTML = ""; desde = 0; leer();
@@ -382,7 +383,7 @@
     chip.className = "chip " + (e.peyConectado ? "ok" : "");
     chip.textContent = e.peyConectado ? "pey conectado: los cobros son reales" : "sin llave de pey: usa «Simular pago»";
     $("#nota-cobros").textContent = e.peyConectado
-      ? "El cobro es real en pey: paga desde tu banco ($0.01 a $1) o simúlalo (no mueve dinero)."
+      ? "El cobro es real en pey: paga desde tu banco ($0.01 a $1) o simúlalo (no mueve dinero). La push la entrega Banxico a tu banco y puede tardar; si no llega, toca «Mejor un QR»."
       : "Sin llave de pey no se crean cobros reales.";
     $("#k-ventas").textContent = pesos(e.resumen.ventasHoyCentavos);
     $("#k-pagados").textContent = e.resumen.pagadosHoy;
