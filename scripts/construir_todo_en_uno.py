@@ -54,7 +54,7 @@ def main():
         contenido.append(f"\n\n<!-- ===== INICIO: {rel} ===== -->\n\n{texto}\n\n<!-- ===== FIN: {rel} ===== -->")
 
     cabecera = (
-        "# Base de conocimiento completa — Pey_Hackaton (pey y CoDi)\n\n"
+        "# Base de conocimiento completa — Pey_Hackathon (pey y CoDi)\n\n"
         f"> Archivo generado por `scripts/construir_todo_en_uno.py` el {hoy}. No lo edites a mano: "
         "edita los archivos de `conocimiento/`, `pey/`, `codi/` o `docs/` y vuelve a correr el script.\n"
         "> Úsalo cuando un asistente (por ejemplo ChatGPT) necesite leer todo de una vez. "

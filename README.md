@@ -1,4 +1,4 @@
-# Pey_Hackaton
+# Pey_Hackathon
 
 Base de conocimiento sobre **pey** (la API de cobros CoDi) y **CoDi®** (Cobro Digital de Banxico) para construir el proyecto del hackatón de pey. Se extrajo el 2026-11-14 de `~/HackathonOpenAi`; los datos se consultaron entre el 5 y el 7 de noviembre de 2026 y no se reconsultaron. Todo en español de México; cada dato trae su fuente y lo no verificado está marcado con ⚪.
 

@@ -1,4 +1,4 @@
-# Base de conocimiento completa — Pey_Hackaton (pey y CoDi)
+# Base de conocimiento completa — Pey_Hackathon (pey y CoDi)
 
 > Archivo generado por `scripts/construir_todo_en_uno.py` el 2026-11-14. No lo edites a mano: edita los archivos de `conocimiento/`, `pey/`, `codi/` o `docs/` y vuelve a correr el script.
 > Úsalo cuando un asistente (por ejemplo ChatGPT) necesite leer todo de una vez. Cada sección conserva su ID (K03.4, etc.) para citarla.
