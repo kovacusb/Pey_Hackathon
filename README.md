@@ -1,12 +1,12 @@
 # Pey_Hackathon
 
-Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero: todavía no hay idea elegida ni código. Este primer paso deja listas dos cosas:
+Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero. Lo que construimos es **peybot**: un bot de WhatsApp que toma pedidos de una tiendita y cobra con CoDi vía pey, más una app Android para el comercio ([PRD](docs/PRD.md)). La base del proyecto son dos cosas:
 
 1. **Una base de conocimiento** sobre pey, CoDi, la ley de pagos digitales y el contexto de los comercios en México. Está en español de México, cada dato trae su fuente y lo no verificado está marcado con ⚪. La investigación se hizo entre el 5 y el 7 de noviembre de 2026 y no se ha reconsultado.
 2. **Una forma de trabajar con agentes de IA** (Claude Code, Codex, Cursor, ChatGPT): reglas en [`AGENTS.md`](AGENTS.md) y [`CLAUDE.md`](CLAUDE.md), más scripts que mantienen la base verificable.
 
 ## Estado (14-nov-2026)
-- **Idea:** por definir. Cuando exista, el PRD irá en `docs/PRD.md`.
+- **Idea:** peybot ([docs/PRD.md](docs/PRD.md)). Tarea 1 lista: el bot de WhatsApp muestra el catálogo, arma el carrito y pide confirmación ([apps/api](apps/api/README.md)); el cobro real es la tarea 2.
 - **Hackatón:** Hackatón México: postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic. Reglas oficiales resumidas en K01.8.
 - **Cobros reales con pey:** ninguno todavía. Lo de pey sale de su documentación, no de pruebas en producción.
 
@@ -43,6 +43,8 @@ Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **C
 | [K04 · Contexto de pagos y comercios](conocimiento/04-contexto-pagos-y-comercios-mx.md) | Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas, datos para el pitch y oportunidades. |
 | [`pey/`](pey/README.md) | Documentación de pey en Markdown: 11 endpoints, 4 webhooks, tipos, errores, marca, changelog y tutoriales. |
 | [`codi/`](codi/README.md) | Documentación de CoDi: qué es, flujo, actores, seguridad, regulación, cifras, marca, SPEI y DiMo, y cómo encaja pey. |
+| [`docs/PRD.md`](docs/PRD.md) | Qué construimos: peybot, alcance del demo, arquitectura, plan por tareas y entregables. |
+| [`apps/api`](apps/api/README.md) | API de peybot: webhook de WhatsApp y motor del bot (Node + TypeScript). |
 | [`docs/REVISION-PEY-2026-11-07.md`](docs/REVISION-PEY-2026-11-07.md) | Revisión de pey: decisiones de ingeniería para un checkout y preguntas para pey. |
 | [`AGENTS.md`](AGENTS.md) · [`CLAUDE.md`](CLAUDE.md) | Reglas para agentes: dinero real, llaves, webhooks, datos personales y marca. |
 | [`.env.example`](.env.example) | Nombres de las variables de pey (sin valores). |

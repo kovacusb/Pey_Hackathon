@@ -53,7 +53,7 @@ App del banco (CoDi) ─ paga ─▶ pey ─▶ POST /api/webhook-pey (firma Sta
 
 | Pieza | Tecnología | Carpeta |
 |---|---|---|
-| API y webhooks | Node 24+ con TypeScript, Hono | `apps/api` |
+| API y webhooks | Node 24+ con TypeScript, Hono | [`apps/api`](../apps/api/README.md) |
 | App del comercio | Expo (React Native + TypeScript) para Android; la misma base exporta una versión web para la demo pública | `apps/movil` (pendiente) |
 | Base de datos | Postgres (Docker en local; servicio administrado al desplegar) | pendiente |
 | WhatsApp | WhatsApp Cloud API de Meta (oficial) | — |

@@ -3,7 +3,7 @@
 Instrucciones para cualquier agente (Claude Code, Codex, Cursor, ChatGPT) que trabaje en este repo. Léelas completas antes de actuar.
 
 ## 1. Misión
-Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026: el problema, el alcance y el stack **están por definir** y, cuando existan, vivirán en `docs/PRD.md`.
+Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026. Qué construimos (**peybot**), su alcance, su arquitectura y el plan por tareas están en `docs/PRD.md`: léelo antes de construir.
 
 ## 2. Cómo usar la base de conocimiento
 1. Empieza por `README.md` y `conocimiento/INDICE.md` (qué archivo responde cada pregunta).
@@ -16,6 +16,8 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 | Cobros con pey (síntesis, código de referencia, plan B, IA como herramienta) | K03 y luego `pey/` (empieza en `pey/README.md`) |
 | Qué es CoDi, cómo funciona, reglas de Banxico, cifras y marca | `codi/` (empieza en `codi/README.md`) |
 | Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas y datos para el pitch | K04 |
+| El producto, su alcance y el plan por tareas | `docs/PRD.md` |
+| La API y el bot de WhatsApp | `apps/api/README.md` |
 
 3. En la descripción del PR o del commit, cita los IDs que usaste ("según K03.4…").
 4. Lo marcado ⚪ no está verificado. Si necesitas un dato que no está (endpoint, campo, error, precio), **no lo inventes**: consulta la documentación oficial; si no puedes, deja `TODO(⚪): …` visible en el código y dilo.
@@ -39,7 +41,15 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 - Marca: usa solo los archivos oficiales de pey y de CoDi, descargados y sin redibujar ([pey/12](pey/12-recursos-de-marca.md), [codi/09](codi/09-marca-logotipos-y-material.md)). No afirmes patrocinio ni aval de pey ni de Banxico.
 - Ley: no afirmes que aceptar pagos digitales o QR ya es obligatorio (K02.4).
 
-## 5. Mantener la base
+## 5. Código
+- Cada app vive en `apps/<nombre>` con su README, `npm test` y `npm run typecheck`. Los dos pasan antes de cada commit.
+- TypeScript que Node 24+ ejecuta sin compilar; nombres, comentarios y textos para usuarios en español de México.
+- La lógica de negocio es pura y se prueba sola (`apps/api/src/bot.ts`); la red vive en adaptadores (`whatsapp.ts` y, en la tarea 2, el cliente de pey).
+- Las pruebas no usan la red: Meta, pey y la IA se simulan con un `fetch` falso y datos ficticios.
+- Cada API externa lleva en el código la URL de su documentación y la fecha de consulta; lo no verificado queda como `TODO(⚪)`.
+- La integración con pey se escribe nueva en este repo: K03.7 es documentación, no código para copiar (K01.8).
+
+## 6. Mantener la base
 - No modifiques `conocimiento/`, `pey/` ni `codi/` salvo que la tarea lo pida. Si agregas un dato, agrega su fuente (tabla "## Fuentes" en `conocimiento/`, línea "Fuente:" en `pey/` y `codi/`).
 - Después de editar la base, corre:
   ```bash
