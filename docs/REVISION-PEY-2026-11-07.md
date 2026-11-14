@@ -11,10 +11,10 @@ Fecha: 2026-11-07. Alcance: documentación y decisiones para construir; no acred
 - [Webhooks](https://docs.pey.mx/docs/tutorials/getting-started/set-up-webhooks/): uno por llave, con secreto de firma. Verificar con Standard Webhooks antes de procesar.
 - [Pago recibido](https://docs.pey.mx/docs/webhooks/codi/qr/): codiQrId relaciona el QR y transactionId identifica la operación; datePaid usa segundos Unix. bankAccountId solo aparece cuando se proporcionó al generar el QR.
 
-## Decisiones del MVP (propuestas de ingeniería)
+## Decisiones para cualquier checkout con pey (propuestas de ingeniería)
 
 1. Crear un pedido en servidor con importe en centavos, moneda, destinatario y referencia interna. Convertir a pesos únicamente al llamar a pey.
-2. IA interpreta venta; persona confirma; servidor valida y crea el QR. La IA nunca declara un pago confirmado.
+2. Si hay IA, la IA propone el cobro; la persona confirma; el servidor valida y crea el QR. La IA nunca declara un pago confirmado.
 3. Guardar la asociación pedido–QR. Consultar pagos por QR desde el servidor o recibir webhook verificado. Comparar importe, moneda y vinculación antes de confirmar.
 4. Deduplicar webhook-id y transactionId de forma persistente si hay efectos de negocio. No confiar en memoria de una función efímera.
 5. Distinguir pendiente, confirmado, vencido local y no_verificable. Un 404 o fallo de red no demuestra que el cliente no pagó. Revisar pagos tardíos antes de cerrar una venta.
@@ -25,15 +25,15 @@ Fecha: 2026-11-07. Alcance: documentación y decisiones para construir; no acred
 
 - [ ] Cuenta, llave y destinatario confirmados; secretos solo en servidor.
 - [ ] QR generado, visible y utilizable desde un teléfono.
-- [ ] Pago real mínimo autorizado por José y evidencia sin datos personales.
+- [ ] Pago real mínimo autorizado por la persona responsable de la cuenta y evidencia sin datos personales.
 - [ ] Importe distinto, firma inválida y evento repetido no cierran incorrectamente una venta.
 - [ ] Error de proveedor muestra no_verificable; QR vencido permite reconciliación.
 - [ ] Demo etiquetada SIMULACIÓN cuando corresponda.
 
 ## Marco normativo y preguntas al mentor
 
-El detalle legal actualizado está en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md) (en el repo original era K00.4). No basar el pitch en una fecha obligatoria de QR aún no demostrada. Doce días desde hoy sería 19-nov-2026; falta la fuente de ese anuncio específico.
+El detalle legal actualizado está en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md). No basar el pitch en una fecha obligatoria de QR aún no demostrada (K02.4).
 
 Preguntar a pey: sandbox del evento; disponibilidad de cuenta; límites de consultas; reintentos y orden de webhooks; idempotencia de creación; alcance de consulta de pagos; plazo y requisitos para incorporar comercios reales.
 
-Prioridad de construcción: checkout QR completo y estado confiable; después interpretación con OpenAI; finalmente lectura de recibos. Registro multi-comercio y links con tarjeta quedan fuera del primer demo.
+Prioridad de construcción, sea cual sea la idea: primero el checkout QR completo con estado confiable; después, lo que distinga al proyecto. Registro multi-comercio y links con tarjeta conviene dejarlos fuera del primer demo.

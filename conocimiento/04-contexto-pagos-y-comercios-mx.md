@@ -1,7 +1,7 @@
 ---
-id: K06
+id: K04
 titulo: "Contexto: pagos, comercios y personas en México"
-resumen: "Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y Coyoacán; léelo al definir problema, 'por qué ahora', personas y datos del pitch."
+resumen: "Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y la CDMX; léelo al definir problema, 'por qué ahora', personas y datos del pitch."
 responde:
   - "¿Qué tan dominante es el efectivo en México y hacia dónde va?"
   - "¿Qué tan grande es la informalidad y cuántos negocios son micro?"
@@ -10,15 +10,14 @@ responde:
   - "¿Qué cambia exactamente el 14 de diciembre de 2026 y qué es la Ley de Economía Digital?"
   - "¿Qué fraudes frenan los pagos digitales y cómo diseñar confianza en un producto?"
   - "¿Qué barreras digitales tienen las personas mayores y qué canal conviene usar?"
-  - "¿Qué hay en la Utopía Elena Poniatowska, Coyoacán y la CDMX que sirva al producto?"
+  - "¿Qué datos de la CDMX (mercados, tianguis, personas mayores, programas) sirven al producto?"
   - "¿Qué personas, datos y oportunidades de IA + CoDi usar en el pitch?"
 actualizado: 2026-11-07
 confianza: media
-nota: "Recuperado el 2026-11-14 del historial de ~/HackathonOpenAi (commit anterior a 85f4b31). Se escribió para el hackatón del 7-nov en Coyoacán; K06.8 y la columna 'en 4 h' de K06.11 son de ese contexto."
-fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12, SD13, SD14, SD15, SD16, SD17, SD18, SD19, SD20, SD21, SD22, SD23, SD24, SD25, SD26, SD27, SD28, SD29, SD30, SD31, SD32, SD33, SD34, SD35, SD36, SD37, SD38, SD39, SD40, SD41, SD42, SD43, SD44, SD45, SD46, SD47, SD48, SD49, SD50, SD51, SD52, SD53, SD54, SD55, SD56, SD57, SD58, SD59, SD60, SD61, SD62, SD63]
+fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12, SD13, SD14, SD15, SD16, SD17, SD18, SD19, SD20, SD21, SD22, SD23, SD24, SD25, SD26, SD27, SD28, SD29, SD30, SD31, SD32, SD33, SD34, SD35, SD36, SD37, SD38, SD39, SD40, SD41, SD42, SD43, SD44, SD45, SD46, SD47, SD48, SD49, SD53, SD54, SD55, SD56, SD57, SD58, SD59, SD60, SD61, SD62, SD63]
 ---
 
-# K06 · Contexto: pagos, comercios y personas en México
+# K04 · Contexto: pagos, comercios y personas en México
 
 ## TL;DR
 - **El efectivo manda en lo cotidiano:** ~85 % de los adultos usa sobre todo efectivo en compras de hasta $500 y solo 4.4 % usa transferencias o apps (2024) [SD10, SD18].
@@ -28,7 +27,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 - **Por qué ahora:** a más tardar el **14-dic-2026** todas las apps bancarias deben homologar sus transferencias (celular de 10 dígitos, resumen con nombre del beneficiario, comprobante con rastreo) y procesar los cobros CoDi con el mismo estándar [SD01, SD03, SD06]; además, el Congreso aprobó la Ley de Economía Digital (oct-2026) [SD10, SD11].
 - **La confianza es el cuello de botella:** 2.48 M reclamaciones por posible fraude en un semestre (2025) [SD38] y 39 % no cree que su dinero esté seguro en el banco (2024) [SD18]. Gana el producto que confirma el pago real, entrega recibo y habla por WhatsApp o voz.
 
-## K06.1 · Efectivo vs. pagos digitales en México
+## K04.1 · Efectivo vs. pagos digitales en México
 **Cuánto se usa el efectivo (ENIF 2024, INEGI-CNBV, publicada en marzo de 2025)**
 - Compras de hasta $500: ~85 % de los adultos usa sobre todo efectivo (85.2 % según [SD10]; 85.3 % según [SD18]). Compras mayores a $500: 73.5 % [SD18].
 - Transferencias o apps en compras de hasta $500: de 1.6 % (2021) a 4.4 % (2024) [SD10]. En compras mayores a $500 subieron 4.8 puntos frente a 2021 [SD16].
@@ -45,7 +44,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 
 **Recomendación (lectura para el pitch):** la gente ya se transfiere dinero entre personas; el "último metro" (pagar en el puesto, la fonda o al prestador de servicios) sigue en efectivo.
 
-## K06.2 · Economía informal y micronegocios
+## K04.2 · Economía informal y micronegocios
 **Informalidad laboral (ENOE, INEGI, septiembre de 2026; publicada el 22-oct-2026)** [SD20]
 - Tasa de informalidad laboral (TIL1): **54.3 %** de la población ocupada, es decir, **32.6 millones** de personas.
 - Ocupación en el sector informal (negocios de los hogares sin registro): 17.6 millones (29.4 %).
@@ -58,12 +57,12 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 - La Asociación de Bancos de México (ABM) ubica a los micronegocios en 95.5 % de las empresas y 41.5 % del empleo (2026) [SD37].
 
 **Implicaciones**
-- Para quien no está inscrito en el SAT, la nueva cuenta Nivel 2 Bis (sin RFC; ver K06.5) baja la barrera para recibir pagos digitales [SD09].
+- Para quien no está inscrito en el SAT, la nueva cuenta Nivel 2 Bis (sin RFC; ver K04.5) baja la barrera para recibir pagos digitales [SD09].
 - El segmento coincide con la visión de Pey de procesar pagos de negocios informales (contexto del evento; ⚪ no verificado de forma externa).
 
 **Recomendación:** frente a usuarios y jueces, hablar de "negocios de barrio" o "changarros" en lugar de "informales", porque "informal" puede sonar a ilegal.
 
-## K06.3 · Costo de cobrar con tarjeta para un comercio pequeño
+## K04.3 · Costo de cobrar con tarjeta para un comercio pequeño
 **Tasa de descuento** (lo que paga el comercio por cada venta; Banxico la publica por giro)
 - Miscelánea con **débito**, julio de 2026: de **1.15 %** a **3.95 %** según el adquirente; Clip 3.00–3.60 %; varios agregadores 3.50 % [SD24, SD25]. ⚪ No verifiqué si incluyen IVA.
 - Con **crédito** (tabla por giro; ⚪ periodo no indicado, archivo de 2025; confianza media): restaurantes 2.55–5.84 %; misceláneas 2.29–3.60 % [SD63].
@@ -82,7 +81,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 
 **Recomendación:** en el pitch, traducir porcentajes a pesos del día ("$40 diarios que se quedan en tu bolsa").
 
-## K06.4 · CoDi: adopción real y por qué no despegó
+## K04.4 · CoDi: adopción real y por qué no despegó
 CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para cobrar con QR o NFC sobre SPEI y sin comisión; su meta era 18.1 M usuarios en 2020 [SD33, SD31, SD01].
 
 **Números**
@@ -99,7 +98,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **Recomendación:** no vender "CoDi", sino el beneficio: "cobra sin comisión y sabe al instante que ya te pagaron".
 
-## K06.5 · Qué cambia el 14 de diciembre de 2026
+## K04.5 · Qué cambia el 14 de diciembre de 2026
 **Qué es:** la **fecha límite** para que bancos y participantes del SPEI cumplan las Circulares 9/2026 y 10/2026 de Banxico (DOF, 17-jun-2026) y sus Guías de homologación de transferencias móviles [SD01, SD02, SD09]. La 9/2026 ya rige; el 14-dic es su plazo de cumplimiento (segundo transitorio) [SD01], no la entrada en vigor de una ley.
 
 **Qué deberán tener todas las apps**
@@ -114,7 +113,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **Recomendación (por qué ahora):** ayudar al comercio a adoptar cobros digitales; distinguir el plazo bancario del 14-dic de las reglas sectoriales pendientes. El plazo normativo no demuestra implementación efectiva en todas las apps.
 
-## K06.6 · Fraude y desconfianza
+## K04.6 · Fraude y desconfianza
 **Datos (Condusef y ENIF)**
 - Ene–jun 2025: 2.48 M reclamaciones por posible fraude (+5.2 % anual): $10,714 millones reclamados y $2,556 millones devueltos (≈24 %, cálculo propio); el fraude digital supera 60 % de las quejas [SD38].
 - Ene–sep 2025: 3.82 M reclamaciones (~14 mil diarias); las personas de 60 años o más suman 32 % de las quejas por posible fraude (⚪ año del dato no indicado) [SD39].
@@ -136,7 +135,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 4. Anunciar en voz alta: "Cobro de $85 para Frutas Lupita".
 5. Botón "¿Ya me pagaron?" que consulte el estado real.
 
-## K06.7 · Brecha digital: personas mayores, voz y WhatsApp
+## K04.7 · Brecha digital: personas mayores, voz y WhatsApp
 **Conectividad (ENDUTIH 2025, INEGI, publicada el 16-jun-2026)**
 - 86.1 % de las personas de 6 años o más usa internet (104.9 M); urbano 88.9 % y rural 75.2 %; 84.6 % usa celular [SD44]. 97.3 % de los usuarios se conecta con smartphone [SD45].
 - Por edad: 55–64 años, 78.8 %; 65–74 años, 57.8 %; 75 o más, 30.3 % [SD45].
@@ -150,37 +149,32 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **WhatsApp y voz**
 - WhatsApp es la plataforma más usada: 95.3 % de los usuarios (reporte Digital 2024 citado por la prensa; ⚪ base exacta no verificada) [SD46].
-- ⚪ No encontré un dato verificado sobre preferencia por notas de voz en México; conviene validarlo observando a usuarios en el evento.
+- ⚪ No encontré un dato verificado sobre preferencia por notas de voz en México; conviene validarlo observando a usuarios reales.
 
 **Recomendación:** canal WhatsApp + voz; una sola acción por pantalla; letra grande; confirmación hablada ("ya llegó tu dinero"); opción de mandar copia del recibo a un familiar.
 
-## K06.8 · Contexto local: Coyoacán, Barrio de San Lucas y la Utopía
-**Utopía Elena Poniatowska Amor**
-- Av. Miguel Hidalgo 128, Barrio de San Lucas, Coyoacán [SD50]. Abrió en agosto de 2026 con 242 MDP de inversión en ~20,000 m² del predio "El Parián", abandonado más de 20 años [SD50, SD51, SD52]. San Lucas es un barrio originario [SD52].
-- Servicios: comedor, lavandería, CADI, Casa de Día para personas mayores, consultorios gratuitos, centro comunitario para Parkinson, alberca semiolímpica, gimnasio, Museo Coyote, centro de transformación digital (150 computadoras e impresoras 3D), tortillería de maíz nativo y agencia de empleo [SD50, SD51].
-- Alcance estimado: ~130 mil habitantes de al menos 17 colonias [SD50, SD52].
-
-**Coyoacán**
-- 22 mercados públicos (2025) [SD53].
-- 14.7 % de sus habitantes tiene 65 años o más, la proporción más alta entre alcaldías (nota de 2024; ⚪ fuente primaria no indicada) [SD54].
-
-**CDMX**
+## K04.8 · Contexto local: CDMX
+**Mercados, tianguis y programas**
 - 339 mercados públicos donde trabajan ~300 mil personas (2025) [SD55]; 1,367 tianguis (Sedeco, 2024) [SD56] con ~50 mil tianguistas [SD57].
 - Mercomuna (vales de despensa canjeables en comercios de barrio): 335 mil familias en 2025 y más de 30 mil comercios registrados (dic-2025); meta de 700 mil familias en 2026 [SD58, SD59]. ⚪ Formato del vale y pago al comercio: no verificados.
 - 2021: Sedeco y Mercado Pago anunciaron tarjeta y QR en 335 mercados y 51 tianguis, con meses sin comisión; ⚪ no encontré resultados [SD60].
 - ⚪ No encontré un programa vigente de la CDMX para que comercios cobren con CoDi.
 
-**Usuarios potenciales cerca:** personas mayores de la Casa de Día, jóvenes del centro digital (posibles "embajadores"), familias del comedor y la lavandería, y comercios de la zona (⚪ mercados cercanos no verificados).
+**Ejemplo de alcaldía: Coyoacán**
+- 22 mercados públicos (2025) [SD53].
+- 14.7 % de sus habitantes tiene 65 años o más, la proporción más alta entre alcaldías (nota de 2024; ⚪ fuente primaria no indicada) [SD54].
 
-## K06.9 · Personas (situaciones típicas; personas ficticias)
+**Recomendación:** si el producto apunta a mercados y tianguis, valida el problema con comercios reales antes de construir; las cifras de arriba sirven para dimensionar, no para describir a un usuario concreto.
+
+## K04.9 · Personas (situaciones típicas; personas ficticias)
 | Persona | Dolores | Trabajos por hacer | Momento de pago |
 |---|---|---|---|
 | **Tianguista de fruta** (vende 3 días a la semana en distintos tianguis) | Montos chicos ($20–$150, ilustrativo); terminal cara para su volumen (débito hasta 3.95 % [SD24]); "ya te transferí" con captura [SD41]; señal intermitente | Cobrar en segundos, saber que sí llegó, cuadrar la venta del día | Fila de cuatro clientes; uno pregunta "¿le transfiero?" y enseña su pantalla |
 | **Fonda familiar** (menú del día, clientes oficinistas) | Clientes sin efectivo; con crédito un restaurante paga hasta 5.84 % (⚪ periodo) [SD63]; cuentas divididas; pedidos por WhatsApp | Cobrar mesas y pedidos para llevar, cerrar caja sin errores | Al terminar la comida, varios pagan por separado al mismo tiempo |
 | **Prestadora de servicios a domicilio** (limpieza, uñas o costura) | Comprobante falso o reversa cuando ya se fue [SD41]; sin RFC; "luego te pago" | Mandar el cobro antes o al terminar, recordar pendientes, demostrar ingresos (cuenta Nivel 2 Bis [SD09]) | En la puerta, al terminar el servicio |
-| **Cliente adulto mayor** (usuario de la Casa de Día) | Cobra su pensión en tarjeta [SD49]; casi no usa apps (~10 % de 60+ [SD47]); miedo al fraude (32 % de quejas [SD39]); depende de sus hijos | Pagar sin equivocarse, saber a quién y cuánto paga, tener un comprobante que entienda | En el puesto, sin lentes y con el vendedor apurado |
+| **Cliente adulto mayor** (jubilada, compra en el mercado de su colonia) | Cobra su pensión en tarjeta [SD49]; casi no usa apps (~10 % de 60+ [SD47]); miedo al fraude (32 % de quejas [SD39]); depende de sus hijos | Pagar sin equivocarse, saber a quién y cuánto paga, tener un comprobante que entienda | En el puesto, sin lentes y con el vendedor apurado |
 
-## K06.10 · Diez datos para el pitch
+## K04.10 · Diez datos para el pitch
 Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la prensa.
 1. ~85 % de los adultos usa sobre todo efectivo en compras de hasta $500 — ENIF 2024 [SD10, SD18].
 2. Solo 4.4 % usa transferencias o apps en esas compras (1.6 % en 2021) — ENIF 2024 [SD10].
@@ -195,10 +189,10 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 
 **Recomendación:** abrir con los datos 1, 6 y 10 (problema, paradoja y urgencia) y cerrar con el 5 traducido a pesos.
 
-## K06.11 · Oportunidades donde IA + CoDi resuelven algo real
-**Recomendación:** ordenadas por impacto y factibilidad en 4 horas (el formato del hackatón del 7-nov; el Hackatón México dura semanas, K01.1). Lo técnico de pey sale de K03; lo de voz e IA venía de un archivo de OpenAI (K04 del repo anterior) que no se trajo a esta base. No lo verifiqué aparte.
+## K04.11 · Oportunidades donde IA + CoDi resuelven algo real
+**Recomendación:** ordenadas por impacto y por factibilidad para un primer demo funcional (el Hackatón México dura cuatro semanas, K01.1). Lo técnico de pey sale de K03. ⚪ Lo de voz e IA no está verificado en esta base: el proveedor de IA está por definir.
 
-| # | Idea | Dolor (dato) | Impacto | Factible en 4 h | Dependencias |
+| # | Idea | Dolor (dato) | Impacto | Factibilidad | Dependencias |
 |---|---|---|---|---|---|
 | 1 | **"Cóbrale" por voz o WhatsApp:** dictas "cóbrale 85 de jitomate"; la IA arma el cobro CoDi (QR dinámico) y avisa "ya llegó" con recibo | Comisión de tarjeta [SD24]; no saber usar apps [SD45] | Alto | Alta | QR + webhook de Pey (K03.4, K03.5); voz (⚪ proveedor de IA por definir) |
 | 2 | **Detector de comprobante falso:** la IA lee monto y clave de rastreo de la captura y los compara con cobros confirmados | Comprobantes falsos [SD41]; fraude [SD38] | Alto | Alta (solo cobros propios) | Estado y `trackingKey` en Pey (K03.4) |
@@ -207,7 +201,7 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 | 5 | **Alta guiada:** la IA explica Nivel 2 Bis, alta del celular y primer cobro de prueba | Registro engorroso [SD35, SD36] | Medio | Media | ⚪ oferta de Nivel 2 Bis por banco |
 | 6 | **Cobro a domicilio:** cobro al celular del cliente, QR o liga por WhatsApp + recordatorio | "Luego te pago" | Medio | Media | `POST /codi/pn`, vigencia y liga de pago (K03.4, K03.5); ⚪ requisitos del celular del cliente |
 
-**Recomendación de MVP:** unir 1 + 2 + 3: dictar → QR → un juez paga con su app → "ya llegó" en voz → recibo. Pey no tiene sandbox (K03.6): si algo falla, plan B de K03.6 con "SIMULACIÓN" visible (AGENTS.md). Fuera de alcance: terminales, NFC, crédito y facturación.
+**Combinación candidata (por validar antes de elegir la idea):** unir 1 + 2 + 3: dictar → QR → un juez paga con su app → "ya llegó" en voz → recibo. Pey no tiene sandbox (K03.6): si algo falla, plan B de K03.6 con "SIMULACIÓN" visible (AGENTS.md). Fuera de alcance: terminales, NFC, crédito y facturación.
 
 ## Fuentes
 | ID | Título | URL | Consultado |
@@ -261,9 +255,6 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 | SD47 | Xataka México · México quiere despedirse del efectivo en carreteras y gasolineras (27-abr-2026) | https://www.xataka.com.mx/politica/mexico-quiere-despedirse-efectivo-carreteras-gasolineras-problema-que-millones-necesitan/amp | 2026-11-06 |
 | SD48 | Xataka México · Solo 4 de cada 10 personas pagan con tarjeta o transferencia (28-nov-2025) | https://www.xataka.com.mx/banca-digital/solo-4-cada-10-personas-mexico-pagan-tarjeta-transferencia-motivo-claro-no-confian-instituciones | 2026-11-06 |
 | SD49 | UnoTV · Pensión del Bienestar 2026: 6,400 pesos (19-ene-2026) | https://www.unotv.com/pensiones/pension-del-bienestar-2026-apellidos-que-reciben-6400-pesos-del-19-al-23-de-enero/ | 2026-11-06 |
-| SD50 | Chilango · Utopía Elena Poniatowska abre en Coyoacán: servicios (ago-2026) | https://www.chilango.com/ciudad/utopia-elena-poniatowska-amor-abre-sus-puertas-en-coyoacan-estos-servicios-ofrecera/ | 2026-11-06 |
-| SD51 | La Crónica · Abre en Coyoacán la Utopía Elena Poniatowska con inversión de 242 mdp (9-ago-2026) | https://www.cronica.com.mx/metropoli/2026/08/09/abre-en-coyoacan-la-utopia-elena-poniatowska-con-inversion-de-242-mdp/ | 2026-11-06 |
-| SD52 | Diario de México · Utopía Elena Poniatowska Amor, inaugurada en Coyoacán (9-ago-2026) | https://www.diariodemexico.com/mi-ciudad/abandono-esperanza-es-utopia-elena-poniatowska-amor-inaugurada-por-clara-brugada-en-coyoacan | 2026-11-06 |
 | SD53 | Alcaldía Coyoacán · Boletín 037, inversión en mercados (22-ene-2025) | https://coyoacan.cdmx.gob.mx/boletines/files/2024_2027/BOLET%C3%8DN%20037%20COYOAC%C3%81N%2C%20QUIEN%20M%C3%81S%20INVIERTE%20EN%20MEJORAMIENTO%20DE%20MERCADOS%20-%2022ENE25.pdf | 2026-11-06 |
 | SD54 | Expansión Política · BJ, Coyoacán y Azcapotzalco concentran retos para población de 65+ (23-nov-2024) | https://politica.expansion.mx/cdmx/2024/11/23/bj-coyoacan-y-azcapotzalco-concentran-retos-para-poblacion-de-65-anos-y-mas | 2026-11-06 |
 | SD55 | Expansión Política · Las 14 acciones de la CDMX para mejorar los mercados (12-feb-2025) | https://politica.expansion.mx/cdmx/2025/02/12/las-14-acciones-que-emprendera-la-cdmx-para-mejorar-los-mercados | 2026-11-06 |

@@ -6,7 +6,7 @@ Sale con código 1 si hay errores. Revisa:
   1. Cada conocimiento/NN-*.md tiene frontmatter completo (id, titulo, resumen, responde,
      actualizado, confianza, fuentes) y su id coincide con el número del archivo (03 → K03).
   2. Tiene "## TL;DR" y secciones "## Knn.m · …" con el mismo prefijo.
-  3. Cada fuente citada (SA01, SB12, …) existe en la tabla de Fuentes del archivo (o en fuentes/REGISTRO.md, opcional).
+  3. Cada fuente citada (SA01, SB12, …) existe en la tabla de Fuentes del archivo, y un mismo ID no tiene dos URL.
   4. Los enlaces relativos de todos los .md apuntan a archivos que existen.
   5. Ningún archivo versionable contiene algo con forma de llave secreta.
 """
@@ -16,7 +16,6 @@ import sys
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 CON = RAIZ / "conocimiento"
-REGISTRO = RAIZ / "fuentes" / "REGISTRO.md"
 CLAVES = ["id", "titulo", "resumen", "responde", "actualizado", "confianza", "fuentes"]
 RE_FUENTE = re.compile(r"\b(S[A-Z]\d{2,3})\b")
 RE_ENLACE = re.compile(r"\]\((?!https?://|mailto:|#)([^)\s#]+)(?:#[^)\s]*)?\)")
@@ -34,7 +33,7 @@ def ids_de_tabla(texto):
     return set(re.findall(r"^\|\s*(S[A-Z]\d{2,3})\s*\|", texto, re.M))
 
 
-def revisar_conocimiento(registro_ids):
+def revisar_conocimiento():
     archivos = sorted(CON.glob("[0-9][0-9]-*.md"))
     total_secciones = total_sin_verificar = 0
     vistos = {}
@@ -74,7 +73,7 @@ def revisar_conocimiento(registro_ids):
         total_secciones += len(secciones)
         citadas = set(RE_FUENTE.findall(cuerpo)) | set(RE_FUENTE.findall(fm))
         locales = ids_de_tabla(cuerpo)
-        faltan = sorted(s for s in citadas if s not in locales and s not in registro_ids)
+        faltan = sorted(s for s in citadas if s not in locales)
         if faltan:
             errores.append(f"{rel}: fuentes citadas sin registrar: {', '.join(faltan)}")
         sin = cuerpo.count("⚪")
@@ -100,12 +99,10 @@ def revisar_enlaces():
 
 
 def revisar_ids_repetidos():
-    """Un mismo ID de fuente con dos URL distintas (entre archivos de conocimiento y REGISTRO) es un error."""
+    """Un mismo ID de fuente con dos URL distintas (entre archivos de conocimiento) es un error."""
     fila = re.compile(r"^\|\s*(S[A-Z]\d{2,3})\s*\|[^|]*\|\s*([^|]*?)\s*\|")
     urls = {}
-    for p in sorted((RAIZ / "conocimiento").glob("[0-9][0-9]-*.md")) + [REGISTRO]:
-        if not p.is_file():
-            continue
+    for p in sorted(CON.glob("[0-9][0-9]-*.md")):
         for linea in p.read_text(encoding="utf-8").splitlines():
             m = fila.match(linea)
             if m and m.group(2).startswith("http"):
@@ -132,9 +129,8 @@ def revisar_secretos():
 
 
 def main():
-    registro_ids = ids_de_tabla(REGISTRO.read_text(encoding="utf-8")) if REGISTRO.is_file() else set()
     print("Base de conocimiento:")
-    n, secciones, sin = revisar_conocimiento(registro_ids)
+    n, secciones, sin = revisar_conocimiento()
     revisar_ids_repetidos()
     revisar_enlaces()
     revisar_secretos()
@@ -144,7 +140,7 @@ def main():
         print(f"\nAGENTS.md: {kb:.1f} KB")
         if kb > 16:
             avisos.append("AGENTS.md pesa más de 16 KB: conviene recortarlo para que Codex lo lea completo")
-    print(f"\nResumen: {n} archivos · {secciones} secciones · {len(registro_ids)} fuentes en REGISTRO · {sin} marcas ⚪")
+    print(f"\nResumen: {n} archivos · {secciones} secciones · {sin} marcas ⚪")
     for a in avisos:
         print("  ! aviso:", a)
     for e in errores:

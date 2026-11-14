@@ -4,7 +4,7 @@ Versión de trabajo, en español de México y con redacción propia, de la docum
 
 - **Marcas:** ⚪ = no confirmado en una fuente leída hoy. "Recomendación" = decisión de ingeniería, no lo dice Banxico. Los ejemplos usan datos ficticios.
 - **Datos personales:** no se copian correos ni teléfonos de personas; solo contactos institucionales de Banxico.
-- **Relación con el resto del repo:** la API de pey está en [pey/README.md](../pey/README.md); la síntesis con código probado, en [K03](../conocimiento/03-codi-y-api-pey.md); la ley de pagos digitales y el plazo del 14-dic, en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md).
+- **Relación con el resto del repo:** la API de pey está en [pey/README.md](../pey/README.md); la síntesis con código de referencia, en [K03](../conocimiento/03-codi-y-api-pey.md); la ley de pagos digitales y el plazo del 14-dic, en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md).
 
 ## Resumen para quien construye (10 líneas)
 

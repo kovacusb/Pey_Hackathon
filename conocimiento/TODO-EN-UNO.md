@@ -8,7 +8,7 @@
 - `conocimiento/01-hackaton-mexico-y-ecosistema-pey.md` — Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados
 - `conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md` — Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 - `conocimiento/03-codi-y-api-pey.md` — CoDi y API de Pey
-- `conocimiento/06-contexto-pagos-y-comercios-mx.md` — Contexto: pagos, comercios y personas en México
+- `conocimiento/04-contexto-pagos-y-comercios-mx.md` — Contexto: pagos, comercios y personas en México
 - `docs/REVISION-PEY-2026-11-07.md` — Revisión de pey y plan de integración
 - `pey/README.md` — Documentación de pey (API CoDi) en Markdown
 - `pey/01-que-es-pey-y-codi.md` — Qué es pey y su API CoDi
@@ -55,10 +55,10 @@
 ## Archivos
 | ID | Archivo | Qué cubre | Confianza | Marcas ⚪ |
 |---|---|---|---|---|
-| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea. | media | 10 |
+| **K01** | [Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados](01-hackaton-mexico-y-ecosistema-pey.md) | Lo que se sabía al 7-nov-2026 del Hackatón México (14 nov–12 dic) y de quién lo organiza; qué es pey, por qué abrió su API y qué éxito busca; qué busca AI Builders México; por qué CoDi no ha despegado; qué conquista, qué aleja y qué falta preguntar. Léelo antes de elegir la idea. | media | 8 |
 | **K02** | [Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar](02-ley-pagos-digitales-y-plazo-14-dic.md) | La Ley de Economía Digital para Pagos Digitales y Electrónicos (decreto del 4-nov-2026) en lo esencial: qué es, transitorios, qué no obliga y lo que no se puede afirmar. Además, el plazo distinto del 14-dic-2026 de las Circulares 9/2026 y 10/2026 de Banxico. Léelo antes de mencionar la ley en el producto o en el pitch. | media | 3 |
-| **K03** | [CoDi y API de Pey](03-codi-y-api-pey.md) | Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos probados en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro. | media | 22 |
-| **K06** | [Contexto: pagos, comercios y personas en México](06-contexto-pagos-y-comercios-mx.md) | Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y Coyoacán; léelo al definir problema, 'por qué ahora', personas y datos del pitch. | media | 19 |
+| **K03** | [CoDi y API de Pey](03-codi-y-api-pey.md) | Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos de referencia en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro. | media | 23 |
+| **K04** | [Contexto: pagos, comercios y personas en México](04-contexto-pagos-y-comercios-mx.md) | Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y la CDMX; léelo al definir problema, 'por qué ahora', personas y datos del pitch. | media | 19 |
 
 ## Preguntas → archivo
 | Pregunta | Abre |
@@ -68,7 +68,6 @@
 | ¿Qué buscan AI Builders México y SpaceXAI? | K01 |
 | ¿Por qué CoDi importa y por qué no ha despegado? | K01 |
 | ¿Qué conquista a pey y a los organizadores, y qué los aleja? | K01 |
-| ¿Qué pidieron pey y AI Builders en el hackatón del 7 de noviembre? | K01 |
 | ¿Qué falta confirmar con pey y con los organizadores? | K01 |
 | ¿Qué es la Ley de Economía Digital para Pagos Digitales y Electrónicos y desde cuándo rige? | K02 |
 | ¿La ley obliga a los comercios a aceptar QR o pagos digitales? | K02 |
@@ -83,15 +82,15 @@
 | ¿Hay sandbox? ¿Cómo hago un pago real en la demo y cuál es el plan B? | K03 |
 | ¿Qué errores y límites debo manejar? | K03 |
 | ¿Cómo expongo la API de Pey como herramientas de un agente de IA sin riesgos? | K03 |
-| ¿Qué tan dominante es el efectivo en México y hacia dónde va? | K06 |
-| ¿Qué tan grande es la informalidad y cuántos negocios son micro? | K06 |
-| ¿Cuánto le cuesta a un comercio pequeño cobrar con tarjeta frente a CoDi? | K06 |
-| ¿Cuánto se usa CoDi realmente y por qué no despegó? | K06 |
-| ¿Qué cambia exactamente el 14 de diciembre de 2026 y qué es la Ley de Economía Digital? | K06 |
-| ¿Qué fraudes frenan los pagos digitales y cómo diseñar confianza en un producto? | K06 |
-| ¿Qué barreras digitales tienen las personas mayores y qué canal conviene usar? | K06 |
-| ¿Qué hay en la Utopía Elena Poniatowska, Coyoacán y la CDMX que sirva al producto? | K06 |
-| ¿Qué personas, datos y oportunidades de IA + CoDi usar en el pitch? | K06 |
+| ¿Qué tan dominante es el efectivo en México y hacia dónde va? | K04 |
+| ¿Qué tan grande es la informalidad y cuántos negocios son micro? | K04 |
+| ¿Cuánto le cuesta a un comercio pequeño cobrar con tarjeta frente a CoDi? | K04 |
+| ¿Cuánto se usa CoDi realmente y por qué no despegó? | K04 |
+| ¿Qué cambia exactamente el 14 de diciembre de 2026 y qué es la Ley de Economía Digital? | K04 |
+| ¿Qué fraudes frenan los pagos digitales y cómo diseñar confianza en un producto? | K04 |
+| ¿Qué barreras digitales tienen las personas mayores y qué canal conviene usar? | K04 |
+| ¿Qué datos de la CDMX (mercados, tianguis, personas mayores, programas) sirven al producto? | K04 |
+| ¿Qué personas, datos y oportunidades de IA + CoDi usar en el pitch? | K04 |
 
 ## Secciones de cada archivo
 
@@ -104,8 +103,7 @@ Archivo: [`01-hackaton-mexico-y-ecosistema-pey.md`](01-hackaton-mexico-y-ecosist
 - `K01.4` Por qué CoDi importa y por qué no ha despegado
 - `K01.5` Lo que conquista
 - `K01.6` Lo que aleja
-- `K01.7` Antecedente: lo que pidieron pey y AI Builders el 7 de noviembre
-- `K01.8` Preguntas abiertas (⚪)
+- `K01.7` Preguntas abiertas (⚪)
 
 ### K02 · Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 Archivo: [`02-ley-pagos-digitales-y-plazo-14-dic.md`](02-ley-pagos-digitales-y-plazo-14-dic.md)
@@ -126,25 +124,25 @@ Archivo: [`03-codi-y-api-pey.md`](03-codi-y-api-pey.md)
 - `K03.4` Endpoints, formato del QR y estados
 - `K03.5` Webhooks
 - `K03.6` Desarrollo vs producción: demo con pago real y plan B
-- `K03.7` Ejemplos mínimos en Node.js 20+ (probados)
+- `K03.7` Ejemplos mínimos en Node.js 20+ (de referencia)
 - `K03.8` Errores comunes y límites
 - `K03.9` La API como herramienta de un agente de IA
 - `K03.10` Documentación completa de pey (carpeta `pey/`)
 
-### K06 · Contexto: pagos, comercios y personas en México
-Archivo: [`06-contexto-pagos-y-comercios-mx.md`](06-contexto-pagos-y-comercios-mx.md)
+### K04 · Contexto: pagos, comercios y personas en México
+Archivo: [`04-contexto-pagos-y-comercios-mx.md`](04-contexto-pagos-y-comercios-mx.md)
 
-- `K06.1` Efectivo vs. pagos digitales en México
-- `K06.2` Economía informal y micronegocios
-- `K06.3` Costo de cobrar con tarjeta para un comercio pequeño
-- `K06.4` CoDi: adopción real y por qué no despegó
-- `K06.5` Qué cambia el 14 de diciembre de 2026
-- `K06.6` Fraude y desconfianza
-- `K06.7` Brecha digital: personas mayores, voz y WhatsApp
-- `K06.8` Contexto local: Coyoacán, Barrio de San Lucas y la Utopía
-- `K06.9` Personas (situaciones típicas; personas ficticias)
-- `K06.10` Diez datos para el pitch
-- `K06.11` Oportunidades donde IA + CoDi resuelven algo real
+- `K04.1` Efectivo vs. pagos digitales en México
+- `K04.2` Economía informal y micronegocios
+- `K04.3` Costo de cobrar con tarjeta para un comercio pequeño
+- `K04.4` CoDi: adopción real y por qué no despegó
+- `K04.5` Qué cambia el 14 de diciembre de 2026
+- `K04.6` Fraude y desconfianza
+- `K04.7` Brecha digital: personas mayores, voz y WhatsApp
+- `K04.8` Contexto local: CDMX
+- `K04.9` Personas (situaciones típicas; personas ficticias)
+- `K04.10` Diez datos para el pitch
+- `K04.11` Oportunidades donde IA + CoDi resuelven algo real
 
 <!-- ===== FIN: conocimiento/INDICE.md ===== -->
 
@@ -160,23 +158,22 @@ responde:
   - "¿Qué buscan AI Builders México y SpaceXAI?"
   - "¿Por qué CoDi importa y por qué no ha despegado?"
   - "¿Qué conquista a pey y a los organizadores, y qué los aleja?"
-  - "¿Qué pidieron pey y AI Builders en el hackatón del 7 de noviembre?"
   - "¿Qué falta confirmar con pey y con los organizadores?"
 actualizado: 2026-11-14
 confianza: media
-fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64, SF01]
+fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64]
 ---
 
 # K01 · Hackatón México y el ecosistema de pey
 
-> Reunido el 2026-11-14 a partir de la base de `~/HackathonOpenAi` (K01.10, K02 y K03.2 de ese repo). Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se reconsultaron**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
+> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
 
 ## TL;DR
 
 - **Hackatón México** (hackatonmexico.com): del 14 de noviembre al 12 de diciembre de 2026, con CoDi y la API de pey; individual o en equipo; más de 1 millón de pesos en premios, créditos y recursos; lo organizan AI Builders México, pey y SpaceXAI; entregas el 12-dic y resultados el 14-dic [SA03][SB37]. ⚪ Bases, criterios, jurado y herramientas permitidas: no verificados.
 - **pey** es una API CoDi autoservicio, gratuita «por el momento», que funciona con cualquier banco y deposita directo en la cuenta del comercio. Se presenta como certificada por Banxico y quiere ser el procesador de pagos de los negocios informales [SB01][SB03][SA12][SB38].
-- **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03][SF01].
-- **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K06.4).
+- **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03].
+- **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K04.4).
 - **Los aleja:** cobro simulado sin decirlo, IA decorativa o que decide montos, datos inventados, llaves expuestas y afirmaciones falsas sobre la ley (K01.6).
 
 ## K01.1 · Hackatón México: lo que se sabe (al 7-nov-2026)
@@ -195,9 +192,8 @@ fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41
 
 - ⚪ No está claro si el arranque presencial del "Cursor Hackatón México" del 14-nov es el inicio del mismo Hackatón México o un evento aparte. La fuente los lista por separado.
 - El día de resultados (14-dic) coincide con la fecha límite de Banxico para que los bancos homologuen sus apps, incluido el pago de mensajes de cobro CoDi (K02.5).
-- Antecedente: el 7-nov-2026, AI Builders México y pey ya habían apoyado un hackatón comunitario en la CDMX con el mismo eje (OpenAI + CoDi vía pey). Lo que pidieron ahí está en K01.7.
 
-**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, si se permite código previo y si es presencial o en línea (K01.8).
+**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, qué se permite traer de antes del arranque y si es presencial o en línea (K01.7).
 
 ## K01.2 · Quién organiza: AI Builders México y SpaceXAI
 
@@ -241,15 +237,15 @@ fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41
 - Cobrar con tarjeta cuesta a los negocios hasta 1.91 % con crédito y 1.15 % con débito. El promedio en México es 1.36 %, frente a cerca de 0.2 % en otros países. CoDi transfiere al instante entre cuentas con QR o NFC, sin comisiones y a cualquier hora, pero requiere internet y una app bancaria compatible [SA40].
 - El 85.2 % de las personas usa efectivo en compras menores a 500 pesos (dato de la CNBV citado por El Cronista) [SA41].
 - En 2022 Banxico reportaba más de 14 millones de cuentas validadas en CoDi, pero solo un poco más de 1 millón con al menos un pago. Se mencionaban como causas el lanzamiento en pandemia y la desconfianza [SA42].
-- Cifras más recientes (sep-2025: 21.8 M de cuentas validadas, 2.47 M han pagado y 1.08 M han cobrado), costo de las tarjetas por giro y causas: K06.3, K06.4 y [codi/07](../codi/07-cifras-de-uso.md).
+- Cifras más recientes (sep-2025: 21.8 M de cuentas validadas, 2.47 M han pagado y 1.08 M han cobrado), costo de las tarjetas por giro y causas: K04.3, K04.4 y [codi/07](../codi/07-cifras-de-uso.md).
 
 **Recomendación:** ataca la adopción: fricción, desconfianza y hábito del efectivo. Eso toca el dolor real que AI Builders y pey quieren resolver: alta del comercio en minutos, confirmación de pago clara para quien cobra y para quien paga, conciliación automática y explicaciones en español sencillo.
 
 ## K01.5 · Lo que conquista
 
 Síntesis; las fuentes van en cada punto:
-- Un problema real de un comercio o servicio mexicano, del que sea, dicho en una frase [SF01].
-- Una solución creativa [SF01].
+- Un problema real de un comercio o servicio mexicano, del que sea, dicho en una frase.
+- Una solución creativa.
 - Cobro CoDi de punta a punta con pey, confirmado por pey (webhook con firma válida o consulta de estado) [SB01] (K03.4, K03.5).
 - IA con un papel necesario y acotado: el código determinista maneja montos y estados, el modelo interpreta y explica y la persona confirma. Es el patrón de los ganadores de OpenAI Build Week [SA45].
 - Narrativa de comisión 0 % y dinero directo al comercio [SA03][SB37].
@@ -272,23 +268,13 @@ Síntesis de riesgos; las fuentes van en cada punto:
 
 **Recomendación:** antes de entregar, revisa esta lista contra el repo y la demo, y corrige cualquier punto en rojo antes de pulir lo visual.
 
-## K01.7 · Antecedente: lo que pidieron pey y AI Builders el 7 de noviembre
-
-En el arranque del hackatón comunitario del 7-nov-2026 en la CDMX (organizado por AI Builders México con pey), según notas tomadas en persona (no hay versión escrita) [SF01]:
-- La solución debe ser creativa.
-- Hay que ir de la mano con la nueva ley de pagos digitales y aprovecharla.
-- El objetivo es desarrollar la aplicación de un servicio, del que sea, que integre la API de pey.
-- Se puede usar Claude además de las herramientas de OpenAI.
-
-Lectura (inferencia ⚪): la prioridad de pey y AI Builders es la integración real de la API de pey, y "un servicio, del que sea" abre el reto más allá de las tiendas. ⚪ Eso se dijo para el evento del 7-nov: no asumas que aplica igual al Hackatón México.
-
-## K01.8 · Preguntas abiertas (⚪)
+## K01.7 · Preguntas abiertas (⚪)
 
 **A los organizadores del Hackatón México**
 1. Bases, criterios de evaluación con sus pesos, y jurado.
 2. Herramientas exigidas o permitidas (¿Cursor, OpenAI, Claude, SpaceXAI/Grok?) y cómo quieren la evidencia de uso.
 3. Formato y lugar de la entrega: repo, demo desplegada, video (¿duración?), presentación o formulario.
-4. ¿Se permite código previo? ¿Puede continuar un proyecto iniciado el 7-nov?
+4. ¿Qué se permite traer de antes del arranque del 14-nov (código, investigación, diseños) y cómo hay que declararlo?
 5. ¿Es presencial, en línea o mixto? ¿En qué ciudades? ¿Hay mentorías o demo day?
 6. Elegibilidad, reparto de premios y créditos, y política de datos de comercios reales.
 
@@ -331,7 +317,6 @@ Lectura (inferencia ⚪): la prioridad de pey y AI Builders es la integración r
 | SB37 | Merca2.0: Pey, AI Builders México y SpaceXAI realizarán hackatón de pagos digitales (noviembre 2026) | https://www.merca20.com/pey-ai-builders-mexico-y-spacexai-realizaran-hackaton-de-pagos-digitales-en-mexico/ | 2026-11-06 |
 | SB38 | InformaBTL: el 14 de diciembre cambiarán las transferencias; Pey apuesta por pagos QR sin comisiones (noviembre 2026) | https://www.informabtl.com/pagos-qr-mexico-14-diciembre-2026-pey-codi/ | 2026-11-06 |
 | SD64 | DOF · Ley de Economía Digital: texto y transitorios | https://sidof.segob.gob.mx/notas/docFuente/5803017 | 2026-11-07 |
-| SF01 | Arranque del hackatón comunitario del 7-nov-2026, notas tomadas en persona | (sin URL; no público) | 2026-11-07 |
 
 (previo) = dato verificado antes de la sesión del 6-nov y no reconsultado.
 
@@ -355,7 +340,7 @@ fuentes: [SA43, SD01, SD02, SD64]
 
 # K02 · Ley de pagos digitales y plazo del 14-dic
 
-> Reunido el 2026-11-14 a partir de K00.4 y K01.10 de `~/HackathonOpenAi`. Las fuentes se leyeron el 2026-11-06 y el 2026-11-07 y **no se reconsultaron**. No es asesoría legal. El detalle de las circulares de Banxico está en [codi/06](../codi/06-regulacion-y-plazos.md).
+> Investigación previa al arranque. Las fuentes se leyeron el 2026-11-06 y el 2026-11-07 y **no se han reconsultado**. No es asesoría legal. El detalle de las circulares de Banxico está en [codi/06](../codi/06-regulacion-y-plazos.md).
 
 ## TL;DR
 
@@ -396,7 +381,7 @@ fuentes: [SA43, SD01, SD02, SD64]
 
 - El 14 de diciembre de 2026 vence el plazo para que los participantes del SPEI cumplan las Circulares 9/2026 y 10/2026 de Banxico, que homologan las transferencias desde el celular. La 9/2026 incluye procesar los mensajes de cobro de CoDi y fija ese plazo en su segundo transitorio [SD01][SD02].
 - Según la prensa, antes de esa fecha los bancos deben permitir recibir transferencias con el número de celular, y la CLABE sigue funcionando [SA43].
-- La 9/2026 ya rige desde el 18-jun-2026: el 14-dic es la fecha límite para cumplir, no la "entrada en vigor" [SD01]. Detalle por numeral, Guías de homologación y línea de tiempo: [codi/06](../codi/06-regulacion-y-plazos.md). Qué deberán tener todas las apps: K06.5.
+- La 9/2026 ya rige desde el 18-jun-2026: el 14-dic es la fecha límite para cumplir, no la "entrada en vigor" [SD01]. Detalle por numeral, Guías de homologación y línea de tiempo: [codi/06](../codi/06-regulacion-y-plazos.md). Qué deberán tener todas las apps: K04.5.
 - Ese mismo día salen los resultados del Hackatón México (K01.1).
 
 ## K02.6 · Cómo usarla en el producto y el pitch
@@ -425,7 +410,7 @@ fuentes: [SA43, SD01, SD02, SD64]
 ---
 id: K03
 titulo: "CoDi y API de Pey"
-resumen: "Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos probados en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro."
+resumen: "Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos de referencia en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro."
 responde:
   - "¿Qué es CoDi y cómo paga un cliente con QR o con notificación?"
   - "¿Qué es Pey, cuánto cuesta su API CoDi y a dónde llega el dinero?"
@@ -495,7 +480,7 @@ Todo pasa en `portal.mipey.mx` [SB07][SB08]:
 4. **Webhook**: engrane de la llave → URL → crear; guarda el secreto de firma (rotable). Un webhook por llave [SB08].
 5. **Secretos** en Vercel y Codespaces: `PEY_API_KEY` y `PEY_WEBHOOK_SECRET`. Nunca en el repo.
 
-**Entornos.** Pey solo documenta producción (`https://api.pey.mx`); el entorno de pruebas está "próximamente" [SB09][SB10]. La landing menciona llaves de prueba y de producción [SB01], pero la referencia técnica no (⚪ pregúntalo a Pey en el evento). Por eso no conviene una variable `PEY_ENV`: la URL base es siempre la de producción. **Recomendación:** lo que sí debe verse en pantalla es el modo de cobro (simulación, prueba con monto mínimo o cobro real); en el repo anterior se llamaba `MODO_PAGO`.
+**Entornos.** Pey solo documenta producción (`https://api.pey.mx`); el entorno de pruebas está "próximamente" [SB09][SB10]. La landing menciona llaves de prueba y de producción [SB01], pero la referencia técnica no (⚪ pregúntalo a Pey en el evento). Por eso no conviene una variable `PEY_ENV`: la URL base es siempre la de producción. **Recomendación:** lo que sí debe verse en pantalla es el modo de cobro (simulación, prueba con monto mínimo o cobro real), por ejemplo con una variable `MODO_PAGO`.
 
 **Recomendación:** antes de la demo, activa CoDi en la app bancaria con la que pagarás (algunos bancos validan con un depósito de un centavo y un SMS) [SB34], paga $0.01 de punta a punta con el `curl` de abajo y graba la pantalla. Con la cuenta de prueba, pon en el servidor un tope de monto bajo (en pruebas, $0.01 a $1).
 
@@ -607,15 +592,15 @@ Código del handler: K03.7.
 
 **Recomendación:** pregunta a los mentores de Pey si hay llaves o entorno especial para el hackatón (⚪ no verificado). La documentación del 2026-11-07 tampoco resuelve límite de peticiones, idempotencia de creación, reintentos y orden de webhooks ni requisitos para dar de alta comercios reales: pregúntalos también [SB10][SB16].
 
-## K03.7 · Ejemplos mínimos en Node.js 20+ (probados)
+## K03.7 · Ejemplos mínimos en Node.js 20+ (de referencia)
 
-> Revisión 2026-11-07: los ejemplos históricos no son un checkout completo. Antes de producción, asociar el QR a un pedido del servidor y validar monto, moneda y destinatario; no basta encontrar cualquier PAID. La corrección de 404 a no_verificable es documental y no se ha ejecutado como aplicación. Si hay efectos de negocio, deduplica `webhook-id` y `transactionId` en almacenamiento persistente (la memoria de una función serverless no dura) y no repitas una creación tras un timeout sin reconciliar: pey no documenta idempotencia (⚪).
+> Revisión 2026-11-07: estos ejemplos no son un checkout completo. Antes de producción, asociar el QR a un pedido del servidor y validar monto, moneda y destinatario; no basta encontrar cualquier PAID. Tratar un 404 como `no_verificable` es una decisión documental: no se ha ejecutado como aplicación. Si hay efectos de negocio, deduplica `webhook-id` y `transactionId` en almacenamiento persistente (la memoria de una función serverless no dura) y no repitas una creación tras un timeout sin reconciliar: pey no documenta idempotencia (⚪).
 
 Node 20+ ya trae `fetch`. Vercel crea una función por archivo dentro de `api/`; exportas `GET` o `POST`, que reciben un `Request` web. Para módulos ES usa `.mjs` o `"type": "module"` en el `package.json` más cercano [SB41]. No encontré un SDK oficial de Pey (⚪ no verificado). Pey sugiere los SDK de Standard Webhooks [SB16]; aquí se usa `node:crypto` para no depender de nada [SB40].
 
-Las rutas son las de un prototipo anterior (`app/` era la raíz en Vercel): adáptalas a la estructura de este proyecto. Si el proyecto ya tiene helpers de respuesta y configuración, úsalos en lugar de los de aquí. La UI no necesita base de datos: hace polling a `/api/estado?id=…`, que consulta a Pey. El webhook sirve para bitácora o automatizaciones.
+Las rutas son de ejemplo (`app/` como raíz del proyecto en Vercel): adáptalas a la estructura que elija el proyecto. Si el proyecto ya tiene helpers de respuesta y configuración, úsalos en lugar de los de aquí. La UI no necesita base de datos: hace polling a `/api/estado?id=…`, que consulta a Pey. El webhook sirve para bitácora o automatizaciones.
 
-Evidencia: estos archivos pasaron 9 pruebas con `fetch` simulado en Node 22.23 (las 2 del extracto de abajo incluidas), con el vector de ejemplo de Svix para la firma y una llamada HTTP real del script de simulación al handler. En esa versión, `node --test app/tests/` (carpeta) falló con `MODULE_NOT_FOUND`; funcionaron `node --test "app/tests/*.test.js"` y `node --test` dentro de `app/` (lo que corre `npm test --prefix app`).
+⚪ Estos ejemplos todavía no se han ejecutado en este repo. Al copiarlos al proyecto, corre primero sus pruebas (el extracto de abajo usa `fetch` simulado; para la firma, compara con el vector de ejemplo de Svix [SB40]) y solo después prueba con dinero real ($0.01 a $1, K03.3). Corre las pruebas con `node --test "app/tests/*.test.js"` o con `npm test --prefix app`.
 
 ```js
 // app/api/_lib/pey.js: cliente mínimo de la API CoDi de Pey (Node.js 20+, ESM, sin dependencias).
@@ -1090,12 +1075,12 @@ Fuentes revisadas por primera vez hoy: [SB48] a [SB57]. El changelog no tiene en
 
 <!-- ===== FIN: conocimiento/03-codi-y-api-pey.md ===== -->
 
-<!-- ===== INICIO: conocimiento/06-contexto-pagos-y-comercios-mx.md ===== -->
+<!-- ===== INICIO: conocimiento/04-contexto-pagos-y-comercios-mx.md ===== -->
 
 ---
-id: K06
+id: K04
 titulo: "Contexto: pagos, comercios y personas en México"
-resumen: "Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y Coyoacán; léelo al definir problema, 'por qué ahora', personas y datos del pitch."
+resumen: "Cifras verificadas (INEGI, Banxico, DOF, Condusef y prensa seria) sobre efectivo, informalidad, costo de cobrar con tarjeta, uso real de CoDi, lo que cambia el 14-dic-2026, fraude, brecha digital y la CDMX; léelo al definir problema, 'por qué ahora', personas y datos del pitch."
 responde:
   - "¿Qué tan dominante es el efectivo en México y hacia dónde va?"
   - "¿Qué tan grande es la informalidad y cuántos negocios son micro?"
@@ -1104,15 +1089,14 @@ responde:
   - "¿Qué cambia exactamente el 14 de diciembre de 2026 y qué es la Ley de Economía Digital?"
   - "¿Qué fraudes frenan los pagos digitales y cómo diseñar confianza en un producto?"
   - "¿Qué barreras digitales tienen las personas mayores y qué canal conviene usar?"
-  - "¿Qué hay en la Utopía Elena Poniatowska, Coyoacán y la CDMX que sirva al producto?"
+  - "¿Qué datos de la CDMX (mercados, tianguis, personas mayores, programas) sirven al producto?"
   - "¿Qué personas, datos y oportunidades de IA + CoDi usar en el pitch?"
 actualizado: 2026-11-07
 confianza: media
-nota: "Recuperado el 2026-11-14 del historial de ~/HackathonOpenAi (commit anterior a 85f4b31). Se escribió para el hackatón del 7-nov en Coyoacán; K06.8 y la columna 'en 4 h' de K06.11 son de ese contexto."
-fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12, SD13, SD14, SD15, SD16, SD17, SD18, SD19, SD20, SD21, SD22, SD23, SD24, SD25, SD26, SD27, SD28, SD29, SD30, SD31, SD32, SD33, SD34, SD35, SD36, SD37, SD38, SD39, SD40, SD41, SD42, SD43, SD44, SD45, SD46, SD47, SD48, SD49, SD50, SD51, SD52, SD53, SD54, SD55, SD56, SD57, SD58, SD59, SD60, SD61, SD62, SD63]
+fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12, SD13, SD14, SD15, SD16, SD17, SD18, SD19, SD20, SD21, SD22, SD23, SD24, SD25, SD26, SD27, SD28, SD29, SD30, SD31, SD32, SD33, SD34, SD35, SD36, SD37, SD38, SD39, SD40, SD41, SD42, SD43, SD44, SD45, SD46, SD47, SD48, SD49, SD53, SD54, SD55, SD56, SD57, SD58, SD59, SD60, SD61, SD62, SD63]
 ---
 
-# K06 · Contexto: pagos, comercios y personas en México
+# K04 · Contexto: pagos, comercios y personas en México
 
 ## TL;DR
 - **El efectivo manda en lo cotidiano:** ~85 % de los adultos usa sobre todo efectivo en compras de hasta $500 y solo 4.4 % usa transferencias o apps (2024) [SD10, SD18].
@@ -1122,7 +1106,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 - **Por qué ahora:** a más tardar el **14-dic-2026** todas las apps bancarias deben homologar sus transferencias (celular de 10 dígitos, resumen con nombre del beneficiario, comprobante con rastreo) y procesar los cobros CoDi con el mismo estándar [SD01, SD03, SD06]; además, el Congreso aprobó la Ley de Economía Digital (oct-2026) [SD10, SD11].
 - **La confianza es el cuello de botella:** 2.48 M reclamaciones por posible fraude en un semestre (2025) [SD38] y 39 % no cree que su dinero esté seguro en el banco (2024) [SD18]. Gana el producto que confirma el pago real, entrega recibo y habla por WhatsApp o voz.
 
-## K06.1 · Efectivo vs. pagos digitales en México
+## K04.1 · Efectivo vs. pagos digitales en México
 **Cuánto se usa el efectivo (ENIF 2024, INEGI-CNBV, publicada en marzo de 2025)**
 - Compras de hasta $500: ~85 % de los adultos usa sobre todo efectivo (85.2 % según [SD10]; 85.3 % según [SD18]). Compras mayores a $500: 73.5 % [SD18].
 - Transferencias o apps en compras de hasta $500: de 1.6 % (2021) a 4.4 % (2024) [SD10]. En compras mayores a $500 subieron 4.8 puntos frente a 2021 [SD16].
@@ -1139,7 +1123,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 
 **Recomendación (lectura para el pitch):** la gente ya se transfiere dinero entre personas; el "último metro" (pagar en el puesto, la fonda o al prestador de servicios) sigue en efectivo.
 
-## K06.2 · Economía informal y micronegocios
+## K04.2 · Economía informal y micronegocios
 **Informalidad laboral (ENOE, INEGI, septiembre de 2026; publicada el 22-oct-2026)** [SD20]
 - Tasa de informalidad laboral (TIL1): **54.3 %** de la población ocupada, es decir, **32.6 millones** de personas.
 - Ocupación en el sector informal (negocios de los hogares sin registro): 17.6 millones (29.4 %).
@@ -1152,12 +1136,12 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 - La Asociación de Bancos de México (ABM) ubica a los micronegocios en 95.5 % de las empresas y 41.5 % del empleo (2026) [SD37].
 
 **Implicaciones**
-- Para quien no está inscrito en el SAT, la nueva cuenta Nivel 2 Bis (sin RFC; ver K06.5) baja la barrera para recibir pagos digitales [SD09].
+- Para quien no está inscrito en el SAT, la nueva cuenta Nivel 2 Bis (sin RFC; ver K04.5) baja la barrera para recibir pagos digitales [SD09].
 - El segmento coincide con la visión de Pey de procesar pagos de negocios informales (contexto del evento; ⚪ no verificado de forma externa).
 
 **Recomendación:** frente a usuarios y jueces, hablar de "negocios de barrio" o "changarros" en lugar de "informales", porque "informal" puede sonar a ilegal.
 
-## K06.3 · Costo de cobrar con tarjeta para un comercio pequeño
+## K04.3 · Costo de cobrar con tarjeta para un comercio pequeño
 **Tasa de descuento** (lo que paga el comercio por cada venta; Banxico la publica por giro)
 - Miscelánea con **débito**, julio de 2026: de **1.15 %** a **3.95 %** según el adquirente; Clip 3.00–3.60 %; varios agregadores 3.50 % [SD24, SD25]. ⚪ No verifiqué si incluyen IVA.
 - Con **crédito** (tabla por giro; ⚪ periodo no indicado, archivo de 2025; confianza media): restaurantes 2.55–5.84 %; misceláneas 2.29–3.60 % [SD63].
@@ -1176,7 +1160,7 @@ fuentes: [SD01, SD02, SD03, SD04, SD05, SD06, SD07, SD08, SD09, SD10, SD11, SD12
 
 **Recomendación:** en el pitch, traducir porcentajes a pesos del día ("$40 diarios que se quedan en tu bolsa").
 
-## K06.4 · CoDi: adopción real y por qué no despegó
+## K04.4 · CoDi: adopción real y por qué no despegó
 CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para cobrar con QR o NFC sobre SPEI y sin comisión; su meta era 18.1 M usuarios en 2020 [SD33, SD31, SD01].
 
 **Números**
@@ -1193,7 +1177,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **Recomendación:** no vender "CoDi", sino el beneficio: "cobra sin comisión y sabe al instante que ya te pagaron".
 
-## K06.5 · Qué cambia el 14 de diciembre de 2026
+## K04.5 · Qué cambia el 14 de diciembre de 2026
 **Qué es:** la **fecha límite** para que bancos y participantes del SPEI cumplan las Circulares 9/2026 y 10/2026 de Banxico (DOF, 17-jun-2026) y sus Guías de homologación de transferencias móviles [SD01, SD02, SD09]. La 9/2026 ya rige; el 14-dic es su plazo de cumplimiento (segundo transitorio) [SD01], no la entrada en vigor de una ley.
 
 **Qué deberán tener todas las apps**
@@ -1208,7 +1192,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **Recomendación (por qué ahora):** ayudar al comercio a adoptar cobros digitales; distinguir el plazo bancario del 14-dic de las reglas sectoriales pendientes. El plazo normativo no demuestra implementación efectiva en todas las apps.
 
-## K06.6 · Fraude y desconfianza
+## K04.6 · Fraude y desconfianza
 **Datos (Condusef y ENIF)**
 - Ene–jun 2025: 2.48 M reclamaciones por posible fraude (+5.2 % anual): $10,714 millones reclamados y $2,556 millones devueltos (≈24 %, cálculo propio); el fraude digital supera 60 % de las quejas [SD38].
 - Ene–sep 2025: 3.82 M reclamaciones (~14 mil diarias); las personas de 60 años o más suman 32 % de las quejas por posible fraude (⚪ año del dato no indicado) [SD39].
@@ -1230,7 +1214,7 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 4. Anunciar en voz alta: "Cobro de $85 para Frutas Lupita".
 5. Botón "¿Ya me pagaron?" que consulte el estado real.
 
-## K06.7 · Brecha digital: personas mayores, voz y WhatsApp
+## K04.7 · Brecha digital: personas mayores, voz y WhatsApp
 **Conectividad (ENDUTIH 2025, INEGI, publicada el 16-jun-2026)**
 - 86.1 % de las personas de 6 años o más usa internet (104.9 M); urbano 88.9 % y rural 75.2 %; 84.6 % usa celular [SD44]. 97.3 % de los usuarios se conecta con smartphone [SD45].
 - Por edad: 55–64 años, 78.8 %; 65–74 años, 57.8 %; 75 o más, 30.3 % [SD45].
@@ -1244,37 +1228,32 @@ CoDi (Cobro Digital) es la plataforma de Banxico, lanzada el 30-sep-2019, para c
 
 **WhatsApp y voz**
 - WhatsApp es la plataforma más usada: 95.3 % de los usuarios (reporte Digital 2024 citado por la prensa; ⚪ base exacta no verificada) [SD46].
-- ⚪ No encontré un dato verificado sobre preferencia por notas de voz en México; conviene validarlo observando a usuarios en el evento.
+- ⚪ No encontré un dato verificado sobre preferencia por notas de voz en México; conviene validarlo observando a usuarios reales.
 
 **Recomendación:** canal WhatsApp + voz; una sola acción por pantalla; letra grande; confirmación hablada ("ya llegó tu dinero"); opción de mandar copia del recibo a un familiar.
 
-## K06.8 · Contexto local: Coyoacán, Barrio de San Lucas y la Utopía
-**Utopía Elena Poniatowska Amor**
-- Av. Miguel Hidalgo 128, Barrio de San Lucas, Coyoacán [SD50]. Abrió en agosto de 2026 con 242 MDP de inversión en ~20,000 m² del predio "El Parián", abandonado más de 20 años [SD50, SD51, SD52]. San Lucas es un barrio originario [SD52].
-- Servicios: comedor, lavandería, CADI, Casa de Día para personas mayores, consultorios gratuitos, centro comunitario para Parkinson, alberca semiolímpica, gimnasio, Museo Coyote, centro de transformación digital (150 computadoras e impresoras 3D), tortillería de maíz nativo y agencia de empleo [SD50, SD51].
-- Alcance estimado: ~130 mil habitantes de al menos 17 colonias [SD50, SD52].
-
-**Coyoacán**
-- 22 mercados públicos (2025) [SD53].
-- 14.7 % de sus habitantes tiene 65 años o más, la proporción más alta entre alcaldías (nota de 2024; ⚪ fuente primaria no indicada) [SD54].
-
-**CDMX**
+## K04.8 · Contexto local: CDMX
+**Mercados, tianguis y programas**
 - 339 mercados públicos donde trabajan ~300 mil personas (2025) [SD55]; 1,367 tianguis (Sedeco, 2024) [SD56] con ~50 mil tianguistas [SD57].
 - Mercomuna (vales de despensa canjeables en comercios de barrio): 335 mil familias en 2025 y más de 30 mil comercios registrados (dic-2025); meta de 700 mil familias en 2026 [SD58, SD59]. ⚪ Formato del vale y pago al comercio: no verificados.
 - 2021: Sedeco y Mercado Pago anunciaron tarjeta y QR en 335 mercados y 51 tianguis, con meses sin comisión; ⚪ no encontré resultados [SD60].
 - ⚪ No encontré un programa vigente de la CDMX para que comercios cobren con CoDi.
 
-**Usuarios potenciales cerca:** personas mayores de la Casa de Día, jóvenes del centro digital (posibles "embajadores"), familias del comedor y la lavandería, y comercios de la zona (⚪ mercados cercanos no verificados).
+**Ejemplo de alcaldía: Coyoacán**
+- 22 mercados públicos (2025) [SD53].
+- 14.7 % de sus habitantes tiene 65 años o más, la proporción más alta entre alcaldías (nota de 2024; ⚪ fuente primaria no indicada) [SD54].
 
-## K06.9 · Personas (situaciones típicas; personas ficticias)
+**Recomendación:** si el producto apunta a mercados y tianguis, valida el problema con comercios reales antes de construir; las cifras de arriba sirven para dimensionar, no para describir a un usuario concreto.
+
+## K04.9 · Personas (situaciones típicas; personas ficticias)
 | Persona | Dolores | Trabajos por hacer | Momento de pago |
 |---|---|---|---|
 | **Tianguista de fruta** (vende 3 días a la semana en distintos tianguis) | Montos chicos ($20–$150, ilustrativo); terminal cara para su volumen (débito hasta 3.95 % [SD24]); "ya te transferí" con captura [SD41]; señal intermitente | Cobrar en segundos, saber que sí llegó, cuadrar la venta del día | Fila de cuatro clientes; uno pregunta "¿le transfiero?" y enseña su pantalla |
 | **Fonda familiar** (menú del día, clientes oficinistas) | Clientes sin efectivo; con crédito un restaurante paga hasta 5.84 % (⚪ periodo) [SD63]; cuentas divididas; pedidos por WhatsApp | Cobrar mesas y pedidos para llevar, cerrar caja sin errores | Al terminar la comida, varios pagan por separado al mismo tiempo |
 | **Prestadora de servicios a domicilio** (limpieza, uñas o costura) | Comprobante falso o reversa cuando ya se fue [SD41]; sin RFC; "luego te pago" | Mandar el cobro antes o al terminar, recordar pendientes, demostrar ingresos (cuenta Nivel 2 Bis [SD09]) | En la puerta, al terminar el servicio |
-| **Cliente adulto mayor** (usuario de la Casa de Día) | Cobra su pensión en tarjeta [SD49]; casi no usa apps (~10 % de 60+ [SD47]); miedo al fraude (32 % de quejas [SD39]); depende de sus hijos | Pagar sin equivocarse, saber a quién y cuánto paga, tener un comprobante que entienda | En el puesto, sin lentes y con el vendedor apurado |
+| **Cliente adulto mayor** (jubilada, compra en el mercado de su colonia) | Cobra su pensión en tarjeta [SD49]; casi no usa apps (~10 % de 60+ [SD47]); miedo al fraude (32 % de quejas [SD39]); depende de sus hijos | Pagar sin equivocarse, saber a quién y cuánto paga, tener un comprobante que entienda | En el puesto, sin lentes y con el vendedor apurado |
 
-## K06.10 · Diez datos para el pitch
+## K04.10 · Diez datos para el pitch
 Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la prensa.
 1. ~85 % de los adultos usa sobre todo efectivo en compras de hasta $500 — ENIF 2024 [SD10, SD18].
 2. Solo 4.4 % usa transferencias o apps en esas compras (1.6 % en 2021) — ENIF 2024 [SD10].
@@ -1289,10 +1268,10 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 
 **Recomendación:** abrir con los datos 1, 6 y 10 (problema, paradoja y urgencia) y cerrar con el 5 traducido a pesos.
 
-## K06.11 · Oportunidades donde IA + CoDi resuelven algo real
-**Recomendación:** ordenadas por impacto y factibilidad en 4 horas (el formato del hackatón del 7-nov; el Hackatón México dura semanas, K01.1). Lo técnico de pey sale de K03; lo de voz e IA venía de un archivo de OpenAI (K04 del repo anterior) que no se trajo a esta base. No lo verifiqué aparte.
+## K04.11 · Oportunidades donde IA + CoDi resuelven algo real
+**Recomendación:** ordenadas por impacto y por factibilidad para un primer demo funcional (el Hackatón México dura cuatro semanas, K01.1). Lo técnico de pey sale de K03. ⚪ Lo de voz e IA no está verificado en esta base: el proveedor de IA está por definir.
 
-| # | Idea | Dolor (dato) | Impacto | Factible en 4 h | Dependencias |
+| # | Idea | Dolor (dato) | Impacto | Factibilidad | Dependencias |
 |---|---|---|---|---|---|
 | 1 | **"Cóbrale" por voz o WhatsApp:** dictas "cóbrale 85 de jitomate"; la IA arma el cobro CoDi (QR dinámico) y avisa "ya llegó" con recibo | Comisión de tarjeta [SD24]; no saber usar apps [SD45] | Alto | Alta | QR + webhook de Pey (K03.4, K03.5); voz (⚪ proveedor de IA por definir) |
 | 2 | **Detector de comprobante falso:** la IA lee monto y clave de rastreo de la captura y los compara con cobros confirmados | Comprobantes falsos [SD41]; fraude [SD38] | Alto | Alta (solo cobros propios) | Estado y `trackingKey` en Pey (K03.4) |
@@ -1301,7 +1280,7 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 | 5 | **Alta guiada:** la IA explica Nivel 2 Bis, alta del celular y primer cobro de prueba | Registro engorroso [SD35, SD36] | Medio | Media | ⚪ oferta de Nivel 2 Bis por banco |
 | 6 | **Cobro a domicilio:** cobro al celular del cliente, QR o liga por WhatsApp + recordatorio | "Luego te pago" | Medio | Media | `POST /codi/pn`, vigencia y liga de pago (K03.4, K03.5); ⚪ requisitos del celular del cliente |
 
-**Recomendación de MVP:** unir 1 + 2 + 3: dictar → QR → un juez paga con su app → "ya llegó" en voz → recibo. Pey no tiene sandbox (K03.6): si algo falla, plan B de K03.6 con "SIMULACIÓN" visible (AGENTS.md). Fuera de alcance: terminales, NFC, crédito y facturación.
+**Combinación candidata (por validar antes de elegir la idea):** unir 1 + 2 + 3: dictar → QR → un juez paga con su app → "ya llegó" en voz → recibo. Pey no tiene sandbox (K03.6): si algo falla, plan B de K03.6 con "SIMULACIÓN" visible (AGENTS.md). Fuera de alcance: terminales, NFC, crédito y facturación.
 
 ## Fuentes
 | ID | Título | URL | Consultado |
@@ -1355,9 +1334,6 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 | SD47 | Xataka México · México quiere despedirse del efectivo en carreteras y gasolineras (27-abr-2026) | https://www.xataka.com.mx/politica/mexico-quiere-despedirse-efectivo-carreteras-gasolineras-problema-que-millones-necesitan/amp | 2026-11-06 |
 | SD48 | Xataka México · Solo 4 de cada 10 personas pagan con tarjeta o transferencia (28-nov-2025) | https://www.xataka.com.mx/banca-digital/solo-4-cada-10-personas-mexico-pagan-tarjeta-transferencia-motivo-claro-no-confian-instituciones | 2026-11-06 |
 | SD49 | UnoTV · Pensión del Bienestar 2026: 6,400 pesos (19-ene-2026) | https://www.unotv.com/pensiones/pension-del-bienestar-2026-apellidos-que-reciben-6400-pesos-del-19-al-23-de-enero/ | 2026-11-06 |
-| SD50 | Chilango · Utopía Elena Poniatowska abre en Coyoacán: servicios (ago-2026) | https://www.chilango.com/ciudad/utopia-elena-poniatowska-amor-abre-sus-puertas-en-coyoacan-estos-servicios-ofrecera/ | 2026-11-06 |
-| SD51 | La Crónica · Abre en Coyoacán la Utopía Elena Poniatowska con inversión de 242 mdp (9-ago-2026) | https://www.cronica.com.mx/metropoli/2026/08/09/abre-en-coyoacan-la-utopia-elena-poniatowska-con-inversion-de-242-mdp/ | 2026-11-06 |
-| SD52 | Diario de México · Utopía Elena Poniatowska Amor, inaugurada en Coyoacán (9-ago-2026) | https://www.diariodemexico.com/mi-ciudad/abandono-esperanza-es-utopia-elena-poniatowska-amor-inaugurada-por-clara-brugada-en-coyoacan | 2026-11-06 |
 | SD53 | Alcaldía Coyoacán · Boletín 037, inversión en mercados (22-ene-2025) | https://coyoacan.cdmx.gob.mx/boletines/files/2024_2027/BOLET%C3%8DN%20037%20COYOAC%C3%81N%2C%20QUIEN%20M%C3%81S%20INVIERTE%20EN%20MEJORAMIENTO%20DE%20MERCADOS%20-%2022ENE25.pdf | 2026-11-06 |
 | SD54 | Expansión Política · BJ, Coyoacán y Azcapotzalco concentran retos para población de 65+ (23-nov-2024) | https://politica.expansion.mx/cdmx/2024/11/23/bj-coyoacan-y-azcapotzalco-concentran-retos-para-poblacion-de-65-anos-y-mas | 2026-11-06 |
 | SD55 | Expansión Política · Las 14 acciones de la CDMX para mejorar los mercados (12-feb-2025) | https://politica.expansion.mx/cdmx/2025/02/12/las-14-acciones-que-emprendera-la-cdmx-para-mejorar-los-mercados | 2026-11-06 |
@@ -1371,7 +1347,7 @@ Confianza: alta en datos de INEGI, Banxico y DOF; media en cifras citadas por la
 | SD63 | Banxico · Tasas de descuento con tarjeta de crédito por giro (periodo no indicado; archivo de 2025) | https://www.banxico.org.mx/servicios/tasas-de-descuento-para-tarjetas-de-credito/%7BA896D818-3D13-4922-B54B-4B6D58E99479%7D.pdf | 2026-11-06 |
 | SD64 | DOF · Ley de Economía Digital: texto y transitorios | https://sidof.segob.gob.mx/notas/docFuente/5803017 | 2026-11-07 |
 
-<!-- ===== FIN: conocimiento/06-contexto-pagos-y-comercios-mx.md ===== -->
+<!-- ===== FIN: conocimiento/04-contexto-pagos-y-comercios-mx.md ===== -->
 
 <!-- ===== INICIO: docs/REVISION-PEY-2026-11-07.md ===== -->
 
@@ -1388,10 +1364,10 @@ Fecha: 2026-11-07. Alcance: documentación y decisiones para construir; no acred
 - [Webhooks](https://docs.pey.mx/docs/tutorials/getting-started/set-up-webhooks/): uno por llave, con secreto de firma. Verificar con Standard Webhooks antes de procesar.
 - [Pago recibido](https://docs.pey.mx/docs/webhooks/codi/qr/): codiQrId relaciona el QR y transactionId identifica la operación; datePaid usa segundos Unix. bankAccountId solo aparece cuando se proporcionó al generar el QR.
 
-## Decisiones del MVP (propuestas de ingeniería)
+## Decisiones para cualquier checkout con pey (propuestas de ingeniería)
 
 1. Crear un pedido en servidor con importe en centavos, moneda, destinatario y referencia interna. Convertir a pesos únicamente al llamar a pey.
-2. IA interpreta venta; persona confirma; servidor valida y crea el QR. La IA nunca declara un pago confirmado.
+2. Si hay IA, la IA propone el cobro; la persona confirma; el servidor valida y crea el QR. La IA nunca declara un pago confirmado.
 3. Guardar la asociación pedido–QR. Consultar pagos por QR desde el servidor o recibir webhook verificado. Comparar importe, moneda y vinculación antes de confirmar.
 4. Deduplicar webhook-id y transactionId de forma persistente si hay efectos de negocio. No confiar en memoria de una función efímera.
 5. Distinguir pendiente, confirmado, vencido local y no_verificable. Un 404 o fallo de red no demuestra que el cliente no pagó. Revisar pagos tardíos antes de cerrar una venta.
@@ -1402,18 +1378,18 @@ Fecha: 2026-11-07. Alcance: documentación y decisiones para construir; no acred
 
 - [ ] Cuenta, llave y destinatario confirmados; secretos solo en servidor.
 - [ ] QR generado, visible y utilizable desde un teléfono.
-- [ ] Pago real mínimo autorizado por José y evidencia sin datos personales.
+- [ ] Pago real mínimo autorizado por la persona responsable de la cuenta y evidencia sin datos personales.
 - [ ] Importe distinto, firma inválida y evento repetido no cierran incorrectamente una venta.
 - [ ] Error de proveedor muestra no_verificable; QR vencido permite reconciliación.
 - [ ] Demo etiquetada SIMULACIÓN cuando corresponda.
 
 ## Marco normativo y preguntas al mentor
 
-El detalle legal actualizado está en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md) (en el repo original era K00.4). No basar el pitch en una fecha obligatoria de QR aún no demostrada. Doce días desde hoy sería 19-nov-2026; falta la fuente de ese anuncio específico.
+El detalle legal actualizado está en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md). No basar el pitch en una fecha obligatoria de QR aún no demostrada (K02.4).
 
 Preguntar a pey: sandbox del evento; disponibilidad de cuenta; límites de consultas; reintentos y orden de webhooks; idempotencia de creación; alcance de consulta de pagos; plazo y requisitos para incorporar comercios reales.
 
-Prioridad de construcción: checkout QR completo y estado confiable; después interpretación con OpenAI; finalmente lectura de recibos. Registro multi-comercio y links con tarjeta quedan fuera del primer demo.
+Prioridad de construcción, sea cual sea la idea: primero el checkout QR completo con estado confiable; después, lo que distinga al proyecto. Registro multi-comercio y links con tarjeta conviene dejarlos fuera del primer demo.
 
 <!-- ===== FIN: docs/REVISION-PEY-2026-11-07.md ===== -->
 
@@ -2913,7 +2889,7 @@ Fuente: [pey: registro de cambios, Cuentas bancarias](https://docs.pey.mx/docs/c
 
 Fuente: [pey: registro de cambios, Introducción](https://docs.pey.mx/docs/changelog/introduction) · [CoDi API: especificación OpenAPI](https://docs.pey.mx/openapi.json) · consultado 2026-11-07
 
-## Diferencias frente a la síntesis previa del repo (K03, consultas del 2026-11-06)
+## Diferencias frente a K03 (consultas del 2026-11-06)
 
 - Endpoint que K03 no listaba: `GET /transaction/bank-account/{id}`.
 - Errores de links de pago que K03 no listaba: `AUTH_ERROR`, `REQUEST_PARSING_ERROR`, `INVALID_URL`, `INVALID_HAS_TIP`, `INVALID_CLIENT_REFERENCE_ID` y `FORBIDDEN` (403 por un link de otra llave, no por una llave inválida).
@@ -3030,7 +3006,7 @@ Versión de trabajo, en español de México y con redacción propia, de la docum
 
 - **Marcas:** ⚪ = no confirmado en una fuente leída hoy. "Recomendación" = decisión de ingeniería, no lo dice Banxico. Los ejemplos usan datos ficticios.
 - **Datos personales:** no se copian correos ni teléfonos de personas; solo contactos institucionales de Banxico.
-- **Relación con el resto del repo:** la API de pey está en [pey/README.md](../pey/README.md); la síntesis con código probado, en [K03](../conocimiento/03-codi-y-api-pey.md); la ley de pagos digitales y el plazo del 14-dic, en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md).
+- **Relación con el resto del repo:** la API de pey está en [pey/README.md](../pey/README.md); la síntesis con código de referencia, en [K03](../conocimiento/03-codi-y-api-pey.md); la ley de pagos digitales y el plazo del 14-dic, en [K02](../conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md).
 
 ## Resumen para quien construye (10 líneas)
 
@@ -3782,7 +3758,7 @@ Fuente: [Banco de México: CoDi® Cobro Digital](https://www.banxico.org.mx/sist
 Instrucciones para cualquier agente (Claude Code, Codex, Cursor, ChatGPT) que trabaje en este repo. Léelas completas antes de actuar.
 
 ## 1. Misión
-Construir un proyecto para el hackatón de pey. Lo más probable es el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; ⚪ bases por confirmar, K01). El problema, el alcance y el stack **están por definir**; cuando existan vivirán en `docs/PRD.md`.
+Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; ⚪ bases por confirmar, K01). El proyecto arrancó desde cero el 14-nov-2026: el problema, el alcance y el stack **están por definir** y, cuando existan, vivirán en `docs/PRD.md`.
 
 ## 2. Cómo usar la base de conocimiento
 1. Empieza por `README.md` y `conocimiento/INDICE.md` (qué archivo responde cada pregunta).
@@ -3792,9 +3768,9 @@ Construir un proyecto para el hackatón de pey. Lo más probable es el **Hackat�
 |---|---|
 | El hackatón, quién lo organiza, qué buscan pey y sus aliados, preguntas abiertas | K01 |
 | La ley de pagos digitales y el plazo bancario del 14-dic | K02 |
-| Cobros con pey (síntesis, código probado, plan B, IA como herramienta) | K03 y luego `pey/` (empieza en `pey/README.md`) |
+| Cobros con pey (síntesis, código de referencia, plan B, IA como herramienta) | K03 y luego `pey/` (empieza en `pey/README.md`) |
 | Qué es CoDi, cómo funciona, reglas de Banxico, cifras y marca | `codi/` (empieza en `codi/README.md`) |
-| Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas y datos para el pitch | K06 |
+| Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas y datos para el pitch | K04 |
 
 3. En la descripción del PR o del commit, cita los IDs que usaste ("según K03.4…").
 4. Lo marcado ⚪ no está verificado. Si necesitas un dato que no está (endpoint, campo, error, precio), **no lo inventes**: consulta la documentación oficial; si no puedes, deja `TODO(⚪): …` visible en el código y dilo.

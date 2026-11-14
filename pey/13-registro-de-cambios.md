@@ -71,7 +71,7 @@ Fuente: [pey: registro de cambios, Cuentas bancarias](https://docs.pey.mx/docs/c
 
 Fuente: [pey: registro de cambios, Introducción](https://docs.pey.mx/docs/changelog/introduction) · [CoDi API: especificación OpenAPI](https://docs.pey.mx/openapi.json) · consultado 2026-11-07
 
-## Diferencias frente a la síntesis previa del repo (K03, consultas del 2026-11-06)
+## Diferencias frente a K03 (consultas del 2026-11-06)
 
 - Endpoint que K03 no listaba: `GET /transaction/bank-account/{id}`.
 - Errores de links de pago que K03 no listaba: `AUTH_ERROR`, `REQUEST_PARSING_ERROR`, `INVALID_URL`, `INVALID_HAS_TIP`, `INVALID_CLIENT_REFERENCE_ID` y `FORBIDDEN` (403 por un link de otra llave, no por una llave inválida).

@@ -8,23 +8,22 @@ responde:
   - "¿Qué buscan AI Builders México y SpaceXAI?"
   - "¿Por qué CoDi importa y por qué no ha despegado?"
   - "¿Qué conquista a pey y a los organizadores, y qué los aleja?"
-  - "¿Qué pidieron pey y AI Builders en el hackatón del 7 de noviembre?"
   - "¿Qué falta confirmar con pey y con los organizadores?"
 actualizado: 2026-11-14
 confianza: media
-fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64, SF01]
+fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41, SA42, SA45, SA53, SA54, SB01, SB02, SB03, SB04, SB05, SB24, SB37, SB38, SD64]
 ---
 
 # K01 · Hackatón México y el ecosistema de pey
 
-> Reunido el 2026-11-14 a partir de la base de `~/HackathonOpenAi` (K01.10, K02 y K03.2 de ese repo). Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se reconsultaron**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
+> Investigación previa al arranque. Los datos se consultaron entre el 2026-11-05 y el 2026-11-07 y **no se han reconsultado**. Lo del Hackatón México viene sobre todo de un newsletter del 31-oct y de prensa: confianza **baja** hasta abrir el sitio oficial.
 
 ## TL;DR
 
 - **Hackatón México** (hackatonmexico.com): del 14 de noviembre al 12 de diciembre de 2026, con CoDi y la API de pey; individual o en equipo; más de 1 millón de pesos en premios, créditos y recursos; lo organizan AI Builders México, pey y SpaceXAI; entregas el 12-dic y resultados el 14-dic [SA03][SB37]. ⚪ Bases, criterios, jurado y herramientas permitidas: no verificados.
 - **pey** es una API CoDi autoservicio, gratuita «por el momento», que funciona con cualquier banco y deposita directo en la cuenta del comercio. Se presenta como certificada por Banxico y quiere ser el procesador de pagos de los negocios informales [SB01][SB03][SA12][SB38].
-- **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03][SF01].
-- **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K06.4).
+- **Qué buscan:** integraciones reales de la API de pey, comisión 0 %, dinero directo al comercio y herramientas con IA, hechas por builders mexicanos, que acerquen CoDi a comercios y personas [SA03].
+- **El problema de fondo es la adopción, no la tecnología:** CoDi tiene millones de cuentas validadas, pero pocas personas han pagado o cobrado con él (K01.4, K04.4).
 - **Los aleja:** cobro simulado sin decirlo, IA decorativa o que decide montos, datos inventados, llaves expuestas y afirmaciones falsas sobre la ley (K01.6).
 
 ## K01.1 · Hackatón México: lo que se sabe (al 7-nov-2026)
@@ -43,9 +42,8 @@ fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41
 
 - ⚪ No está claro si el arranque presencial del "Cursor Hackatón México" del 14-nov es el inicio del mismo Hackatón México o un evento aparte. La fuente los lista por separado.
 - El día de resultados (14-dic) coincide con la fecha límite de Banxico para que los bancos homologuen sus apps, incluido el pago de mensajes de cobro CoDi (K02.5).
-- Antecedente: el 7-nov-2026, AI Builders México y pey ya habían apoyado un hackatón comunitario en la CDMX con el mismo eje (OpenAI + CoDi vía pey). Lo que pidieron ahí está en K01.7.
 
-**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, si se permite código previo y si es presencial o en línea (K01.8).
+**Recomendación:** antes de elegir la idea, abre hackatonmexico.com y anota en este archivo las bases, los criterios, el jurado, las herramientas exigidas o permitidas, el formato de entrega, qué se permite traer de antes del arranque y si es presencial o en línea (K01.7).
 
 ## K01.2 · Quién organiza: AI Builders México y SpaceXAI
 
@@ -89,15 +87,15 @@ fuentes: [SA03, SA12, SA32, SA33, SA34, SA35, SA36, SA37, SA38, SA39, SA40, SA41
 - Cobrar con tarjeta cuesta a los negocios hasta 1.91 % con crédito y 1.15 % con débito. El promedio en México es 1.36 %, frente a cerca de 0.2 % en otros países. CoDi transfiere al instante entre cuentas con QR o NFC, sin comisiones y a cualquier hora, pero requiere internet y una app bancaria compatible [SA40].
 - El 85.2 % de las personas usa efectivo en compras menores a 500 pesos (dato de la CNBV citado por El Cronista) [SA41].
 - En 2022 Banxico reportaba más de 14 millones de cuentas validadas en CoDi, pero solo un poco más de 1 millón con al menos un pago. Se mencionaban como causas el lanzamiento en pandemia y la desconfianza [SA42].
-- Cifras más recientes (sep-2025: 21.8 M de cuentas validadas, 2.47 M han pagado y 1.08 M han cobrado), costo de las tarjetas por giro y causas: K06.3, K06.4 y [codi/07](../codi/07-cifras-de-uso.md).
+- Cifras más recientes (sep-2025: 21.8 M de cuentas validadas, 2.47 M han pagado y 1.08 M han cobrado), costo de las tarjetas por giro y causas: K04.3, K04.4 y [codi/07](../codi/07-cifras-de-uso.md).
 
 **Recomendación:** ataca la adopción: fricción, desconfianza y hábito del efectivo. Eso toca el dolor real que AI Builders y pey quieren resolver: alta del comercio en minutos, confirmación de pago clara para quien cobra y para quien paga, conciliación automática y explicaciones en español sencillo.
 
 ## K01.5 · Lo que conquista
 
 Síntesis; las fuentes van en cada punto:
-- Un problema real de un comercio o servicio mexicano, del que sea, dicho en una frase [SF01].
-- Una solución creativa [SF01].
+- Un problema real de un comercio o servicio mexicano, del que sea, dicho en una frase.
+- Una solución creativa.
 - Cobro CoDi de punta a punta con pey, confirmado por pey (webhook con firma válida o consulta de estado) [SB01] (K03.4, K03.5).
 - IA con un papel necesario y acotado: el código determinista maneja montos y estados, el modelo interpreta y explica y la persona confirma. Es el patrón de los ganadores de OpenAI Build Week [SA45].
 - Narrativa de comisión 0 % y dinero directo al comercio [SA03][SB37].
@@ -120,23 +118,13 @@ Síntesis de riesgos; las fuentes van en cada punto:
 
 **Recomendación:** antes de entregar, revisa esta lista contra el repo y la demo, y corrige cualquier punto en rojo antes de pulir lo visual.
 
-## K01.7 · Antecedente: lo que pidieron pey y AI Builders el 7 de noviembre
-
-En el arranque del hackatón comunitario del 7-nov-2026 en la CDMX (organizado por AI Builders México con pey), según notas tomadas en persona (no hay versión escrita) [SF01]:
-- La solución debe ser creativa.
-- Hay que ir de la mano con la nueva ley de pagos digitales y aprovecharla.
-- El objetivo es desarrollar la aplicación de un servicio, del que sea, que integre la API de pey.
-- Se puede usar Claude además de las herramientas de OpenAI.
-
-Lectura (inferencia ⚪): la prioridad de pey y AI Builders es la integración real de la API de pey, y "un servicio, del que sea" abre el reto más allá de las tiendas. ⚪ Eso se dijo para el evento del 7-nov: no asumas que aplica igual al Hackatón México.
-
-## K01.8 · Preguntas abiertas (⚪)
+## K01.7 · Preguntas abiertas (⚪)
 
 **A los organizadores del Hackatón México**
 1. Bases, criterios de evaluación con sus pesos, y jurado.
 2. Herramientas exigidas o permitidas (¿Cursor, OpenAI, Claude, SpaceXAI/Grok?) y cómo quieren la evidencia de uso.
 3. Formato y lugar de la entrega: repo, demo desplegada, video (¿duración?), presentación o formulario.
-4. ¿Se permite código previo? ¿Puede continuar un proyecto iniciado el 7-nov?
+4. ¿Qué se permite traer de antes del arranque del 14-nov (código, investigación, diseños) y cómo hay que declararlo?
 5. ¿Es presencial, en línea o mixto? ¿En qué ciudades? ¿Hay mentorías o demo day?
 6. Elegibilidad, reparto de premios y créditos, y política de datos de comercios reales.
 
@@ -179,6 +167,5 @@ Lectura (inferencia ⚪): la prioridad de pey y AI Builders es la integración r
 | SB37 | Merca2.0: Pey, AI Builders México y SpaceXAI realizarán hackatón de pagos digitales (noviembre 2026) | https://www.merca20.com/pey-ai-builders-mexico-y-spacexai-realizaran-hackaton-de-pagos-digitales-en-mexico/ | 2026-11-06 |
 | SB38 | InformaBTL: el 14 de diciembre cambiarán las transferencias; Pey apuesta por pagos QR sin comisiones (noviembre 2026) | https://www.informabtl.com/pagos-qr-mexico-14-diciembre-2026-pey-codi/ | 2026-11-06 |
 | SD64 | DOF · Ley de Economía Digital: texto y transitorios | https://sidof.segob.gob.mx/notas/docFuente/5803017 | 2026-11-07 |
-| SF01 | Arranque del hackatón comunitario del 7-nov-2026, notas tomadas en persona | (sin URL; no público) | 2026-11-07 |
 
 (previo) = dato verificado antes de la sesión del 6-nov y no reconsultado.

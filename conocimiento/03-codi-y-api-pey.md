@@ -1,7 +1,7 @@
 ---
 id: K03
 titulo: "CoDi y API de Pey"
-resumen: "Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos probados en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro."
+resumen: "Qué es CoDi y cómo se usa la API CoDi de Pey (alta, llaves, endpoints, estados, webhooks, pagos reales de prueba, errores), con ejemplos de referencia en Node/Vercel y reglas para usarla desde un agente. Léelo completo antes de escribir código de cobro."
 responde:
   - "¿Qué es CoDi y cómo paga un cliente con QR o con notificación?"
   - "¿Qué es Pey, cuánto cuesta su API CoDi y a dónde llega el dinero?"
@@ -71,7 +71,7 @@ Todo pasa en `portal.mipey.mx` [SB07][SB08]:
 4. **Webhook**: engrane de la llave → URL → crear; guarda el secreto de firma (rotable). Un webhook por llave [SB08].
 5. **Secretos** en Vercel y Codespaces: `PEY_API_KEY` y `PEY_WEBHOOK_SECRET`. Nunca en el repo.
 
-**Entornos.** Pey solo documenta producción (`https://api.pey.mx`); el entorno de pruebas está "próximamente" [SB09][SB10]. La landing menciona llaves de prueba y de producción [SB01], pero la referencia técnica no (⚪ pregúntalo a Pey en el evento). Por eso no conviene una variable `PEY_ENV`: la URL base es siempre la de producción. **Recomendación:** lo que sí debe verse en pantalla es el modo de cobro (simulación, prueba con monto mínimo o cobro real); en el repo anterior se llamaba `MODO_PAGO`.
+**Entornos.** Pey solo documenta producción (`https://api.pey.mx`); el entorno de pruebas está "próximamente" [SB09][SB10]. La landing menciona llaves de prueba y de producción [SB01], pero la referencia técnica no (⚪ pregúntalo a Pey en el evento). Por eso no conviene una variable `PEY_ENV`: la URL base es siempre la de producción. **Recomendación:** lo que sí debe verse en pantalla es el modo de cobro (simulación, prueba con monto mínimo o cobro real), por ejemplo con una variable `MODO_PAGO`.
 
 **Recomendación:** antes de la demo, activa CoDi en la app bancaria con la que pagarás (algunos bancos validan con un depósito de un centavo y un SMS) [SB34], paga $0.01 de punta a punta con el `curl` de abajo y graba la pantalla. Con la cuenta de prueba, pon en el servidor un tope de monto bajo (en pruebas, $0.01 a $1).
 
@@ -183,15 +183,15 @@ Código del handler: K03.7.
 
 **Recomendación:** pregunta a los mentores de Pey si hay llaves o entorno especial para el hackatón (⚪ no verificado). La documentación del 2026-11-07 tampoco resuelve límite de peticiones, idempotencia de creación, reintentos y orden de webhooks ni requisitos para dar de alta comercios reales: pregúntalos también [SB10][SB16].
 
-## K03.7 · Ejemplos mínimos en Node.js 20+ (probados)
+## K03.7 · Ejemplos mínimos en Node.js 20+ (de referencia)
 
-> Revisión 2026-11-07: los ejemplos históricos no son un checkout completo. Antes de producción, asociar el QR a un pedido del servidor y validar monto, moneda y destinatario; no basta encontrar cualquier PAID. La corrección de 404 a no_verificable es documental y no se ha ejecutado como aplicación. Si hay efectos de negocio, deduplica `webhook-id` y `transactionId` en almacenamiento persistente (la memoria de una función serverless no dura) y no repitas una creación tras un timeout sin reconciliar: pey no documenta idempotencia (⚪).
+> Revisión 2026-11-07: estos ejemplos no son un checkout completo. Antes de producción, asociar el QR a un pedido del servidor y validar monto, moneda y destinatario; no basta encontrar cualquier PAID. Tratar un 404 como `no_verificable` es una decisión documental: no se ha ejecutado como aplicación. Si hay efectos de negocio, deduplica `webhook-id` y `transactionId` en almacenamiento persistente (la memoria de una función serverless no dura) y no repitas una creación tras un timeout sin reconciliar: pey no documenta idempotencia (⚪).
 
 Node 20+ ya trae `fetch`. Vercel crea una función por archivo dentro de `api/`; exportas `GET` o `POST`, que reciben un `Request` web. Para módulos ES usa `.mjs` o `"type": "module"` en el `package.json` más cercano [SB41]. No encontré un SDK oficial de Pey (⚪ no verificado). Pey sugiere los SDK de Standard Webhooks [SB16]; aquí se usa `node:crypto` para no depender de nada [SB40].
 
-Las rutas son las de un prototipo anterior (`app/` era la raíz en Vercel): adáptalas a la estructura de este proyecto. Si el proyecto ya tiene helpers de respuesta y configuración, úsalos en lugar de los de aquí. La UI no necesita base de datos: hace polling a `/api/estado?id=…`, que consulta a Pey. El webhook sirve para bitácora o automatizaciones.
+Las rutas son de ejemplo (`app/` como raíz del proyecto en Vercel): adáptalas a la estructura que elija el proyecto. Si el proyecto ya tiene helpers de respuesta y configuración, úsalos en lugar de los de aquí. La UI no necesita base de datos: hace polling a `/api/estado?id=…`, que consulta a Pey. El webhook sirve para bitácora o automatizaciones.
 
-Evidencia: estos archivos pasaron 9 pruebas con `fetch` simulado en Node 22.23 (las 2 del extracto de abajo incluidas), con el vector de ejemplo de Svix para la firma y una llamada HTTP real del script de simulación al handler. En esa versión, `node --test app/tests/` (carpeta) falló con `MODULE_NOT_FOUND`; funcionaron `node --test "app/tests/*.test.js"` y `node --test` dentro de `app/` (lo que corre `npm test --prefix app`).
+⚪ Estos ejemplos todavía no se han ejecutado en este repo. Al copiarlos al proyecto, corre primero sus pruebas (el extracto de abajo usa `fetch` simulado; para la firma, compara con el vector de ejemplo de Svix [SB40]) y solo después prueba con dinero real ($0.01 a $1, K03.3). Corre las pruebas con `node --test "app/tests/*.test.js"` o con `npm test --prefix app`.
 
 ```js
 // app/api/_lib/pey.js: cliente mínimo de la API CoDi de Pey (Node.js 20+, ESM, sin dependencias).

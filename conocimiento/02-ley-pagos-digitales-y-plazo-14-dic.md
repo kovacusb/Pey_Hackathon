@@ -14,7 +14,7 @@ fuentes: [SA43, SD01, SD02, SD64]
 
 # K02 · Ley de pagos digitales y plazo del 14-dic
 
-> Reunido el 2026-11-14 a partir de K00.4 y K01.10 de `~/HackathonOpenAi`. Las fuentes se leyeron el 2026-11-06 y el 2026-11-07 y **no se reconsultaron**. No es asesoría legal. El detalle de las circulares de Banxico está en [codi/06](../codi/06-regulacion-y-plazos.md).
+> Investigación previa al arranque. Las fuentes se leyeron el 2026-11-06 y el 2026-11-07 y **no se han reconsultado**. No es asesoría legal. El detalle de las circulares de Banxico está en [codi/06](../codi/06-regulacion-y-plazos.md).
 
 ## TL;DR
 
@@ -55,7 +55,7 @@ fuentes: [SA43, SD01, SD02, SD64]
 
 - El 14 de diciembre de 2026 vence el plazo para que los participantes del SPEI cumplan las Circulares 9/2026 y 10/2026 de Banxico, que homologan las transferencias desde el celular. La 9/2026 incluye procesar los mensajes de cobro de CoDi y fija ese plazo en su segundo transitorio [SD01][SD02].
 - Según la prensa, antes de esa fecha los bancos deben permitir recibir transferencias con el número de celular, y la CLABE sigue funcionando [SA43].
-- La 9/2026 ya rige desde el 18-jun-2026: el 14-dic es la fecha límite para cumplir, no la "entrada en vigor" [SD01]. Detalle por numeral, Guías de homologación y línea de tiempo: [codi/06](../codi/06-regulacion-y-plazos.md). Qué deberán tener todas las apps: K06.5.
+- La 9/2026 ya rige desde el 18-jun-2026: el 14-dic es la fecha límite para cumplir, no la "entrada en vigor" [SD01]. Detalle por numeral, Guías de homologación y línea de tiempo: [codi/06](../codi/06-regulacion-y-plazos.md). Qué deberán tener todas las apps: K04.5.
 - Ese mismo día salen los resultados del Hackatón México (K01.1).
 
 ## K02.6 · Cómo usarla en el producto y el pitch
