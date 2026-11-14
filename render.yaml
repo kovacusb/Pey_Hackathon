@@ -32,3 +32,5 @@ services:
         sync: false
       - key: WHATSAPP_VERIFY_TOKEN
         sync: false
+      - key: DEV_CLAVE
+        sync: false
