@@ -21,6 +21,8 @@ RE_FUENTE = re.compile(r"\b(S[A-Z]\d{2,3})\b")
 RE_ENLACE = re.compile(r"\]\((?!https?://|mailto:|#)([^)\s#]+)(?:#[^)\s]*)?\)")
 RE_SECRETOS = [
     re.compile(r"sk-(?:proj-|svcacct-)?[A-Za-z0-9_\-]{24,}"),
+    re.compile(r"sk_(?:live|test)_[A-Za-z0-9_\-]{20,}"),  # llaves de pey
+    re.compile(r"whsec_[A-Za-z0-9+/=]{20,}"),  # secretos de webhook (Standard Webhooks)
     re.compile(r"(?i)\b(?:api[_-]?key|secret|token)\b\s*[:=]\s*[\"']?[A-Za-z0-9_\-\.]{24,}"),
     re.compile(r"ghp_[A-Za-z0-9]{30,}"),
 ]
@@ -117,6 +119,8 @@ def revisar_secretos():
     for p in RAIZ.rglob("*"):
         if not p.is_file() or IGNORAR & set(p.relative_to(RAIZ).parts):
             continue
+        if p.name.startswith(".env") and p.name != ".env.example":
+            continue  # .env local: git lo ignora y es donde deben vivir las llaves
         if p.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf", ".zip", ".ico"}:
             continue
         try:

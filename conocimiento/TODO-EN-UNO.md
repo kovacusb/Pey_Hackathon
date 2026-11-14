@@ -3786,6 +3786,7 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 
 ## 4. Reglas de seguridad y datos
 - Las llaves viven solo en el servidor como variables de entorno (nombres en `.env.example`). **Nunca** en el navegador, en el repo, en los logs ni en el chat.
+- El repo es público: `PEY_API_KEY`, `PEY_WEBHOOK_SECRET` y `MAX_MONTO_MXN` están como **secretos cifrados de GitHub** (Codespaces y Actions; se cargan con `scripts/cargar_secretos.sh`). Un agente los lee de `process.env` y nunca los imprime, los copia a un archivo versionado ni los manda a un modelo. Si un secreto falta, detente y pídele a la persona que lo cargue; no lo pidas en el chat.
 - Las llamadas a pey (y a cualquier proveedor de IA) viven en funciones de servidor. El navegador solo habla con tu propia API.
 - Webhooks: verifica la firma Standard Webhooks sobre el cuerpo **crudo**, rechaza timestamps viejos y deduplica por `webhook-id` y `transactionId` en almacenamiento persistente (K03.5, K03.7).
 - No guardes el celular, la CLABE ni el nombre de quien paga si no hace falta. En los logs, solo IDs (`codiQrId`, `transactionId`, `requestId`) ([codi/05](../codi/05-seguridad-y-proteccion.md)).
