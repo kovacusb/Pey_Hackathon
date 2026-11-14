@@ -58,7 +58,8 @@ export const GUIAS: Guia[] = [
       "1. Abre la app de tu banco → *CoDi* → *Pagar*.\n" +
       "2. *Escanea* el QR. Si lo tienes en este mismo celular, guárdalo e *impórtalo desde tu galería*.\n" +
       "3. Revisa los datos del cobro.\n" +
-      "4. Autoriza con tu *NIP o huella*.",
+      "4. Autoriza con tu *NIP o huella*.\n\n" +
+      "⚠️ La cámara del celular o un lector de QR común *no* pagan: solo muestran texto. Ábrelo siempre desde la app de tu banco.",
     video_url: null,
   },
   {

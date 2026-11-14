@@ -165,8 +165,8 @@ export async function iniciarCobro(waId: string, modulo: string, s: SolicitudCob
         await r.imagen(
           Buffer.from(qr.qrImage.replace(/^data:image\/png;base64,/, ""), "base64"),
           tercero
-            ? `📷 Muéstrale este QR a quien te paga (*${mxn(s.centavos)}*)\nLo escanea en la app de su banco → CoDi → Pagar.\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`
-            : `📷 Paga *${mxn(s.centavos)}* con CoDi\n1. Abre la app de tu banco → CoDi → Pagar\n2. Escanea este QR o impórtalo desde tu galería\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`,
+            ? `📷 Muéstrale este QR a quien te paga (*${mxn(s.centavos)}*)\nLo escanea *desde la app de su banco* → CoDi → Pagar (la cámara normal no sirve).\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`
+            : `📷 Paga *${mxn(s.centavos)}* con CoDi\n1. Abre la *app de tu banco* → CoDi → Pagar\n2. Escanea este QR o impórtalo desde tu galería\n⚠️ La cámara del celular no lo paga: solo la app del banco.\n⏱️ Vence en ${minutos(config.vigenciaQrSeg)} min`,
         );
       } else {
         // TODO(⚪): dibujar el QR desde qrString si pey no regresa imagen (pey/04: qrImage puede ser null).
