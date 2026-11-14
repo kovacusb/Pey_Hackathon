@@ -3,7 +3,7 @@
 Instrucciones para cualquier agente (Claude Code, Codex, Cursor, ChatGPT) que trabaje en este repo. Léelas completas antes de actuar.
 
 ## 1. Misión
-Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; ⚪ bases por confirmar, K01). El proyecto arrancó desde cero el 14-nov-2026: el problema, el alcance y el stack **están por definir** y, cuando existan, vivirán en `docs/PRD.md`.
+Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026: el problema, el alcance y el stack **están por definir** y, cuando existan, vivirán en `docs/PRD.md`.
 
 ## 2. Cómo usar la base de conocimiento
 1. Empieza por `README.md` y `conocimiento/INDICE.md` (qué archivo responde cada pregunta).
@@ -27,6 +27,7 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 - **Verdad de pago:** "pagado" solo si pey lo confirma: `PAID` vinculado al cobro con el monto y la moneda esperados, o un webhook con firma válida. Nunca por una captura de pantalla, un recibo ni la redirección de una liga de pago (K03.4, K03.5, [pey/06](pey/06-api-ligas-de-pago.md)).
 - **SIMULACIÓN visible:** si existe un modo de simulación, la interfaz dice "SIMULACIÓN" de forma visible y nunca se presenta como pago real.
 - **Sin reintentos a ciegas:** no repitas la creación de un QR o de una push tras un timeout sin reconciliar antes; pey no documenta idempotencia (K03.8).
+- **Para la entrega:** el demo crea al menos un Mensaje de Cobro CoDi real en producción y reacciona a su resultado; la simulación solo sirve como plan B y no cuenta como integración (K01.8).
 - **Montos:** pey recibe pesos con decimales, no centavos. Internamente, conviene manejar centavos enteros y convertir solo al llamar a pey ([docs/REVISION-PEY-2026-11-07.md](docs/REVISION-PEY-2026-11-07.md)).
 
 ## 4. Reglas de seguridad y datos

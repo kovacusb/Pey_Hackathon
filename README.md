@@ -7,7 +7,7 @@ Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **C
 
 ## Estado (14-nov-2026)
 - **Idea:** por definir. Cuando exista, el PRD irá en `docs/PRD.md`.
-- **Hackatón:** Hackatón México, con entregas el 12-dic y resultados el 14-dic. ⚪ Sus bases no están verificadas: ábrelas y anótalas en K01.7.
+- **Hackatón:** Hackatón México: postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic. Reglas oficiales resumidas en K01.8.
 - **Cobros reales con pey:** ninguno todavía. Lo de pey sale de su documentación, no de pruebas en producción.
 
 ## Cómo trabajamos
