@@ -5,7 +5,7 @@ import { procesarMensaje, registrarModulo } from "./core/bot.ts";
 import { iniciarPolling, procesarEventoPey } from "./core/cobros.ts";
 import { primeraVez } from "./core/db.ts";
 import { verificarWebhookPey } from "./core/pey/firma.ts";
-import { extraerMensajes, firmaMetaValida } from "./core/whatsapp/recibir.ts";
+import { extraerMensajes, fallosDeEntrega, firmaMetaValida } from "./core/whatsapp/recibir.ts";
 import { rutasDev } from "./dev/rutas.ts";
 import { rutasPanel } from "./panel/rutas.ts";
 import { ayuda } from "./modules/ayuda/index.ts";
@@ -66,6 +66,7 @@ app.post("/api/whatsapp", crudo, (req, res) => {
   } catch {
     return;
   }
+  for (const f of fallosDeEntrega(payload)) console.warn("[wa] no se entregó", { a: `••${f.a}`, codigo: f.codigo, titulo: f.titulo, detalle: f.detalle });
   for (const m of extraerMensajes(payload)) {
     if (!primeraVez("wa", m.idMensaje)) continue;
     void procesarMensaje(m.waId, m.nombre, m.entrada);

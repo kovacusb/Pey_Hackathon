@@ -17,6 +17,18 @@ export interface MensajeEntrante {
   entrada: Entrada;
 }
 
+/** Estados de entrega fallidos (Meta acepta el envío y avisa después si no se entregó). Solo códigos, sin números completos. */
+export function fallosDeEntrega(payload: any): { a: string; codigo: number; titulo: string; detalle: string }[] {
+  const salida: { a: string; codigo: number; titulo: string; detalle: string }[] = [];
+  for (const entry of payload?.entry ?? [])
+    for (const change of entry?.changes ?? [])
+      for (const st of change?.value?.statuses ?? [])
+        if (st?.status === "failed")
+          for (const e of st.errors ?? [{}])
+            salida.push({ a: String(st.recipient_id ?? "").slice(-4), codigo: e.code, titulo: e.title ?? e.message ?? "", detalle: e.error_data?.details ?? "" });
+  return salida;
+}
+
 /** Extrae los mensajes de un payload de Meta. Ignora estados (sent/delivered/read). */
 export function extraerMensajes(payload: any): MensajeEntrante[] {
   const salida: MensajeEntrante[] = [];

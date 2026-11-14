@@ -1,6 +1,7 @@
 // Envío de mensajes: WhatsApp Cloud API para usuarios reales y captura en memoria para el chat de pruebas (/dev).
 import { config } from "../../config.ts";
 import type { Boton, Respuesta, Seccion } from "../tipos.ts";
+import { aPngRgb } from "./png.ts";
 
 export type Saliente =
   | { tipo: "texto"; cuerpo: string }
@@ -143,7 +144,8 @@ async function enviarCloud(waId: string, m: Saliente) {
       };
       break;
     case "imagen": {
-      const mediaId = await subirMedio(m.png, "image/png", "cobro.png");
+      // WhatsApp solo acepta PNG RGB/RGBA de 8 bits; el QR de pey llega en grises de 1 bit (error 131053).
+      const mediaId = await subirMedio(aPngRgb(m.png), "image/png", "cobro.png");
       cuerpo = { ...base, type: "image", image: { id: mediaId, ...(m.pie ? { caption: m.pie } : {}) } };
       break;
     }
@@ -170,7 +172,7 @@ export async function enviar(waId: string, mensaje: Saliente): Promise<void> {
   try {
     await enviarCloud(waId, m);
   } catch (e) {
-    console.error("[wa] fallo al enviar", m.tipo, (e as Error).message);
+    console.error("[wa] fallo al enviar", m.tipo, `a ••${waId.slice(-4)}`, (e as Error).message);
     throw e;
   }
 }
