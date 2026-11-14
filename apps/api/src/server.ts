@@ -9,6 +9,7 @@ import { extraerMensajes, firmaMetaValida } from "./core/whatsapp/recibir.ts";
 import { rutasDev } from "./dev/rutas.ts";
 import { ayuda } from "./modules/ayuda/index.ts";
 import { tienda } from "./modules/tienda/index.ts";
+import { rutasPanel } from "./modules/tienda/panel.ts";
 import { p2p } from "./modules/p2p/index.ts";
 import { servicios } from "./modules/servicios/index.ts";
 
@@ -107,11 +108,13 @@ app.post("/api/webhook-pey", crudo, async (req, res) => {
 });
 
 if (config.devTools) app.use("/dev", rutasDev());
+// Panel web del comercio (Módulo 2): maneja el bot y ve pedidos y pagos. Sin inicio de sesión todavía: solo con DEV_TOOLS.
+if (config.devTools) app.use("/panel", rutasPanel());
 
 iniciarPolling();
 app.listen(config.port, () => {
   console.log(`Paga Fácil escuchando en :${config.port}`);
   console.log(`  pey: ${config.pey.apiKey ? "llave cargada" : "SIN LLAVE"} · webhook pey: ${config.pey.webhookSecret ? "con secreto" : "sin secreto (solo polling)"}`);
   console.log(`  WhatsApp: ${waConfigurado() ? "configurado" : "sin configurar (solo /dev)"} · tope por cobro: $${config.maxCobroCentavos / 100}`);
-  if (config.devTools) console.log(`  Chat de pruebas: http://localhost:${config.port}/dev`);
+  if (config.devTools) console.log(`  Chat de pruebas: http://localhost:${config.port}/dev · Panel del negocio: http://localhost:${config.port}/panel`);
 });

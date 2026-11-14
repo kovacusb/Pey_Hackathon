@@ -12,7 +12,7 @@ npm run typecheck
 npm run dev         # http://localhost:3000, recarga al guardar y lee ../../.env
 ```
 
-Abre **http://localhost:3000/dev**: es el mismo bot en el navegador. Los cobros de pey son **reales**: la push llega al celular que escribas arriba. «Simular pago» confirma un cobro sin dinero y el comprobante dice **SIMULACIÓN** (AGENTS.md §3).
+Abre **http://localhost:3000/panel** para la demo del negocio (WhatsApp simulado a la izquierda, panel a la derecha) o **http://localhost:3000/dev** para el chat solo. Es el mismo bot en el navegador. Los cobros de pey son **reales**: la push llega al celular que escribas arriba. «Simular pago» confirma un cobro sin dinero y el comprobante dice **SIMULACIÓN** (AGENTS.md §3).
 
 ## Variables
 
@@ -46,6 +46,7 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `POST /api/whatsapp` | Mensajes. Firma `X-Hub-Signature-256` verificada sobre el cuerpo crudo; responde 200 de inmediato y atiende cada mensaje una sola vez |
 | `POST /api/webhook-pey` | Pagos de pey (Standard Webhooks): firma, ventana de 5 min y deduplicación por `webhook-id` |
 | `/dev` | Chat de pruebas (solo con `DEV_TOOLS=1`) |
+| `/panel` | Panel del negocio con WhatsApp simulado: maneja el bot (nombre, saludo, abierta o cerrada, productos) y ve pedidos y pagos en vivo (solo con `DEV_TOOLS=1`) |
 
 ## Diseño
 
@@ -60,7 +61,7 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `src/core/db.ts` | SQLite: sesiones, cobros y eventos ya procesados |
 | `src/modules/servicios/` | Módulo 1: servicios y recargas; `agregador.ts` es SIMULACIÓN detrás de una interfaz |
 | `src/modules/ayuda/` | Centro de ayuda: guías de CoDi con `video_url` opcional |
-| `src/modules/tienda/` | Módulo 2: `motor.ts` (puro: estado + evento → mensajes + cobro), `catalogo.ts` y el adaptador `index.ts` |
+| `src/modules/tienda/` | Módulo 2: `motor.ts` (puro: estado + evento → mensajes + cobro), adaptador `index.ts`, datos del panel `datos.ts` (SQLite `tienda_*`) y el panel web `panel.ts` + `panel.html` |
 | `src/modules/p2p/` | Módulo 3 (por definir) |
 | `src/dev/` | Chat de pruebas en el navegador |
 

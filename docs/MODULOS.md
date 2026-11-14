@@ -48,7 +48,8 @@ Dentro de `atender`:
 ## Para el Módulo 2 (tiendita)
 
 - El motor (`motor.ts`) no sabe nada de WhatsApp ni de pey: recibe `(estado, evento)` y devuelve mensajes y, si la persona confirmó, una solicitud de cobro. El adaptador (`index.ts`) prefija los ids con `tienda:`, guarda el estado en la sesión y llama a `ctx.cobrar`.
-- Hoy todo corre en **un solo número de WhatsApp** con menú. Para que la app Android vea pedidos y pagos, agrega rutas en `server.ts` que lean los cobros del módulo `tienda` (tabla `cobros`, `modulo = 'tienda'`).
+- **Panel web del comercio:** `/panel` (`panel.ts`, `panel.html`, `datos.ts`). Ajustes del bot y catálogo en `tienda_ajustes` y `tienda_productos`; pedidos y pagos se leen de `cobros` (`modulo = 'tienda'`), sin duplicarlos. Se monta en `server.ts` solo con `DEV_TOOLS=1` porque aún no tiene inicio de sesión.
+- Hoy todo corre en **un solo número de WhatsApp** con menú. Los pedidos y pagos se leen de los cobros del módulo `tienda` (tabla `cobros`, `modulo = 'tienda'`).
 - Para cobrarle a un cliente **en el mostrador** sin que le escriba al bot, usa `metodo: "qr"`: el QR llega al chat del comerciante y él se lo muestra al cliente. Con push, el cobro se manda al celular de quien está en el chat (`ctx.waId`); para cobrar a otro celular hará falta una opción en el núcleo (pídela).
 - Mandarle el comprobante al cliente por WhatsApp sin que él haya escrito antes requiere una **plantilla aprobada por Meta** (ventana de 24 h). Alternativa sin plantilla: un link `wa.me/<número>?text=...` en el ticket para que el cliente inicie la conversación.
 

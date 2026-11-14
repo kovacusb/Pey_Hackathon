@@ -14,10 +14,10 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 | # | Módulo | Para quién | Estado (14-nov) |
 |---|---|---|---|
 | 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | Funcional. Cobro CoDi real con pey (push de $0.01 verificada en BBVA). Pago al servicio SIMULADO |
-| 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Bot funcional y conectado al cobro real. App Android pendiente |
+| 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Bot funcional y conectado al cobro real. Panel web del comercio en `/panel` |
 | 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Por definir. Factura detrás de una interfaz (PAC sandbox) |
 
-- **App del comercio (Android, módulo 2):** el dueño configura su bot (nombre, saludo, horario, encendido), su catálogo, y ve pedidos y pagos en tiempo real.
+- **Panel web del comercio (módulo 2, `/panel`):** el dueño configura su bot (nombre, saludo, abierto o cerrado), su catálogo, y ve pedidos y pagos en tiempo real. Junto al panel, un WhatsApp simulado muestra lo que ve el cliente. Cambio del 14-nov: la app Android se reemplaza por esta web, más rápida de mostrar en la demo.
 - **Agente (más adelante):** Claude entiende pedidos en texto libre («dame dos papas y un refresco») por medio de herramientas; el código decide precios y montos (K03.9).
 
 ## Para quién
@@ -28,7 +28,7 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 1. Un número de WhatsApp, menú principal con los módulos.
 2. **Servicios:** servicio → referencia → adeudo (simulado) → «Pagar» (push, `POST /codi/pn`) o «Pagar con QR» (`POST /codi/qr`) → pey confirma → comprobante. Se cobra `DEMO_COBRO_MXN` ($0.01) y se muestra el monto real del recibo con la etiqueta de demo; el pago al servicio dice SIMULACIÓN.
 3. **Tiendita:** menú → producto → carrito → «Pagar» → «A mi número» (push) o «Mándame QR» → webhook de pey verificado → «Pago recibido» en WhatsApp y en la app ([pey/04](../pey/04-api-codi-qr-y-push.md), [pey/09](../pey/09-webhooks.md)).
-4. App Android: pantallas Bot, Productos, Pedidos y Pagos.
+4. Panel web (`/panel`): Bot, Productos, Pedidos y Pagos, con WhatsApp simulado al lado.
 5. Cobros de $0.01 a $1, con tope impuesto por el servidor (`MAX_MONTO_MXN`).
 
 **Fuera de alcance del demo:** tarjetas y ligas de pago, varios comercios, devoluciones, NFC, pago real a CFE/Telmex (agregador simulado detrás de una interfaz).
@@ -60,14 +60,14 @@ Persona (WhatsApp) ─▶ Meta Cloud API ─▶ POST /api/whatsapp ─▶ router
 App del banco (CoDi) ─ paga ─▶ pey ─▶ POST /api/webhook-pey (Standard Webhooks) + polling de respaldo
                                                                       │
                          comprobante por WhatsApp (onPagado del módulo, una sola vez por orden) ◀┘
-App Android (Expo) ◀─▶ misma API (apps/api)
+Panel web (/panel)  ◀─▶ misma API (apps/api)
 ```
 
 | Pieza | Tecnología | Carpeta |
 |---|---|---|
 | API, webhooks y bot | Node 24+ con TypeScript sin compilar, Express 5 | [`apps/api`](../apps/api/README.md) |
 | Base de datos | SQLite integrado (`node:sqlite`) para sesiones, cobros y deduplicación; Postgres administrado cuando la app lo necesite | `apps/api/src/core/db.ts` |
-| App del comercio | Expo (React Native + TypeScript) para Android; la misma base exporta una versión web para la demo pública | `apps/movil` (pendiente) |
+| Panel del comercio | Página web servida por la misma API (HTML + JS, sin build); datos en SQLite (`tienda_*`) | `apps/api/src/modules/tienda/panel.*` |
 | WhatsApp | WhatsApp Cloud API de Meta (oficial) | — |
 | IA | Claude por API, solo en el servidor | pendiente |
 
@@ -84,7 +84,7 @@ Cómo se reparte el trabajo sin conflictos de Git: [MODULOS.md](MODULOS.md).
 |---|---|---|---|
 | 1 | Bot de WhatsApp: webhook verificado, menú, carrito, confirmación | Pruebas pasan; con las credenciales de Meta, el bot responde en tu WhatsApp | Pruebas ✅ · Meta pendiente |
 | 2 | Cobro real: cliente de pey nuevo, push y QR, webhook de pey verificado y deduplicado | Un pago real de $0.01 cambia la orden a «pagado» y el bot avisa | ✅ push real de $0.01 confirmada (14-nov) |
-| 3 | App Android: Bot, Productos, Pedidos y Pagos contra la API | Se ve en el emulador y en tu teléfono con datos reales del demo | Pendiente |
+| 3 | Panel web: Bot, Productos, Pedidos y Pagos contra la API, con WhatsApp simulado | Lo que se cambia en el panel lo ve el bot en el siguiente mensaje; los pagos aparecen en vivo | Listo (sin inicio de sesión: solo con `DEV_TOOLS=1`) |
 | 4 | Agente: texto libre → herramientas → carrito | «dos papas y un refresco» arma el carrito correcto; el modelo nunca fija montos | Pendiente |
 | 5 | Entrega: despliegue estable, demo pública, video de 3 min, textos y declaración | Todo lo de K01.8 listo antes del 10-dic (postulación) y del 12-dic (entrega) | Render configurado (`render.yaml`) |
 

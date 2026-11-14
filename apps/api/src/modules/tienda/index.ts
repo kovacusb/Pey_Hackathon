@@ -6,7 +6,7 @@ import { config } from "../../config.ts";
 import { celularDe } from "../../core/cobros.ts";
 import { mxn } from "../../core/dinero.ts";
 import type { Cobro, Contexto, Entrada, Modulo } from "../../core/tipos.ts";
-import { CATALOGO_DEMO } from "./catalogo.ts";
+import { leerAjustes, listarProductos } from "./datos.ts";
 import { ESTADO_INICIAL, responder, type Estado, type Evento, type Mensaje, type Partida } from "./motor.ts";
 
 const PREFIJO = "tienda:";
@@ -39,11 +39,21 @@ async function enviar(ctx: Contexto, m: Mensaje) {
 const describir = (partidas: Partida[]) => partidas.map((p) => `• ${p.cantidad} × ${p.nombre}: ${mxn(p.cantidad * p.precioCentavos)}`).join("\n");
 
 async function atender(ctx: Contexto, e: Entrada) {
+  // Catálogo y ajustes vienen del panel web (/panel): lo que cambia el comercio se ve en el siguiente mensaje.
+  const ajustes = leerAjustes();
+  const catalogo = listarProductos({ soloDisponibles: true });
+  if (!ajustes.activo || !catalogo.length) {
+    const motivo = ajustes.activo ? "no tiene productos disponibles por ahora" : "está cerrada por ahora";
+    await ctx.responder.botones(`🛒 *${ajustes.nombre}* ${motivo}. Vuelve más tarde.`, [{ id: "core:menu", titulo: "Menú" }]);
+    return;
+  }
   const estado = (ctx.sesion.datos.estado as Estado | undefined) ?? ESTADO_INICIAL;
   const r = responder(estado, aEvento(e), {
-    catalogo: CATALOGO_DEMO,
+    catalogo,
     maxMontoCentavos: config.maxCobroCentavos,
     ultimos4: celularDe(ctx.waId)?.slice(-4),
+    nombreTienda: ajustes.nombre,
+    saludo: ajustes.saludo,
   });
   ctx.irA("tienda", { estado: r.estado });
   for (const m of r.mensajes) await enviar(ctx, m);
@@ -51,7 +61,7 @@ async function atender(ctx: Contexto, e: Entrada) {
     const piezas = r.cobro.partidas.reduce((n, p) => n + p.cantidad, 0);
     await ctx.cobrar({
       centavos: r.cobro.montoCentavos,
-      concepto: `Tiendita ${piezas} articulo${piezas === 1 ? "" : "s"}`,
+      concepto: `${ajustes.nombre.slice(0, 24)} ${piezas} articulo${piezas === 1 ? "" : "s"}`,
       metodo: r.cobro.canal === "push" ? "pn" : "qr",
       payload: { partidas: r.cobro.partidas },
     });
@@ -82,7 +92,10 @@ async function onPagado(ctx: Contexto, cobro: Cobro) {
 
 export const tienda: Modulo = {
   id: "tienda",
-  menu: [{ id: conPrefijo("inicio"), titulo: "🛒 Tiendita (demo)", descripcion: "Compra y paga con CoDi desde el chat" }],
+  // Getter: el menú principal muestra el nombre que el comercio puso en el panel (título ≤ 24).
+  get menu() {
+    return [{ id: conPrefijo("inicio"), titulo: `🛒 ${leerAjustes().nombre}`.slice(0, 24), descripcion: "Compra y paga con CoDi desde el chat" }];
+  },
   atender,
   onPagado,
 };

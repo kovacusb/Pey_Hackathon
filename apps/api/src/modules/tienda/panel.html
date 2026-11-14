@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paga Fácil · Panel del negocio</title>
+<style>
+  :root {
+    --verde:#00a884; --verde-osc:#008069; --wa-fondo:#efeae2; --wa-mia:#d9fdd3; --wa-panel:#f0f2f5;
+    --tinta:#111b21; --sutil:#667781; --borde:#e3e6e8; --fondo:#f6f7f8; --tarjeta:#fff;
+    --ok:#1a7f37; --ok-f:#e6f4ea; --sim:#8a6100; --sim-f:#fff4d6; --pend:#0b62a4; --pend-f:#e5f1fb; --mal:#b42318; --mal-f:#fdecea; --gris-f:#eef0f2;
+    --radio:14px; --sombra:0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--tinta); background:var(--fondo); }
+  button, input, textarea { font:inherit; color:inherit; }
+  .barra { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px 20px; background:var(--tarjeta); border-bottom:1px solid var(--borde); position:sticky; top:0; z-index:5; }
+  .marca { font-weight:700; font-size:17px; display:flex; align-items:center; gap:8px; }
+  .marca span { color:var(--sutil); font-weight:500; }
+  .chip { font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--gris-f); color:var(--sutil); }
+  .chip.ok { background:var(--ok-f); color:var(--ok); }
+  .chip.sim { background:var(--sim-f); color:var(--sim); }
+  .espacio { flex:1; }
+  .contenedor { display:grid; grid-template-columns: 390px 1fr; gap:20px; padding:20px; max-width:1400px; margin:0 auto; }
+  @media (max-width: 980px) { .contenedor { grid-template-columns: 1fr; padding:16px; } }
+
+  /* ---------- Teléfono con WhatsApp simulado ---------- */
+  .col-tel { display:flex; flex-direction:column; gap:12px; }
+  .etiqueta { font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--sutil); margin:0; }
+  .telefono { background:#111; border-radius:36px; padding:12px; box-shadow:0 12px 30px rgba(0,0,0,.18); }
+  .pantalla { border-radius:26px; overflow:hidden; display:flex; flex-direction:column; height:640px; background:var(--wa-fondo); }
+  @media (max-width: 980px) { .pantalla { height:70vh; } }
+  .wa-cab { background:var(--verde-osc); color:#fff; padding:12px 14px; display:flex; align-items:center; gap:10px; }
+  .avatar { width:36px; height:36px; border-radius:50%; background:#fff; color:var(--verde-osc); display:grid; place-items:center; font-size:18px; flex:none; }
+  .wa-cab b { display:block; font-size:15px; }
+  .wa-cab small { opacity:.85; font-size:12px; }
+  #chat { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:6px; }
+  .msg { max-width:86%; background:#fff; padding:7px 9px; border-radius:8px; white-space:pre-wrap; word-wrap:break-word; box-shadow:0 1px .5px rgba(0,0,0,.13); font-size:14px; }
+  .msg.mia { align-self:flex-end; background:var(--wa-mia); }
+  .msg .enc { font-weight:700; margin-bottom:3px; }
+  .msg .pie { color:var(--sutil); font-size:12px; margin-top:4px; }
+  .msg img { max-width:220px; display:block; border-radius:6px; background:#fff; }
+  .acciones { display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+  .acciones button { background:#fff; border:1px solid var(--borde); color:#027eb5; padding:7px; border-radius:6px; cursor:pointer; text-align:center; font-size:14px; }
+  .acciones button:hover { background:#f5f6f6; }
+  .acciones .fila { text-align:left; }
+  .acciones .fila small { display:block; color:var(--sutil); font-size:12px; }
+  .lista-titulo { color:var(--sutil); font-size:12px; margin-top:4px; }
+  .wa-pie { display:flex; gap:8px; padding:8px; background:var(--wa-panel); }
+  .wa-pie input { flex:1; padding:9px 12px; border-radius:20px; border:1px solid var(--borde); background:#fff; min-width:0; }
+  .wa-pie button { background:var(--verde); color:#fff; border:0; border-radius:20px; padding:0 14px; cursor:pointer; }
+  .tarjeta { background:var(--tarjeta); border:1px solid var(--borde); border-radius:var(--radio); box-shadow:var(--sombra); padding:16px; }
+  .tarjeta h2 { font-size:16px; margin:0 0 4px; }
+  .nota { color:var(--sutil); font-size:13px; margin:4px 0 10px; }
+  .campo { display:flex; flex-direction:column; gap:4px; font-size:13px; color:var(--sutil); }
+  .campo input, .campo textarea { padding:9px 10px; border:1px solid var(--borde); border-radius:8px; background:#fff; color:var(--tinta); }
+  .campo textarea { min-height:84px; resize:vertical; }
+  .cobro-p { display:flex; align-items:center; gap:8px; justify-content:space-between; border:1px solid var(--borde); border-radius:10px; padding:8px 10px; margin-top:8px; font-size:13px; flex-wrap:wrap; }
+  .btn { border:1px solid var(--borde); background:#fff; border-radius:8px; padding:7px 12px; cursor:pointer; font-size:14px; }
+  .btn:hover { background:#f5f6f7; }
+  .btn.prim { background:var(--verde); border-color:var(--verde); color:#fff; }
+  .btn.prim:hover { background:var(--verde-osc); }
+  .btn.sim { background:var(--sim-f); border-color:#f0d58a; color:var(--sim); font-weight:600; }
+  .btn.peligro { color:var(--mal); }
+  .btn.peligro.confirmar { background:var(--mal); color:#fff; border-color:var(--mal); }
+
+  /* ---------- Panel ---------- */
+  .col-panel { display:flex; flex-direction:column; gap:16px; min-width:0; }
+  .kpis { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+  @media (max-width: 700px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background:var(--tarjeta); border:1px solid var(--borde); border-radius:var(--radio); padding:14px; box-shadow:var(--sombra); }
+  .kpi small { color:var(--sutil); font-size:12px; display:block; }
+  .kpi b { font-size:24px; display:block; margin-top:2px; font-variant-numeric:tabular-nums; }
+  .kpi.sim b { color:var(--sim); }
+  .rejilla { display:grid; grid-template-columns: 1.3fr 1fr; gap:16px; align-items:start; }
+  @media (max-width: 1200px) { .rejilla { grid-template-columns: 1fr; } }
+  .pedido { border:1px solid var(--borde); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns: 1fr auto; gap:4px 12px; transition: background .6s; }
+  .pedido + .pedido { margin-top:8px; }
+  .pedido.nuevo { background:#e9f8ef; }
+  .pedido .meta { color:var(--sutil); font-size:12px; }
+  .pedido .items { font-size:13px; grid-column:1 / -1; color:#344054; }
+  .pedido .total { font-weight:700; text-align:right; font-variant-numeric:tabular-nums; }
+  .estado { font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; justify-self:end; white-space:nowrap; }
+  .e-pagado { background:var(--ok-f); color:var(--ok); }
+  .e-sim { background:var(--sim-f); color:var(--sim); }
+  .e-pendiente, .e-creando { background:var(--pend-f); color:var(--pend); }
+  .e-fallido, .e-monto_distinto { background:var(--mal-f); color:var(--mal); }
+  .e-vencido, .e-cancelado { background:var(--gris-f); color:var(--sutil); }
+  .vacio { color:var(--sutil); font-size:14px; padding:18px; text-align:center; border:1px dashed var(--borde); border-radius:12px; }
+  .prod { display:grid; grid-template-columns: 1fr 92px auto auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--borde); }
+  .prod:last-of-type { border-bottom:0; }
+  .prod input[type=text], .prod input[type=number] { width:100%; padding:7px 8px; border:1px solid var(--borde); border-radius:8px; min-width:0; }
+  .prod.apagado input[type=text] { color:var(--sutil); text-decoration:line-through; }
+  .interruptor { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--sutil); cursor:pointer; white-space:nowrap; }
+  .interruptor input { width:18px; height:18px; accent-color:var(--verde); }
+  .fila-acciones { display:flex; gap:6px; }
+  .nuevo-prod { display:grid; grid-template-columns: 1fr 92px auto; gap:8px; margin-top:12px; }
+  .nuevo-prod input { padding:8px; border:1px solid var(--borde); border-radius:8px; min-width:0; }
+  @media (max-width: 520px) { .prod { grid-template-columns: 1fr 80px; } .prod .fila-acciones, .prod .interruptor { grid-column: span 1; } }
+  .pila { display:flex; flex-direction:column; gap:10px; }
+  .aviso { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:#1d2939; color:#fff; padding:10px 16px; border-radius:10px; font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,.2); z-index:10; max-width:90vw; }
+  .aviso.error { background:var(--mal); }
+</style>
+</head>
+<body>
+<header class="barra">
+  <div class="marca">🛒 Paga Fácil <span>· Panel del negocio</span></div>
+  <span class="chip sim">DEMO · WhatsApp simulado</span>
+  <span class="chip" id="chip-pey">pey…</span>
+  <div class="espacio"></div>
+  <span class="chip">Tope por cobro: <b id="tope">—</b></span>
+</header>
+
+<div class="contenedor">
+  <!-- Comprador: WhatsApp simulado -->
+  <section class="col-tel" aria-label="WhatsApp del cliente (simulado)">
+    <p class="etiqueta">Lo que ve tu cliente en WhatsApp</p>
+    <label class="campo">Celular del cliente (opcional; la push CoDi llega aquí)
+      <input id="cel" inputmode="numeric" maxlength="10" placeholder="10 dígitos" />
+    </label>
+    <div class="telefono">
+      <div class="pantalla">
+        <div class="wa-cab">
+          <div class="avatar">🛒</div>
+          <div><b id="wa-nombre">Paga Fácil</b><small>cuenta de empresa · simulación</small></div>
+        </div>
+        <div id="chat" aria-live="polite"></div>
+        <form class="wa-pie" id="f">
+          <input id="t" autocomplete="off" placeholder="Escribe «hola»" />
+          <button aria-label="Enviar">➤</button>
+        </form>
+      </div>
+    </div>
+    <div class="tarjeta">
+      <h2>Cobros por pagar</h2>
+      <p class="nota" id="nota-cobros">Cuando el cliente confirma, aquí aparece el cobro.</p>
+      <div id="pend"></div>
+    </div>
+  </section>
+
+  <!-- Comercio: panel -->
+  <section class="col-panel" aria-label="Panel del negocio">
+    <div class="kpis">
+      <div class="kpi"><small>Ventas de hoy (reales)</small><b id="k-ventas">$0.00</b></div>
+      <div class="kpi"><small>Pedidos pagados hoy</small><b id="k-pagados">0</b></div>
+      <div class="kpi"><small>Cobros pendientes</small><b id="k-pend">0</b></div>
+      <div class="kpi sim"><small>Simulados hoy (sin dinero)</small><b id="k-sim">$0.00</b></div>
+    </div>
+
+    <div class="rejilla">
+      <div class="tarjeta">
+        <h2>Pedidos en vivo</h2>
+        <p class="nota">«Pagado» solo cuando pey lo confirma. Los pagos simulados se marcan SIMULACIÓN.</p>
+        <div id="pedidos"></div>
+      </div>
+
+      <div class="pila">
+        <div class="tarjeta">
+          <h2>Tu bot</h2>
+          <p class="nota">Lo que cambies aquí lo ve tu cliente en el siguiente mensaje.</p>
+          <form id="f-bot" class="pila">
+            <label class="campo">Nombre de la tienda (máx. 24)
+              <input id="b-nombre" maxlength="24" required />
+            </label>
+            <label class="campo">Saludo del bot
+              <textarea id="b-saludo" maxlength="500" required></textarea>
+            </label>
+            <label class="interruptor"><input type="checkbox" id="b-activo" /> Tienda abierta (el bot acepta pedidos)</label>
+            <div><button class="btn prim">Guardar cambios</button></div>
+          </form>
+        </div>
+
+        <div class="tarjeta">
+          <h2>Productos</h2>
+          <p class="nota" id="nota-prod">Máximo 10 (lo que cabe en una lista de WhatsApp).</p>
+          <div id="productos"></div>
+          <form class="nuevo-prod" id="f-prod">
+            <input id="n-nombre" maxlength="24" placeholder="Nuevo producto" required />
+            <input id="n-precio" type="number" step="0.01" min="0.01" placeholder="$" required />
+            <button class="btn prim">Agregar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const $ = (s) => document.querySelector(s);
+  const pesos = (c) => "$" + (c / 100).toFixed(2);
+  let topeCentavos = 100;
+
+  function aviso(texto, error) {
+    const d = document.createElement("div");
+    d.className = "aviso" + (error ? " error" : "");
+    d.textContent = texto;
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 2600);
+  }
+  async function api(metodo, url, cuerpo) {
+    const r = await fetch(url, { method: metodo, headers: { "Content-Type": "application/json" }, body: cuerpo ? JSON.stringify(cuerpo) : undefined });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || "No se pudo guardar.");
+    return j;
+  }
+
+  // ================= WhatsApp simulado (mismas rutas que /dev) =================
+  const chat = $("#chat");
+  let desde = 0;
+  try { $("#cel").value = localStorage.getItem("panel-cel") || ""; } catch {}
+  const waId = () => "dev" + ($("#cel").value.replace(/\D/g, "") || "0000000000");
+  $("#cel").addEventListener("change", () => {
+    try { localStorage.setItem("panel-cel", $("#cel").value); } catch {}
+    chat.innerHTML = ""; desde = 0; leer();
+  });
+
+  function burbuja(mia) {
+    const d = document.createElement("div");
+    d.className = "msg" + (mia ? " mia" : "");
+    chat.appendChild(d);
+    chat.scrollTop = chat.scrollHeight;
+    return d;
+  }
+  function texto(el, t) {
+    // Negritas y cursivas de WhatsApp (*x*, _x_); el texto se escapa antes.
+    const esc = String(t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
+    el.innerHTML += esc.replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/(^|\s)_([^_\n]+)_/g, "$1<i>$2</i>");
+  }
+  function boton(cont, etiqueta, id, clase, detalle) {
+    const b = document.createElement("button");
+    b.type = "button";
+    if (clase) b.className = clase;
+    b.textContent = etiqueta;
+    if (detalle) { const s = document.createElement("small"); s.textContent = detalle; b.appendChild(s); }
+    b.onclick = () => enviar({ id }, etiqueta);
+    cont.appendChild(b);
+  }
+  function pintar(m) {
+    const d = burbuja(false);
+    if (m.encabezado) { const e = document.createElement("div"); e.className = "enc"; e.textContent = m.encabezado; d.appendChild(e); }
+    if (m.tipo === "imagen") {
+      const i = document.createElement("img"); i.src = m.dataUrl; i.alt = "QR CoDi"; d.appendChild(i);
+      if (m.pie) { const p = document.createElement("div"); p.style.marginTop = "6px"; texto(p, m.pie); d.appendChild(p); }
+    } else {
+      const c = document.createElement("div"); texto(c, m.cuerpo ?? ""); d.appendChild(c);
+      if (m.pie) { const p = document.createElement("div"); p.className = "pie"; p.textContent = m.pie; d.appendChild(p); }
+    }
+    if (m.tipo === "botones") {
+      const a = document.createElement("div"); a.className = "acciones";
+      m.botones.forEach((b) => boton(a, b.titulo, b.id)); d.appendChild(a);
+    }
+    if (m.tipo === "lista") {
+      const a = document.createElement("div"); a.className = "acciones";
+      m.secciones.forEach((s) => {
+        const t = document.createElement("div"); t.className = "lista-titulo"; t.textContent = s.titulo; a.appendChild(t);
+        s.filas.forEach((f) => boton(a, f.titulo, f.id, "fila", f.descripcion));
+      });
+      d.appendChild(a);
+    }
+    chat.scrollTop = chat.scrollHeight;
+  }
+  async function enviar(cuerpo, eco) {
+    texto(burbuja(true), eco);
+    try {
+      await fetch("/dev/api/mensaje", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ waId: waId(), ...cuerpo }) });
+    } catch { aviso("No hay conexión con el servidor.", true); }
+    await leer(); refrescar();
+  }
+  async function leer() {
+    try {
+      const r = await fetch(`/dev/api/buzon?waId=${waId()}&desde=${desde}`).then((x) => x.json());
+      for (const c of r.mensajes) { pintar(c.mensaje); desde = Math.max(desde, c.n); }
+    } catch {}
+  }
+  async function pendientes() {
+    try {
+      const r = await fetch(`/dev/api/pendientes?waId=${waId()}`).then((x) => x.json());
+      const p = $("#pend"); p.innerHTML = "";
+      if (!r.cobros.length) { p.innerHTML = '<div class="vacio">Ninguno.</div>'; return; }
+      r.cobros.forEach((c) => {
+        const d = document.createElement("div"); d.className = "cobro-p";
+        const s = document.createElement("span");
+        s.textContent = `${c.metodo === "pn" ? "📲 Push" : "📷 QR"} · ${pesos(c.centavos)} · ${c.concepto}`;
+        const b = document.createElement("button"); b.className = "btn sim"; b.textContent = "Simular pago (SIMULACIÓN)";
+        b.onclick = async () => { b.disabled = true; await fetch(`/dev/api/simular/${c.id}?waId=${waId()}`, { method: "POST" }); leer(); pendientes(); refrescar(); };
+        d.append(s, b); p.appendChild(d);
+      });
+    } catch {}
+  }
+  $("#f").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const t = $("#t").value.trim(); if (!t) return;
+    $("#t").value = ""; enviar({ texto: t }, t);
+  });
+
+  // ================= Panel del negocio =================
+  const ESTADOS = { pagado: "Pagado", pendiente: "Esperando pago", creando: "Creando cobro", vencido: "Vencido", cancelado: "Cancelado", fallido: "Falló el cobro", monto_distinto: "Monto distinto" };
+  let vistos = null; // ids pagados ya vistos, para resaltar los nuevos
+  let productosPintados = false;
+
+  function pintarPedidos(pedidos) {
+    const cont = $("#pedidos"); cont.innerHTML = "";
+    if (!pedidos.length) { cont.innerHTML = '<div class="vacio">Todavía no hay pedidos. Escribe «hola» en el WhatsApp de la izquierda.</div>'; }
+    const pagadosAhora = new Set(pedidos.filter((p) => p.estado === "pagado").map((p) => p.id));
+    pedidos.forEach((p) => {
+      const d = document.createElement("div"); d.className = "pedido";
+      if (vistos && pagadosAhora.has(p.id) && !vistos.has(p.id)) { d.classList.add("nuevo"); aviso(`${p.simulado ? "SIMULACIÓN: " : "💰 "}pedido ${p.folio} pagado · ${pesos(p.centavos)}`); }
+      const izq = document.createElement("div");
+      const t = document.createElement("b"); t.textContent = `Pedido ${p.folio}`;
+      const m = document.createElement("div"); m.className = "meta";
+      m.textContent = `${new Date(p.creadoEn).toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" })} · ${p.metodo === "pn" ? "📲 Push" : "📷 QR"} · cliente ${p.cliente}`;
+      izq.append(t, m);
+      const der = document.createElement("div"); der.style.display = "grid"; der.style.gap = "4px";
+      const est = document.createElement("span");
+      est.className = "estado " + (p.estado === "pagado" && p.simulado ? "e-sim" : "e-" + p.estado);
+      est.textContent = p.estado === "pagado" && p.simulado ? "SIMULACIÓN" : (ESTADOS[p.estado] || p.estado);
+      const tot = document.createElement("span"); tot.className = "total"; tot.textContent = pesos(p.centavos);
+      der.append(est, tot);
+      const it = document.createElement("div"); it.className = "items";
+      it.textContent = p.articulos.map((a) => `${a.cantidad} × ${a.nombre}`).join(" · ") || "—";
+      d.append(izq, der, it); cont.appendChild(d);
+    });
+    vistos = pagadosAhora;
+  }
+
+  function pintarProductos(productos) {
+    const cont = $("#productos"); cont.innerHTML = "";
+    if (!productos.length) cont.innerHTML = '<div class="vacio">Sin productos. Agrega el primero abajo.</div>';
+    productos.forEach((p) => {
+      const fila = document.createElement("div"); fila.className = "prod" + (p.disponible ? "" : " apagado");
+      const n = document.createElement("input"); n.type = "text"; n.value = p.nombre; n.maxLength = 24; n.setAttribute("aria-label", "Nombre");
+      const pr = document.createElement("input"); pr.type = "number"; pr.step = "0.01"; pr.min = "0.01"; pr.value = (p.precioCentavos / 100).toFixed(2); pr.setAttribute("aria-label", "Precio");
+      const sw = document.createElement("label"); sw.className = "interruptor";
+      const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = p.disponible;
+      sw.append(cb, document.createTextNode("Disponible"));
+      const acc = document.createElement("div"); acc.className = "fila-acciones";
+      const g = document.createElement("button"); g.className = "btn"; g.textContent = "Guardar";
+      const x = document.createElement("button"); x.className = "btn peligro"; x.textContent = "Borrar";
+      acc.append(g, x);
+      g.onclick = () => guardarProducto(p.sku, { nombre: n.value, precioCentavos: Math.round(Number(pr.value) * 100) });
+      cb.onchange = () => guardarProducto(p.sku, { disponible: cb.checked });
+      x.onclick = async () => {
+        if (!x.classList.contains("confirmar")) { x.classList.add("confirmar"); x.textContent = "¿Seguro?"; setTimeout(() => { x.classList.remove("confirmar"); x.textContent = "Borrar"; }, 3000); return; }
+        try { await api("DELETE", `/panel/api/productos/${p.sku}`); aviso("Producto borrado"); cargarTodo(); } catch (e) { aviso(e.message, true); }
+      };
+      fila.append(n, pr, sw, acc); cont.appendChild(fila);
+    });
+    $("#nota-prod").textContent = `${productos.length} de 10 (lo que cabe en una lista de WhatsApp) · precio máximo ${pesos(topeCentavos)} en la demo.`;
+  }
+
+  async function guardarProducto(sku, cambios) {
+    try { await api("PUT", `/panel/api/productos/${sku}`, cambios); aviso("Guardado ✓"); cargarTodo(); } catch (e) { aviso(e.message, true); cargarTodo(); }
+  }
+
+  $("#f-prod").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      await api("POST", "/panel/api/productos", { nombre: $("#n-nombre").value, precioCentavos: Math.round(Number($("#n-precio").value) * 100) });
+      $("#n-nombre").value = ""; $("#n-precio").value = ""; aviso("Producto agregado ✓"); cargarTodo();
+    } catch (err) { aviso(err.message, true); }
+  });
+
+  $("#f-bot").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      await api("PUT", "/panel/api/ajustes", { nombre: $("#b-nombre").value, saludo: $("#b-saludo").value, activo: $("#b-activo").checked });
+      aviso("Bot actualizado ✓ · escribe «hola» para verlo"); cargarTodo();
+    } catch (err) { aviso(err.message, true); }
+  });
+
+  function pintarAjustes(a) {
+    $("#b-nombre").value = a.nombre; $("#b-saludo").value = a.saludo; $("#b-activo").checked = a.activo;
+    $("#wa-nombre").textContent = a.nombre;
+  }
+
+  async function refrescar(completo) {
+    let e;
+    try { e = await fetch("/panel/api/estado").then((x) => x.json()); } catch { return; }
+    topeCentavos = e.topeCentavos;
+    $("#tope").textContent = pesos(e.topeCentavos);
+    const chip = $("#chip-pey");
+    chip.className = "chip " + (e.peyConectado ? "ok" : "");
+    chip.textContent = e.peyConectado ? "pey conectado: los cobros son reales" : "sin llave de pey: usa «Simular pago»";
+    $("#nota-cobros").textContent = e.peyConectado
+      ? "El cobro es real en pey: paga desde tu banco ($0.01 a $1) o simúlalo (no mueve dinero)."
+      : "Sin llave de pey no se crean cobros reales.";
+    $("#k-ventas").textContent = pesos(e.resumen.ventasHoyCentavos);
+    $("#k-pagados").textContent = e.resumen.pagadosHoy;
+    $("#k-pend").textContent = e.resumen.pendientes;
+    $("#k-sim").textContent = pesos(e.resumen.simuladosHoyCentavos);
+    pintarPedidos(e.pedidos);
+    if (completo || !productosPintados) { pintarProductos(e.productos); pintarAjustes(e.ajustes); productosPintados = true; }
+  }
+  const cargarTodo = () => refrescar(true);
+
+  setInterval(() => { leer(); pendientes(); refrescar(false); }, 1500);
+  leer(); pendientes(); cargarTodo();
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 
 ## Contenido
 - `conocimiento/INDICE.md` — Índice de la base de conocimiento
-- `docs/PRD.md` — PRD · peybot
+- `docs/PRD.md` — PRD · Paga Fácil
 - `conocimiento/01-hackaton-mexico-y-ecosistema-pey.md` — Hackatón México y el ecosistema de pey: qué se sabe del reto y qué buscan pey y sus aliados
 - `conocimiento/02-ley-pagos-digitales-y-plazo-14-dic.md` — Ley de pagos digitales y plazo bancario del 14-dic-2026: qué dicen y qué no se puede afirmar
 - `conocimiento/03-codi-y-api-pey.md` — CoDi y API de Pey
@@ -151,33 +151,42 @@ Archivo: [`04-contexto-pagos-y-comercios-mx.md`](04-contexto-pagos-y-comercios-m
 
 <!-- ===== INICIO: docs/PRD.md ===== -->
 
-# PRD · peybot
+# PRD · Paga Fácil
 
-Versión 0.1 · 14-nov-2026 · Estado: alcance acordado, en construcción.
+Versión 0.2 · 14-nov-2026 · Estado: alcance acordado, en construcción. Une el PRD de «peybot» (rama `business`) con el de servicios y recargas (rama `core-y-servicios`).
 
-> «peybot» es el nombre de trabajo. ⚪ Falta confirmar con pey que se puede usar «pey» en el nombre (K01.7, pregunta 9). Mientras tanto, el bot y la app dicen que es un proyecto independiente, no un producto de pey (AGENTS.md §4).
+> **Paga Fácil** es un proyecto independiente: cobra con CoDi por medio de la API de pey, pero no es un producto de pey ni de Banxico (AGENTS.md §4). Antes se llamó «peybot»; se cambió para no usar la marca de pey sin permiso (K01.7, pregunta 9).
 
 ## Problema
-Una tiendita cobra en efectivo o con transferencias que se "comprueban" con una captura de pantalla. Cobrar con tarjeta le cuesta hasta 3.95 % por venta, y CoDi, que no cobra comisión, casi no se usa: hay 21.8 M de cuentas validadas, pero solo 2.5 M han pagado alguna vez (K04.3, K04.4). Además, pedir y cobrar por WhatsApp se hace a mano.
+- **Personas:** pagan luz, agua, teléfono y recargas en efectivo, en ventanilla o en la tiendita. CoDi no cobra comisión y casi no se usa: hay 21.8 M de cuentas validadas, pero solo 2.5 M han pagado alguna vez (K04.3, K04.4).
+- **Comercios:** una tiendita cobra en efectivo o con transferencias que se "comprueban" con una captura de pantalla. Cobrar con tarjeta le cuesta hasta 3.95 % por venta, y pedir y cobrar por WhatsApp se hace a mano.
 
-## Solución
-- **peybot (WhatsApp):** el cliente le escribe a la tienda, elige productos de su catálogo y recibe el cobro CoDi: una **notificación push** al mismo número desde el que escribe o, si lo prefiere, un **QR** que importa en la app de su banco. Cuando pey confirma el pago, el bot responde «Pago recibido» y la tienda lo ve.
-- **App del comercio (Android):** el dueño configura su bot (nombre, saludo, horario, encendido), su catálogo, y ve pedidos y pagos en tiempo real.
+## Solución: un solo bot de WhatsApp con módulos
+Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quien paga autoriza en la app de su banco: una **notificación push** al mismo número desde el que escribe o, si lo prefiere, un **QR** que importa desde la galería.
+
+| # | Módulo | Para quién | Estado (14-nov) |
+|---|---|---|---|
+| 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | Funcional. Cobro CoDi real con pey (push de $0.01 verificada en BBVA). Pago al servicio SIMULADO |
+| 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Bot funcional y conectado al cobro real. Panel web del comercio en `/panel` |
+| 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Por definir. Factura detrás de una interfaz (PAC sandbox) |
+
+- **Panel web del comercio (módulo 2, `/panel`):** el dueño configura su bot (nombre, saludo, abierto o cerrado), su catálogo, y ve pedidos y pagos en tiempo real. Junto al panel, un WhatsApp simulado muestra lo que ve el cliente. Cambio del 14-nov: la app Android se reemplaza por esta web, más rápida de mostrar en la demo.
 - **Agente (más adelante):** Claude entiende pedidos en texto libre («dame dos papas y un refresco») por medio de herramientas; el código decide precios y montos (K03.9).
 
 ## Para quién
-- **Comprador:** persona con **CoDi ya activo** en la app de su banco. No hay ruta con tarjeta ni ligas de pago.
+- **Comprador o pagador:** persona con **CoDi ya activo** en la app de su banco. No hay ruta con tarjeta ni ligas de pago.
 - **Comercio del demo:** una tiendita, con datos ficticios.
 
 ## Alcance del demo (MVP)
-1. Un comercio, un número de WhatsApp y el catálogo de abajo.
-2. Flujo de compra: menú → producto → carrito → «Pagar» → «A mi número» (push, `POST /codi/pn`) o «Mándame QR» (`POST /codi/qr`) → webhook de pey verificado → «Pago recibido» en WhatsApp y en la app ([pey/04](../pey/04-api-codi-qr-y-push.md), [pey/09](../pey/09-webhooks.md)).
-3. App Android: pantallas Bot, Productos, Pedidos y Pagos.
-4. Cobros de $0.01 a $1, con tope impuesto por el servidor (`MAX_MONTO_MXN`).
+1. Un número de WhatsApp, menú principal con los módulos.
+2. **Servicios:** servicio → referencia → adeudo (simulado) → «Pagar» (push, `POST /codi/pn`) o «Pagar con QR» (`POST /codi/qr`) → pey confirma → comprobante. Se cobra `DEMO_COBRO_MXN` ($0.01) y se muestra el monto real del recibo con la etiqueta de demo; el pago al servicio dice SIMULACIÓN.
+3. **Tiendita:** menú → producto → carrito → «Pagar» → «A mi número» (push) o «Mándame QR» → webhook de pey verificado → «Pago recibido» en WhatsApp y en la app ([pey/04](../pey/04-api-codi-qr-y-push.md), [pey/09](../pey/09-webhooks.md)).
+4. Panel web (`/panel`): Bot, Productos, Pedidos y Pagos, con WhatsApp simulado al lado.
+5. Cobros de $0.01 a $1, con tope impuesto por el servidor (`MAX_MONTO_MXN`).
 
-**Fuera de alcance:** tarjetas y ligas de pago, varios comercios, devoluciones, facturación, NFC.
+**Fuera de alcance del demo:** tarjetas y ligas de pago, varios comercios, devoluciones, NFC, pago real a CFE/Telmex (agregador simulado detrás de una interfaz).
 
-### Catálogo de demo (precios de prueba)
+### Catálogo de demo de la tiendita (precios de prueba)
 
 | SKU | Producto | Precio |
 |---|---|---|
@@ -193,55 +202,62 @@ Una tiendita cobra en efectivo o con transferencias que se "comprueban" con una 
 ## Arquitectura
 
 ```
-Comprador (WhatsApp) ─▶ Meta Cloud API ─▶ POST /api/whatsapp ─▶ motor del bot (+ agente, después)
-                                                                      │
-App Android (Expo) ◀─▶ API propia (apps/api) ◀─▶ Postgres (catálogo, pedidos, estados, dedupe)
+Persona (WhatsApp) ─▶ Meta Cloud API ─▶ POST /api/whatsapp ─▶ router (core/bot.ts) ─┬─▶ módulo servicios (svc:)
+                                                                                    ├─▶ módulo tienda (tienda:) → motor.ts
+                                                                                    ├─▶ módulo p2p (p2p:)
+                                                                                    └─▶ módulo ayuda (ayuda:)
+                                                   motor de cobros (core/cobros.ts) ◀── ctx.cobrar()
                                                                       │
                                          pey: POST /codi/pn o /codi/qr (servidor, nunca la app)
                                                                       │
-App del banco (CoDi) ─ paga ─▶ pey ─▶ POST /api/webhook-pey (firma Standard Webhooks)
+App del banco (CoDi) ─ paga ─▶ pey ─▶ POST /api/webhook-pey (Standard Webhooks) + polling de respaldo
                                                                       │
-                         «Pago recibido» por WhatsApp + pedido «pagado» en la app ◀┘
+                         comprobante por WhatsApp (onPagado del módulo, una sola vez por orden) ◀┘
+Panel web (/panel)  ◀─▶ misma API (apps/api)
 ```
 
 | Pieza | Tecnología | Carpeta |
 |---|---|---|
-| API y webhooks | Node 24+ con TypeScript, Hono | [`apps/api`](../apps/api/README.md) |
-| App del comercio | Expo (React Native + TypeScript) para Android; la misma base exporta una versión web para la demo pública | `apps/movil` (pendiente) |
-| Base de datos | Postgres (Docker en local; servicio administrado al desplegar) | pendiente |
+| API, webhooks y bot | Node 24+ con TypeScript sin compilar, Express 5 | [`apps/api`](../apps/api/README.md) |
+| Base de datos | SQLite integrado (`node:sqlite`) para sesiones, cobros y deduplicación; Postgres administrado cuando la app lo necesite | `apps/api/src/core/db.ts` |
+| Panel del comercio | Página web servida por la misma API (HTML + JS, sin build); datos en SQLite (`tienda_*`) | `apps/api/src/modules/tienda/panel.*` |
 | WhatsApp | WhatsApp Cloud API de Meta (oficial) | — |
 | IA | Claude por API, solo en el servidor | pendiente |
 
+Cómo se reparte el trabajo sin conflictos de Git: [MODULOS.md](../docs/MODULOS.md).
+
 ## Reglas que el diseño respeta
-- **Dinero:** confirmación humana con botón, tope en el servidor, «pagado» solo con `PAID` del cobro o webhook firmado, sin reintentos a ciegas, centavos internos (AGENTS.md §3).
+- **Dinero:** confirmación humana con botón, tope en el servidor, «pagado» solo con `PAID` del cobro o webhook firmado, sin reintentos a ciegas, centavos internos (AGENTS.md §3). Una orden se entrega una sola vez aunque se paguen dos intentos (push y QR).
 - **Llaves y datos:** llaves solo en el servidor; la app nunca habla con pey. El número de WhatsApp se usa para responder y para la push; los logs solo llevan IDs (AGENTS.md §4).
 - **Hackatón:** cobro real en ambiente productivo con reacción a su resultado; integración con pey escrita desde cero en este repo; solo datos propios o ficticios en el demo (K01.8).
 
 ## Plan por tareas
 
-| # | Tarea | Listo cuando |
-|---|---|---|
-| 1 | Bot de WhatsApp sin cobro: webhook verificado, menú, carrito, confirmación | Pruebas pasan; con las credenciales de Meta, el bot responde en tu WhatsApp |
-| 2 | Cobro real: cliente de pey nuevo, pedidos en Postgres, push y QR, webhook de pey verificado y deduplicado | Un pago real de $0.01 cambia el pedido a «pagado» y el bot avisa |
-| 3 | App Android: Bot, Productos, Pedidos y Pagos contra la API | Se ve en el emulador y en tu teléfono con datos reales del demo |
-| 4 | Agente: texto libre → herramientas → carrito | «dos papas y un refresco» arma el carrito correcto; el modelo nunca fija montos |
-| 5 | Entrega: despliegue estable, demo pública, video de 3 min, textos y declaración | Todo lo de K01.8 listo antes del 10-dic (postulación) y del 12-dic (entrega) |
+| # | Tarea | Listo cuando | Estado |
+|---|---|---|---|
+| 1 | Bot de WhatsApp: webhook verificado, menú, carrito, confirmación | Pruebas pasan; con las credenciales de Meta, el bot responde en tu WhatsApp | Pruebas ✅ · Meta pendiente |
+| 2 | Cobro real: cliente de pey nuevo, push y QR, webhook de pey verificado y deduplicado | Un pago real de $0.01 cambia la orden a «pagado» y el bot avisa | ✅ push real de $0.01 confirmada (14-nov) |
+| 3 | Panel web: Bot, Productos, Pedidos y Pagos contra la API, con WhatsApp simulado | Lo que se cambia en el panel lo ve el bot en el siguiente mensaje; los pagos aparecen en vivo | Listo (sin inicio de sesión: solo con `DEV_TOOLS=1`) |
+| 4 | Agente: texto libre → herramientas → carrito | «dos papas y un refresco» arma el carrito correcto; el modelo nunca fija montos | Pendiente |
+| 5 | Entrega: despliegue estable, demo pública, video de 3 min, textos y declaración | Todo lo de K01.8 listo antes del 10-dic (postulación) y del 12-dic (entrega) | Render configurado (`render.yaml`) |
 
 ## Entregables del hackatón (K01.8)
 
 | Pide la regla | Cómo lo cubrimos |
 |---|---|
-| Demo pública sin invitación | Versión web de la app (Expo) con credenciales de prueba y número de WhatsApp del bot; ⚪ un número de prueba de Meta solo escribe a 5 destinatarios, así que para jueces hace falta un número real |
-| Video de hasta 3 min | Pantalla dividida: WhatsApp del comprador y app del comercio; pago real de $0.01 a $1 |
+| Demo pública sin invitación | Número de WhatsApp del bot + chat de pruebas web (`/dev`) + versión web de la app; ⚪ un número de prueba de Meta solo escribe a 5 destinatarios, así que para jueces hace falta un número real |
+| Video de hasta 3 min | WhatsApp de quien paga y app del comercio; pago real de $0.01 a $1 |
 | Descripción (≤ 500 palabras) e instrucciones (≤ 1000) | Se redactan en la tarea 5 a partir de este PRD |
 | Declaración de componentes previos | Base de conocimiento (`conocimiento/`, `pey/`, `codi/`, `docs/REVISION-PEY-2026-11-07.md`): investigación consultada del 5 al 7-nov. Todo el código se escribe desde el 14-nov |
 
 ## Riesgos y preguntas abiertas
 - **Ambiente productivo de pey:** sin aprobación no hay entrega válida; se pide por orden de llegada (K01.8).
-- **Push a un número sin CoDi:** comportamiento no documentado; el QR queda como alternativa (K01.7, pey).
-- **Formato del número de WhatsApp:** pey pide 10 dígitos; WhatsApp manda la lada del país (⚪ confirmar con un número mexicano real).
+- **Push a un número sin CoDi:** comportamiento no documentado; el QR queda como alternativa (K01.7, pey). Con BBVA, la push sí llegó (14-nov).
+- **Formato del número de WhatsApp:** pey pide 10 dígitos; WhatsApp manda `52` o `521` + 10 dígitos. El núcleo acepta los dos (`celularDe`) y, para enviar, quita el `1` (⚪ confirmar con el primer mensaje real de Meta).
 - **Usuarios de WhatsApp sin número visible:** Meta puede omitir el número si la persona usa nombre de usuario; entonces solo se ofrece QR.
-- **Nombre «peybot»:** ver la nota del inicio.
+- **Ventana de 24 h de Meta:** avisar a alguien que no escribió primero requiere plantillas aprobadas.
+- **Credencial expuesta:** la llave de pey se pegó en un chat el 14-nov; las reglas piden avisar a pey en 24 h si una credencial se compromete (K01.8). Rotarla en el portal.
+- **Nombre:** «Paga Fácil» es nombre de trabajo.
 
 <!-- ===== FIN: docs/PRD.md ===== -->
 
@@ -3879,7 +3895,7 @@ Fuente: [Banco de México: CoDi® Cobro Digital](https://www.banxico.org.mx/sist
 Instrucciones para cualquier agente (Claude Code, Codex, Cursor, ChatGPT) que trabaje en este repo. Léelas completas antes de actuar.
 
 ## 1. Misión
-Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026. Qué construimos (**peybot**), su alcance, su arquitectura y el plan por tareas están en `docs/PRD.md`: léelo antes de construir.
+Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi + API de pey; reglas oficiales resumidas en K01.8). El proyecto arrancó desde cero el 14-nov-2026. Qué construimos (**Paga Fácil**, antes «peybot»), su alcance, su arquitectura y el plan por tareas están en `docs/PRD.md`: léelo antes de construir.
 
 ## 2. Cómo usar la base de conocimiento
 1. Empieza por `README.md` y `conocimiento/INDICE.md` (qué archivo responde cada pregunta).
@@ -3894,6 +3910,7 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 | Efectivo, comisiones de tarjeta, adopción de CoDi, fraude, brecha digital, personas y datos para el pitch | K04 |
 | El producto, su alcance y el plan por tareas | `docs/PRD.md` |
 | La API y el bot de WhatsApp | `apps/api/README.md` |
+| Cómo agregar o cambiar un módulo del bot | `docs/MODULOS.md` |
 
 3. En la descripción del PR o del commit, cita los IDs que usaste ("según K03.4…").
 4. Lo marcado ⚪ no está verificado. Si necesitas un dato que no está (endpoint, campo, error, precio), **no lo inventes**: consulta la documentación oficial; si no puedes, deja `TODO(⚪): …` visible en el código y dilo.
@@ -3920,7 +3937,8 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 ## 5. Código
 - Cada app vive en `apps/<nombre>` con su README, `npm test` y `npm run typecheck`. Los dos pasan antes de cada commit.
 - TypeScript que Node 24+ ejecuta sin compilar; nombres, comentarios y textos para usuarios en español de México.
-- La lógica de negocio es pura y se prueba sola (`apps/api/src/bot.ts`); la red vive en adaptadores (`whatsapp.ts` y, en la tarea 2, el cliente de pey).
+- La lógica de negocio es pura y se prueba sola (p. ej. `apps/api/src/modules/tienda/motor.ts`); la red vive en adaptadores (`src/core/whatsapp/` y `src/core/pey/cliente.ts`).
+- Un solo servidor para todos los módulos: cada módulo vive en `apps/api/src/modules/<nombre>` y solo habla con el núcleo por el contrato de `src/core/tipos.ts` ([docs/MODULOS.md](../docs/MODULOS.md)).
 - Las pruebas no usan la red: Meta, pey y la IA se simulan con un `fetch` falso y datos ficticios.
 - Cada API externa lleva en el código la URL de su documentación y la fecha de consulta; lo no verificado queda como `TODO(⚪)`.
 - La integración con pey se escribe nueva en este repo: K03.7 es documentación, no código para copiar (K01.8).

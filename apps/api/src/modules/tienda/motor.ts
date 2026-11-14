@@ -30,6 +30,10 @@ export type Contexto = {
   maxMontoCentavos: number;
   /** Últimos 4 dígitos del celular de quien escribe, si WhatsApp lo mandó y es mexicano. Sin ellos no se ofrece push. */
   ultimos4?: string | undefined;
+  /** Nombre de la tienda (título de la lista, ≤ 24). Lo edita el comercio en el panel. */
+  nombreTienda?: string | undefined;
+  /** Saludo del bot. Lo edita el comercio en el panel. */
+  saludo?: string | undefined;
 };
 
 export type Resultado = { estado: Estado; mensajes: Mensaje[]; cobro?: SolicitudCobro };
@@ -79,14 +83,14 @@ function resumen(partidas: Partida[]): string {
 function menu(ctx: Contexto, estado: Estado, saludo: boolean): Mensaje {
   const partidas = partidasDe(estado.carrito, ctx.catalogo);
   const partes: string[] = [];
-  if (saludo) partes.push("¡Hola! Soy Paga Fácil, el asistente de la tiendita 🛒\nElige un producto y te cobro con CoDi, sin comisión.");
+  if (saludo) partes.push(ctx.saludo || "¡Hola! Soy Paga Fácil, el asistente de la tiendita 🛒\nElige un producto y te cobro con CoDi, sin comisión.");
   if (partidas.length) partes.push(resumen(partidas));
   if (!partes.length) partes.push("Elige un producto:");
   return {
     tipo: "lista",
     cuerpo: partes.join("\n\n"),
     boton: "Ver productos",
-    seccion: "Tiendita",
+    seccion: corta(ctx.nombreTienda || "Tiendita", LIMITES.seccion),
     renglones: ctx.catalogo.slice(0, LIMITES.renglones).map((p) => ({
       id: `prod:${p.sku}`,
       titulo: corta(p.nombre, LIMITES.tituloRenglon),
