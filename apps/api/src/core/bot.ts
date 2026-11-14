@@ -36,6 +36,13 @@ export function crearContexto(waId: string, nombre: string | null): Contexto {
       sesion.modulo = null;
       sesion.paso = null;
       sesion.datos = {};
+      // Negocio independiente: con un solo módulo no hay menú principal; el saludo y «menú» abren ese módulo.
+      const unico = modulos.size === 1 ? [...modulos.values()][0] : undefined;
+      if (unico) {
+        sesion.modulo = unico.id;
+        guardarSesion(waId, sesion);
+        return unico.atender(ctx, { tipo: "boton", id: `${unico.id}:inicio` });
+      }
       await enviarMenu(ctx);
     },
     cobrar(solicitud) {

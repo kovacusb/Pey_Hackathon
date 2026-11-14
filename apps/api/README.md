@@ -1,5 +1,7 @@
 # API de Paga Fácil (`apps/api`)
 
+> **Rama `negocio-independiente`:** solo el bot del negocio, separado de servicios, recargas y ayuda. «hola» abre directo la tienda; `/` lleva a `/panel`, donde el negocio crea su bot y ve las solicitudes, con el celular del cliente simulado al lado. WhatsApp real queda pendiente de la aprobación de Meta.
+
 Un solo servidor para todo el bot: webhook de WhatsApp, webhook de pey, router de módulos y motor de cobros CoDi. Qué construimos: [docs/PRD.md](../../docs/PRD.md). Cómo se reparten los módulos: [docs/MODULOS.md](../../docs/MODULOS.md).
 
 ## Correr y probar

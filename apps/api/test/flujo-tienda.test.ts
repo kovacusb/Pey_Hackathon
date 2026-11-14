@@ -57,10 +57,12 @@ test("compra en la tiendita → push → pey confirma → comprobante", async ()
   assert.match(ultimo().cuerpo, /RASTREO/);
 });
 
-test("un texto con la sesión en la tiendita lo atiende la tiendita; 'menú' regresa al principal", async () => {
+test("un texto con la sesión en la tiendita lo atiende la tiendita; 'menú' regresa al inicio de la tienda (único módulo)", async () => {
   await bot.procesarMensaje(WA, null, { tipo: "boton", id: "tienda:inicio" });
   await bot.procesarMensaje(WA, null, { tipo: "texto", texto: "quiero algo" });
   assert.match(ultimo().cuerpo, /Elige un producto|tiendita/);
   await bot.procesarMensaje(WA, null, { tipo: "texto", texto: "menú" });
-  assert.equal(ultimo().textoBoton, "Ver opciones");
+  // Rama negocio-independiente: con un solo módulo no hay menú principal, «menú» abre la tienda.
+  assert.equal(ultimo().textoBoton, "Ver productos");
+  assert.match(ultimo().cuerpo, /Hola/);
 });

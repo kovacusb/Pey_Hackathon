@@ -83,6 +83,15 @@ test("el bot usa el nombre, el saludo y el catálogo del panel; lo no disponible
   datos.actualizarProducto(chicle.sku, { disponible: true });
 });
 
+test("negocio independiente: «hola» abre directo la tienda, sin menú de servicios", async () => {
+  await bot.procesarMensaje(WA, "Prueba", { tipo: "texto", texto: "hola" });
+  const m = ultimo();
+  assert.equal(m.tipo, "lista");
+  assert.equal(m.textoBoton, "Ver productos");
+  assert.equal(m.secciones[0].titulo, "Abarrotes Lupita");
+  assert.ok(m.secciones[0].filas.every((f: any) => f.id.startsWith("tienda:")));
+});
+
 test("con la tienda cerrada el bot no toma pedidos", async () => {
   datos.guardarAjustes({ activo: false });
   await boton("tienda:inicio");

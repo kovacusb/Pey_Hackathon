@@ -7,24 +7,23 @@ import { primeraVez } from "./core/db.ts";
 import { verificarWebhookPey } from "./core/pey/firma.ts";
 import { extraerMensajes, firmaMetaValida } from "./core/whatsapp/recibir.ts";
 import { rutasDev } from "./dev/rutas.ts";
-import { ayuda } from "./modules/ayuda/index.ts";
 import { tienda } from "./modules/tienda/index.ts";
 import { rutasPanel } from "./modules/tienda/panel.ts";
-import { p2p } from "./modules/p2p/index.ts";
-import { servicios } from "./modules/servicios/index.ts";
 
-// El orden define el orden del menú principal.
-registrarModulo(servicios);
+// Rama negocio-independiente: solo el bot del negocio, separado de servicios, recargas y ayuda.
+// Con un solo módulo, el bot saluda directo con la tienda (core/bot.ts).
 registrarModulo(tienda);
-registrarModulo(p2p);
-registrarModulo(ayuda);
 
 const app = express();
 app.disable("x-powered-by");
 const crudo = express.raw({ type: "*/*", limit: "1mb" });
 
 app.get("/", (_req, res) => {
-  res.type("text/plain").send("Paga Fácil · ok");
+  if (config.devTools) {
+    res.redirect("/panel");
+    return;
+  }
+  res.type("text/plain").send("Paga Fácil · Negocio independiente · ok");
 });
 
 app.get("/salud", (_req, res) => {

@@ -105,7 +105,8 @@
 <body>
 <header class="barra">
   <div class="marca">🛒 Paga Fácil <span>· Panel del negocio</span></div>
-  <span class="chip sim">DEMO · WhatsApp simulado</span>
+  <span class="chip">Negocio independiente</span>
+  <span class="chip sim">WhatsApp simulado · esperando aprobación de Meta</span>
   <span class="chip" id="chip-pey">pey…</span>
   <div class="espacio"></div>
   <span class="chip">Tope por cobro: <b id="tope">—</b></span>
@@ -114,7 +115,7 @@
 <div class="contenedor">
   <!-- Comprador: WhatsApp simulado -->
   <section class="col-tel" aria-label="WhatsApp del cliente (simulado)">
-    <p class="etiqueta">Lo que ve tu cliente en WhatsApp</p>
+    <p class="etiqueta">Celular del cliente (WhatsApp simulado)</p>
     <label class="campo">Celular del cliente (10 dígitos para recibir la push CoDi; vacío = pago con QR)
       <input id="cel" inputmode="numeric" maxlength="10" placeholder="10 dígitos" />
     </label>
@@ -149,15 +150,15 @@
 
     <div class="rejilla">
       <div class="tarjeta">
-        <h2>Pedidos en vivo</h2>
+        <h2>Solicitudes que llegaron</h2>
         <p class="nota">«Pagado» solo cuando pey lo confirma. Los pagos simulados se marcan SIMULACIÓN.</p>
         <div id="pedidos"></div>
       </div>
 
       <div class="pila">
         <div class="tarjeta">
-          <h2>Tu bot</h2>
-          <p class="nota">Lo que cambies aquí lo ve tu cliente en el siguiente mensaje.</p>
+          <h2>Crea tu bot</h2>
+          <p class="nota">Ponle nombre, saludo y productos. Tu cliente lo ve en el siguiente mensaje.</p>
           <form id="f-bot" class="pila">
             <label class="campo">Nombre de la tienda (máx. 24)
               <input id="b-nombre" maxlength="24" required />
@@ -301,7 +302,7 @@
 
   function pintarPedidos(pedidos) {
     const cont = $("#pedidos"); cont.innerHTML = "";
-    if (!pedidos.length) { cont.innerHTML = '<div class="vacio">Todavía no hay pedidos. Escribe «hola» en el WhatsApp de la izquierda.</div>'; }
+    if (!pedidos.length) { cont.innerHTML = '<div class="vacio">Todavía no llegan solicitudes. Escribe «hola» en el celular del cliente.</div>'; }
     const pagadosAhora = new Set(pedidos.filter((p) => p.estado === "pagado").map((p) => p.id));
     pedidos.forEach((p) => {
       const d = document.createElement("div"); d.className = "pedido";
