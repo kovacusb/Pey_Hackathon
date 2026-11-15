@@ -64,4 +64,6 @@ Duración total ≈ 118 s. Si hay que recortar, quita la escena 11 antes que cua
 
 ## Entregable
 
-Un archivo `docs/video/paga-facil-video.html` autocontenido. Debe verse bien a 1920×1080 y también escalado en una laptop, y no debe tener texto cortado.
+1. `docs/video/paga-facil-video.html`, autocontenido. Debe verse bien a 1920×1080 y también escalado en una laptop, sin texto cortado. La línea de tiempo se puede controlar desde fuera (por ejemplo `window.irA(segundo)`), para renderizarla cuadro por cuadro.
+2. **Narración** con la voz **Paulina (Premium), español de México**, de Apple (`say -v "Paulina (Premium)"`). Un guion hablado por escena, sincronizado con la línea de tiempo; si la voz no está instalada, usar Paulina básica y avisar.
+3. **MP4 final** `docs/video/paga-facil.mp4` (1920×1080, 30 fps, H.264 + AAC), con narración y una música de fondo suave y neutra generada con ffmpeg, sin derechos de terceros. Las herramientas están en `docs/video/herramientas/`: Playwright usa el Chrome instalado y ffmpeg viene de `ffmpeg-static`. Instálalas con `npm install --cache <carpeta temporal>`, porque la caché global de npm tiene permisos rotos.
