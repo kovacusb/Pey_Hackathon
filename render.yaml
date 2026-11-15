@@ -20,6 +20,8 @@ services:
         value: "0"
       - key: SERVICIOS_SIMULADOS
         value: "1"
+      - key: SERVICIOS_COBRO_MXN
+        value: "0.01"
       - key: WHATSAPP_GRAPH_VERSION
         value: v27.0
       - key: PEY_API_KEY

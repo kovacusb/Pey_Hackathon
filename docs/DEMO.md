@@ -24,7 +24,7 @@ Para el equipo. Una demo en vivo de unos 4 minutos y un video de hasta 3 minutos
 | 1:15 | Comprobante en WhatsApp + **el panel suena** y la fila pasa a «Pagado» | «pey confirma el pago con un webhook firmado y en el mismo segundo llega el comprobante con la clave de rastreo de Banxico. El negocio lo ve en su panel.» |
 | 1:40 | **Facturar** → Público en general → Emitir → llega el PDF | «Y si el paciente quiere factura, sale en el chat. Hoy es simulada; con un PAC se timbra de verdad.» |
 | 2:10 | Otro cobro con «QR en mi pantalla» → un compañero lo escanea desde su app bancaria | «Si no tiene a la mano su celular, le muestro el QR.» |
-| 2:40 | Menú → Pagar un servicio → CFE → Pagar (simulado) | «Lo siguiente: pagar la luz y las recargas desde el mismo chat. Hoy es simulación; falta conectar al agregador.» |
+| 2:40 | Menú → Pagar un servicio → CFE → Pagar → autorizar $0.01 | «También la luz y las recargas: el cobro CoDi es real, de un centavo, y el pago a CFE todavía es simulado porque falta conectar al agregador.» |
 | 3:10 | Aprende CoDi → «¿Es seguro?» | «Para quien nunca ha usado CoDi: guías en lenguaje claro.» |
 | 3:30 | Cierre | «Sin apps, sin comisiones, dinero directo a la cuenta, con cualquier banco. Integración real con la API de pey: push, QR, webhooks firmados y confirmación antes de entregar.» |
 
@@ -36,7 +36,7 @@ Grábenlo con pantalla dividida: el WhatsApp del celular (QuickTime → Nueva gr
 1. 0:00–0:15: problema en una frase.
 2. 0:15–1:30: **cobro completo** con Cobro rápido: solicitud → notificación del banco → autorizar → comprobante + panel en «Pagado». Esto es lo que exige la regla.
 3. 1:30–2:30: cobro con QR + factura PDF.
-4. 2:30–3:00: servicios (simulación) y ayuda en cámara rápida, más el cierre.
+4. 2:30–3:00: servicios (cobro real de $0.01, pago a CFE simulado) y ayuda en cámara rápida, más el cierre.
 
 ## Plan B
 

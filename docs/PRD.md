@@ -13,7 +13,7 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 
 | # | Módulo | Para quién | Estado (14-nov) |
 |---|---|---|---|
-| 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | SIMULACIÓN completa (decisión 15-nov): sin agregador contratado no se cobra dinero por recibos que no se pagarían. `SERVICIOS_SIMULADOS=0` activa el cobro CoDi real |
+| 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | Pago al proveedor SIMULADO con cobro CoDi real de $0.01 (`SERVICIOS_COBRO_MXN`; decisión 15-nov). `SERVICIOS_SIMULADOS=0` cobra el recibo completo cuando haya agregador |
 | 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Fuera del menú por ahora (15-nov); el código sigue en `src/modules/tienda` |
 | 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Funcional: QR o push al celular del cliente (con aceptación explícita), factura PDF en el chat. Factura SIMULADA sin credenciales; conector de Facturama listo |
 

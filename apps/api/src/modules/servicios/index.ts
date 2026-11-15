@@ -44,7 +44,7 @@ async function listaMontos(ctx: Contexto, operador: string, numero: string) {
 }
 
 async function confirmar(ctx: Contexto, orden: Orden) {
-  const cobro = config.serviciosSimulados ? orden.centavosReal : montoACobrar(orden.centavosReal);
+  const cobro = config.serviciosSimulados ? Math.min(config.serviciosCobroCentavos, config.maxCobroCentavos) : montoACobrar(orden.centavosReal);
   if (cobro === null) {
     await ctx.responder.botones(`Ese monto supera el máximo de ${mxn(config.maxCobroCentavos)} de esta demo.`, [{ id: "core:menu", titulo: "Menú" }]);
     return;
@@ -55,12 +55,14 @@ async function confirmar(ctx: Contexto, orden: Orden) {
       ? [`${orden.emoji} *${orden.nombre}*`, `Referencia: ${ocultar(orden.referencia)}`, `Periodo: ${orden.periodo}`, `Vence: ${orden.vence}`, ``, `*Total: ${mxn(orden.centavosReal)}*`]
       : [`📱 *Recarga ${orden.nombre}*`, `Número: ${ocultar(orden.referencia)}`, ``, `*Total: ${mxn(orden.centavosReal)}*`];
   if (config.serviciosSimulados) {
-    // Sin agregador real no se cobra dinero por un recibo inventado (K01.8: no engañar al pagador).
-    lineas.push(``, `🧪 *SIMULACIÓN:* no se cobra dinero real y el pago a ${orden.nombre} no se realiza. Así se verá el pago cuando conectemos al proveedor.`);
+    // Sin agregador real no se cobra un recibo inventado (K01.8: no engañar al pagador): el cobro CoDi es real pero
+    // simbólico y el pago al proveedor se simula; los dos se dicen antes de cobrar.
+    lineas.push(``, `🧪 *El pago a ${orden.nombre} es una SIMULACIÓN* (aún no conectamos al proveedor).`, `Para que veas que el cobro CoDi es real, tu banco te cobrará solo *${mxn(cobro)}*.`);
     await ctx.responder.botones(lineas.join("\n"), [
-      { id: "svc:pagar:pn", titulo: "✅ Pagar (simulado)" },
+      { id: "svc:pagar:pn", titulo: "✅ Pagar" },
+      { id: "svc:pagar:qr", titulo: "📷 Pagar con QR" },
       { id: "core:menu", titulo: "Cancelar" },
-    ]);
+    ], { pie: "Pagar = solicitud a tu app bancaria" });
     return;
   }
   if (enDemo()) lineas.push(``, `🧪 _Demo: tu banco te cobrará ${mxn(cobro)} reales vía CoDi. El pago a ${orden.nombre} es una SIMULACIÓN._`);
@@ -75,17 +77,13 @@ async function confirmar(ctx: Contexto, orden: Orden) {
 async function pagar(ctx: Contexto, metodo: MetodoCobro) {
   const orden = ctx.sesion.datos.orden as Orden | undefined;
   if (!orden || ctx.sesion.paso !== "confirmar") return ctx.menu();
-  if (config.serviciosSimulados) {
-    ctx.irA("cobrando");
-    const concepto = orden.tipo === "servicio" ? `Pago ${orden.nombre} ${orden.referencia.slice(-4)}` : `Recarga ${orden.nombre} ${orden.referencia.slice(-4)}`;
-    await ctx.responder.texto("⏳ Procesando pago simulado…");
-    return ctx.simularCobro({ centavos: orden.centavosReal, concepto, metodo, payload: { orden } });
-  }
-  const centavos = montoACobrar(orden.centavosReal);
+  const centavos = config.serviciosSimulados ? Math.min(config.serviciosCobroCentavos, config.maxCobroCentavos) : montoACobrar(orden.centavosReal);
   if (centavos === null) return ctx.menu();
   ctx.irA("cobrando");
-  const concepto = orden.tipo === "servicio" ? `Pago ${orden.nombre} ${orden.referencia.slice(-4)}` : `Recarga ${orden.nombre} ${orden.referencia.slice(-4)}`;
-  await ctx.cobrar({ centavos, concepto, metodo, payload: { orden } });
+  // Concepto honesto: quien paga lo ve en su banco (codi/05).
+  const base = orden.tipo === "servicio" ? `${orden.nombre} ${orden.referencia.slice(-4)}` : `Recarga ${orden.nombre} ${orden.referencia.slice(-4)}`;
+  const concepto = config.serviciosSimulados ? `Demo ${base} (simulado)` : `Pago ${base}`;
+  await ctx.cobrar({ centavos, concepto, metodo, payload: { orden, servicioSimulado: config.serviciosSimulados } });
 }
 
 async function mostrarHistorial(ctx: Contexto) {
@@ -97,7 +95,7 @@ async function mostrarHistorial(ctx: Contexto) {
   const lineas = pagos.map((p) => {
     const o = p.payload.orden as Orden;
     const fecha = new Date(p.pagadoEn!).toLocaleDateString("es-MX", { day: "numeric", month: "short", timeZone: "America/Mexico_City" });
-    return `• ${fecha} · ${o.emoji} ${o.nombre} ${ocultar(o.referencia)} · ${mxn(o.centavosReal)}${p.simulado ? " (SIMULACIÓN)" : ""}`;
+    return `• ${fecha} · ${o.emoji} ${o.nombre} ${ocultar(o.referencia)} · ${mxn(o.centavosReal)}${p.simulado || p.payload.servicioSimulado ? " (SIMULACIÓN)" : ""}`;
   });
   await ctx.responder.botones(`🧾 *Tus últimos pagos*\n${lineas.join("\n")}`, [{ id: "core:menu", titulo: "Menú" }]);
 }
@@ -185,13 +183,17 @@ async function onPagado(ctx: Contexto, cobro: Cobro) {
     ``,
     orden.tipo === "servicio" ? `${orden.emoji} ${orden.nombre} · ${ocultar(orden.referencia)}` : `📱 Recarga ${orden.nombre} · ${ocultar(orden.referencia)}`,
     `Monto: ${mxn(orden.centavosReal)}`,
-    ...(enDemo() || cobro.centavos !== orden.centavosReal ? [`Cobrado vía CoDi: ${mxn(cobro.centavos)}`] : []),
+    ...(enDemo() || cobro.centavos !== orden.centavosReal ? [`Cobrado vía CoDi: ${mxn(cobro.centavos)}${cobro.simulado ? "" : " (real)"}`] : []),
     `Fecha: ${fecha}`,
     ...(cobro.rastreo ? [`Clave de rastreo: ${cobro.rastreo}`] : []),
     `Folio Paga Fácil: ${cobro.numRef}`,
     `Folio ${orden.nombre}: ${liquidacion.folio}${liquidacion.simulado ? " (SIMULACIÓN)" : ""}`,
     ``,
-    cobro.simulado ? `⚠️ SIMULACIÓN: no se movió dinero` : `Sin comisiones · Pagado con CoDi`,
+    cobro.simulado
+      ? `⚠️ SIMULACIÓN: no se movió dinero`
+      : cobro.payload.servicioSimulado
+        ? `⚠️ El pago a ${orden.nombre} es una SIMULACIÓN: solo se cobró ${mxn(cobro.centavos)} real vía CoDi.`
+        : `Sin comisiones · Pagado con CoDi`,
   ];
   ctx.irA("fin");
   await ctx.responder.botones(lineas.join("\n"), [

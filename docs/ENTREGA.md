@@ -21,7 +21,7 @@ Textos para el formulario de entrega del Hackatón México (reglas resumidas en 
 - Solo marca "pagado" cuando pey confirma el monto esperado, y entrega cada orden una sola vez aunque se paguen push y QR.
 - El servidor impone un tope por cobro, nada se cobra sin un botón de confirmación y los registros solo guardan identificadores.
 
-**Qué es real y qué es simulación.** El **cobro rápido es real**: cobra el monto que se escriba (hasta un tope configurable en el servidor) y lo probamos con push y QR desde varios bancos. **Servicios y recargas son SIMULACIÓN**: sin un agregador contratado no cobramos dinero por recibos que no se pagarían, así que el bot lo dice en cada paso. La factura sin credenciales de un PAC también es simulada y el PDF lo indica. Ambas piezas viven detrás de interfaces: un interruptor activa el cobro real de servicios cuando haya proveedor, y el conector de Facturama ya está escrito.
+**Qué es real y qué es simulación.** El **cobro rápido es real**: cobra el monto que se escriba (hasta un tope configurable en el servidor) y lo probamos con push y QR desde varios bancos. En **servicios y recargas el pago al proveedor es SIMULACIÓN** (falta contratar un agregador), pero el **cobro CoDi sí es real por $0.01**, para mostrar el flujo completo sin cobrar un recibo que no se pagaría; el bot lo dice antes de cobrar y en el comprobante. La factura sin credenciales de un PAC también es simulada y el PDF lo indica. Ambas piezas viven detrás de interfaces: un interruptor activa el cobro real de servicios cuando haya proveedor, y el conector de Facturama ya está escrito.
 
 **Impacto.** Sin descargar nada, la conversación guía la primera vez con CoDi, justo cuando los bancos deben homologar el pago de cobros CoDi (14-dic-2026, K02.5). Comercios y profesionistas cobran sin comisión, con comprobante y factura automáticos.
 
@@ -33,7 +33,7 @@ Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico
 1. Escribe «hola» al ‹número de WhatsApp del bot›. El número de prueba de Meta solo responde a números registrados: pídenos que agreguemos el tuyo.
 2. Necesitas CoDi activo en la app de tu banco (funciona con cualquier banco participante). Los cobros son **reales** y llegan a la cuenta de prueba del proyecto: usa montos chicos (el servidor tiene un tope de ‹tope› por cobro).
 3. **Cobro rápido (real):** ⚡ Cobro rápido → escribe un monto (ej. `25`) → Consulta médica → «A su celular» → escribe tu propio número y confirma → abre la notificación de tu banco y autoriza. En segundos llega el comprobante con la clave de rastreo de Banxico. Para probar el QR, elige «QR en mi pantalla» y escanéalo **desde la app de tu banco** (CoDi → Pagar; la cámara normal no lo paga) o impórtalo desde la galería. Después toca **Facturar** → «Público en general» → **Emitir factura**: llega un PDF marcado SIMULACIÓN.
-4. **Servicios (simulación):** Pagar un servicio → CFE → `123456789012` → verás un adeudo → **Pagar (simulado)**. Llega un comprobante marcado SIMULACIÓN; no se cobra dinero.
+4. **Servicios (pago al proveedor simulado):** Pagar un servicio → CFE → `123456789012` → verás un adeudo → **Pagar**. Tu banco recibe un cobro CoDi **real de $0.01**; al autorizarlo llega el comprobante, que aclara que el pago a CFE es una SIMULACIÓN.
 5. **Aprende CoDi:** guías cortas desde el menú.
 6. Escribe «menú» en cualquier momento para volver al inicio.
 

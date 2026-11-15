@@ -33,6 +33,13 @@ app.get("/salud", (_req, res) => {
     peyWebhook: Boolean(config.pey.webhookSecret),
     whatsapp: waConfigurado(),
     devTools: config.devTools,
+    // Límites de cobro (no son secretos): ayudan a revisar que el despliegue tenga la configuración esperada.
+    limites: {
+      maxCobroMxn: config.maxCobroCentavos / 100,
+      demoCobroMxn: config.demoCobroCentavos / 100,
+      serviciosSimulados: config.serviciosSimulados,
+      serviciosCobroMxn: config.serviciosCobroCentavos / 100,
+    },
   });
 });
 

@@ -1,4 +1,4 @@
-// Decisiones del 15-nov: servicios y recargas son SIMULACIÓN completa (sin cobro en pey) y el cobro rápido
+// Decisiones del 15-nov: en servicios y recargas el pago al proveedor es SIMULACIÓN con cobro CoDi real de $0.01; el cobro rápido
 // cobra el monto real, sin forzar $0.01, hasta el tope MAX_MONTO_MXN.
 import { test, before } from "node:test";
 import assert from "node:assert/strict";
@@ -41,17 +41,19 @@ before(async () => {
 
 const ultimo = (wa: string) => buzon(wa).at(-1)!.mensaje as any;
 
-test("servicios: SIMULACIÓN completa, sin llamar a pey, con comprobante marcado", async () => {
+test("servicios: pago al proveedor SIMULADO, pero cobro CoDi real de $0.01", async () => {
   const WA = "dev5500001111";
   const e = (x: any) => bot.procesarMensaje(WA, null, x);
   await e({ tipo: "boton", id: "svc:srv:cfe" });
   await e({ tipo: "texto", texto: "123456789012" });
   assert.match(ultimo(WA).cuerpo, /SIMULACIÓN/);
-  assert.deepEqual(ultimo(WA).botones.map((b: any) => b.id), ["svc:pagar:pn", "core:menu"]);
+  assert.match(ultimo(WA).cuerpo, /\$0\.01/);
   await e({ tipo: "boton", id: "svc:pagar:pn" });
-  assert.equal(llamadasPey.length, 0, "no debe crear Mensajes de Cobro en pey");
-  assert.match(ultimo(WA).cuerpo, /SIMULACIÓN · no es un pago real/);
-  assert.match(ultimo(WA).cuerpo, /no se movió dinero/);
+  assert.deepEqual(llamadasPey.at(-1), { tipo: "pn", centavos: 1 }); // cobro real simbólico, no el recibo completo
+  assert.equal(await cobros.procesarEventoPey({ type: "codi.pn.payment_received", transactionId: "TX-M", amount: 0.01 }), "confirmado");
+  assert.match(ultimo(WA).cuerpo, /Pago confirmado/);
+  assert.match(ultimo(WA).cuerpo, /Cobrado vía CoDi: \$0\.01 \(real\)/);
+  assert.match(ultimo(WA).cuerpo, /es una SIMULACIÓN: solo se cobró \$0\.01 real/);
   await e({ tipo: "boton", id: "svc:historial" });
   assert.match(ultimo(WA).cuerpo, /SIMULACIÓN/);
 });

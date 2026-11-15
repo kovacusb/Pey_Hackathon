@@ -29,9 +29,11 @@ export const config = {
   // Si es > 0, todo cobro real se reduce a este monto de prueba (y se muestra el monto real como referencia).
   // 0 (por defecto) = se cobra el monto real, hasta el tope.
   demoCobroCentavos: pesosACentavos(num("DEMO_COBRO_MXN", 0)),
-  // Servicios y recargas: mientras no haya un agregador real, el flujo completo es SIMULACIÓN (no se cobra dinero),
-  // para no cobrar de verdad un recibo inventado. "0" = cobro CoDi real del monto (con liquidación simulada).
+  // Servicios y recargas: mientras no haya un agregador real, el pago al proveedor es SIMULACIÓN y el cobro CoDi
+  // real es solo un monto simbólico (SERVICIOS_COBRO_MXN, $0.01), para no cobrar de verdad un recibo inventado.
+  // "0" = se cobra el monto completo del recibo vía CoDi (cuando haya proveedor real).
   serviciosSimulados: (process.env.SERVICIOS_SIMULADOS ?? "1") !== "0",
+  serviciosCobroCentavos: pesosACentavos(num("SERVICIOS_COBRO_MXN", 0.01)),
 
   // Vigencias en segundos. pey exige 0 o >= 360 en QR y >= 360 en push (pey/04).
   vigenciaQrSeg: num("VIGENCIA_QR_SEG", 600),
