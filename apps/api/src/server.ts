@@ -112,6 +112,16 @@ if (config.devTools) app.use("/dev", rutasDev());
 app.use("/panel", rutasPanel());
 
 iniciarPolling();
+
+// Despertador: en Render gratis el servicio se duerme tras ~15 min sin tráfico entrante. Visitar su propia URL
+// pública cada 10 min cuenta como tráfico y lo mantiene despierto. Render define RENDER_EXTERNAL_URL solo.
+const urlPublica = process.env.KEEPALIVE_URL || process.env.RENDER_EXTERNAL_URL;
+if (urlPublica) {
+  setInterval(() => {
+    fetch(`${urlPublica.replace(/\/$/, "")}/salud`, { signal: AbortSignal.timeout(10_000) }).catch(() => {});
+  }, 10 * 60_000).unref();
+}
+
 app.listen(config.port, () => {
   console.log(`Paga Fácil escuchando en :${config.port}`);
   console.log(`  pey: ${config.pey.apiKey ? "llave cargada" : "SIN LLAVE"} · webhook pey: ${config.pey.webhookSecret ? "con secreto" : "sin secreto (solo polling)"}`);
