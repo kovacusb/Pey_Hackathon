@@ -17,7 +17,7 @@ export function registrarModulo(m: Modulo) {
 }
 
 // Sin \b al final: en JS "ú" no es carácter de palabra y "menú" nunca coincidiría.
-const SALUDOS = /^(hola|holi|buenas|buenos dias|buenos días|buenas tardes|buenas noches|menu|menú|inicio|empezar|start|0|hi|hello)(?=$|[\s!.,?¡¿])/i;
+const SALUDOS = /^(hola|holi|buenas|buenos dias|buenos días|buenas tardes|buenas noches|menu|menú|inicio|empezar|start|hi|hello)(?=$|[\s!.,?¡¿])/i;
 
 export function crearContexto(waId: string, nombre: string | null): Contexto {
   const sesion = leerSesion(waId);

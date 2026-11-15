@@ -4,7 +4,7 @@
 //   → datos fiscales mínimos del cliente → factura PDF en el chat para reenviarla.
 // La factura sale del facturador configurado: Facturama si hay credenciales; si no, SIMULACIÓN sin validez fiscal.
 import { config } from "../../config.ts";
-import { actualizarPayload, cobroPorId } from "../../core/cobros.ts";
+import { actualizarPayload, cobroPorId, normalizarCelular } from "../../core/cobros.ts";
 import { enDemo, montoACobrar } from "../../core/demo.ts";
 import { mxn } from "../../core/dinero.ts";
 import { REGIMENES, RFC_VALIDO, USOS, facturadorConfigurado, type Receptor } from "../../core/facturacion/index.ts";
@@ -54,6 +54,10 @@ async function pedirMetodo(ctx: Contexto) {
 async function cobrar(ctx: Contexto, metodo: "qr" | "pn") {
   const { centavosReal, concepto, celular } = ctx.sesion.datos as { centavosReal?: number; concepto?: string; celular?: string };
   if (!centavosReal || !concepto) return pedirMonto(ctx);
+  // Solo desde la pantalla de método o de confirmación: un doble toque (o un botón viejo) no crea otro cobro.
+  if (ctx.sesion.paso !== "metodo" && ctx.sesion.paso !== "confirmar_celular") {
+    return ctx.responder.texto("Ese cobro ya se generó. Te aviso aquí en cuanto se pague ✅");
+  }
   const centavos = montoACobrar(centavosReal);
   if (centavos === null) return ctx.menu();
   ctx.irA("cobrando");
@@ -222,8 +226,8 @@ async function atender(ctx: Contexto, e: Entrada) {
       return pedirMetodo(ctx);
     }
     case "celular": {
-      const cel = texto.replace(/\D/g, "");
-      if (!/^\d{10}$/.test(cel)) return ctx.responder.texto("El celular debe tener 10 dígitos. Intenta de nuevo o escribe *menú*.");
+      const cel = normalizarCelular(texto);
+      if (!cel) return ctx.responder.texto("El celular debe tener 10 dígitos (puedes incluir +52). Intenta de nuevo o escribe *menú*.");
       ctx.irA("confirmar_celular", { celular: cel });
       // Solo se manda la solicitud con aceptación explícita de quien paga (codi/05: cobros solo a clientes que lo autorizaron).
       return ctx.responder.botones(`¿Tu cliente aceptó recibir la solicitud de cobro en el ${ocultar(cel)}?`, [

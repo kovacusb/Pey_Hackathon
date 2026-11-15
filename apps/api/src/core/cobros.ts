@@ -101,8 +101,35 @@ export function pendientesDe(waId: string): Cobro[] {
 // ---------- Crear ----------
 /** Celular de 10 dígitos a partir del wa_id (521XXXXXXXXXX, 52XXXXXXXXXX o dev55XXXXXXXX). */
 export function celularDe(waId: string): string | null {
-  const digitos = waId.replace(/\D/g, "");
-  return digitos.length >= 10 ? digitos.slice(-10) : null;
+  // Solo números de México: CoDi es mexicano y tomar "los últimos 10 dígitos" de un número extranjero
+  // (+1 415…) mandaría la solicitud de cobro a un desconocido en México.
+  const mx = /^521?(\d{10})$/.exec(waId);
+  if (mx) return mx[1];
+  const dev = /^dev(\d{10})$/.exec(waId);
+  return dev ? dev[1] : null;
+}
+
+/** Celular escrito por una persona → 10 dígitos. Acepta "+52 55 1234 5678", "52 1 55…", "(55) 1234-5678". */
+export function normalizarCelular(texto: string): string | null {
+  const d = texto.replace(/\D/g, "");
+  const m = /^(?:521|52)?(\d{10})$/.exec(d);
+  return m ? m[1] : null;
+}
+
+// Antispam (K01.8 prohíbe cobros masivos no solicitados): ventana de 10 minutos.
+const VENTANA_MS = 10 * 60_000;
+const MAX_COBROS_POR_USUARIO = 8;
+const MAX_PUSH_POR_DESTINO = 3;
+
+function excedeLimites(waId: string, destino: string | null): string | null {
+  const desde = Date.now() - VENTANA_MS;
+  const porUsuario = (db.prepare("SELECT COUNT(*) AS n FROM cobros WHERE wa_id = ? AND creado_en > ? AND pey_id IS NOT NULL").get(waId, desde) as any).n;
+  if (porUsuario >= MAX_COBROS_POR_USUARIO) return "⚠️ Generaste muchos cobros seguidos. Espera unos minutos y vuelve a intentar.";
+  if (destino) {
+    const alDestino = (db.prepare("SELECT COUNT(*) AS n FROM cobros WHERE destino = ? AND metodo = 'pn' AND creado_en > ?").get(destino, desde) as any).n;
+    if (alDestino >= MAX_PUSH_POR_DESTINO) return `⚠️ Ya se enviaron varias solicitudes a ese celular. Espera unos minutos o usa el QR.`;
+  }
+  return null;
 }
 
 const minutos = (seg: number) => Math.round(seg / 60);
@@ -120,6 +147,11 @@ export async function iniciarCobro(waId: string, modulo: string, s: SolicitudCob
     return;
   }
   const audiencia = s.audiencia ?? "propia";
+  const limite = excedeLimites(waId, metodo === "pn" ? (s.celular ?? null) : null);
+  if (limite) {
+    await r.botones(limite, [{ id: "core:menu", titulo: "Menú" }]);
+    return;
+  }
   // Push a un tercero solo si el módulo lo pasó explícito (confirmado por la persona del chat); si no, al propio celular.
   const celular = s.celular ?? (audiencia === "propia" ? celularDe(waId) : null);
   if (metodo === "pn" && !celular) metodo = "qr";

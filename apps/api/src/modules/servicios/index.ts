@@ -2,7 +2,7 @@
 // Flujo: elegir servicio → escribir referencia → ver adeudo → confirmar → cobro CoDi (push o QR) → pey confirma
 //        → se liquida con el agregador (SIMULACIÓN por ahora) → comprobante por WhatsApp.
 import { config } from "../../config.ts";
-import { celularDe, historial } from "../../core/cobros.ts";
+import { celularDe, historial, normalizarCelular } from "../../core/cobros.ts";
 import { mxn } from "../../core/dinero.ts";
 import { enDemo, montoACobrar } from "../../core/demo.ts";
 import type { Cobro, Contexto, Entrada, MetodoCobro, Modulo } from "../../core/tipos.ts";
@@ -163,8 +163,9 @@ async function atender(ctx: Contexto, e: Entrada) {
       return confirmar(ctx, { tipo: "servicio", clave: s.clave, nombre: s.nombre, emoji: s.emoji, referencia: texto, centavosReal: adeudo.centavos, periodo: adeudo.periodo, vence: adeudo.vence });
     }
     case "rec_numero_texto": {
-      if (!/^\d{10}$/.test(texto)) return ctx.responder.texto("El número debe tener 10 dígitos. Intenta de nuevo o escribe *menú*.");
-      return listaMontos(ctx, String(ctx.sesion.datos.operador), texto);
+      const cel = normalizarCelular(e.texto ?? "");
+      if (!cel) return ctx.responder.texto("El número debe tener 10 dígitos (puedes incluir +52). Intenta de nuevo o escribe *menú*.");
+      return listaMontos(ctx, String(ctx.sesion.datos.operador), cel);
     }
     case "confirmar":
       return ctx.responder.texto("Toca *Pagar* o *Pagar con QR* para continuar, o escribe *menú*.");
