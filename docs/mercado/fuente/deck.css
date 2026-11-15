@@ -1,0 +1,82 @@
+:root {
+  --tinta: #10213A;
+  --suave: #4A5A6E;
+  --gris: #6B7A8C;
+  --fondo: #FBFBF8;
+  --tarjeta: #F0F2F6;
+  --azul: #2350FF;
+  --pizarra: #5D7690;
+  --pizarra-clara: #AEBCCB;
+  --niebla: #DDE3EA;
+}
+
+body { font-family: 'Inter', Arial, sans-serif; color: var(--tinta); }
+
+section { background: var(--fondo); padding: 112px 128px 190px 128px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; }
+
+.ceja { font-size: 24px; font-weight: 700; letter-spacing: 3px; color: var(--azul); }
+section h1 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.12; color: var(--tinta); }
+.sub { font-size: 26px; color: var(--suave); }
+.sub b { color: var(--tinta); }
+
+.fuente { position: absolute; left: 128px; bottom: 56px; width: 1664px; font-size: 24px; line-height: 1.3; color: var(--gris); }
+
+/* Lámina 1: círculos de mercado */
+.diagrama { position: relative; width: 1664px; height: 560px; margin-top: 18px; }
+.diagrama .valor { position: absolute; width: 300px; text-align: center; font-size: 44px; font-weight: 700; }
+.diagrama .claro { color: #FBFBF8; }
+.diagrama .oscuro { color: var(--tinta); }
+.diagrama .nucleo { position: absolute; width: 240px; text-align: center; font-size: 24px; font-weight: 700; line-height: 1.2; color: var(--tinta); }
+.diagrama .etiqueta { position: absolute; left: 1030px; width: 634px; }
+.etiqueta .nombre { font-size: 28px; font-weight: 700; line-height: 1.15; color: var(--tinta); }
+.etiqueta .nombre.azul { color: var(--azul); }
+.etiqueta .detalle { font-size: 24px; color: var(--suave); }
+
+/* Lámina 2: tickets */
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 22px; }
+.tarjeta { background: var(--tarjeta); border-radius: 28px; padding: 36px 40px; display: flex; flex-direction: column; gap: 22px; }
+.tarjeta .ceja-t { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--tinta); }
+.tarjeta .ceja-t.azul { color: var(--azul); }
+.fila { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.fila .texto { display: flex; flex-direction: column; gap: 2px; }
+.fila .que { font-size: 28px; font-weight: 700; }
+.fila .nota { font-size: 24px; color: var(--suave); line-height: 1.25; }
+.fila .cifra { font-size: 46px; font-weight: 700; white-space: nowrap; text-align: right; }
+.fila .cifra.azul { color: var(--azul); }
+.fila .unidad { font-size: 26px; font-weight: 500; color: var(--suave); }
+
+/* Lámina 3: barras y cálculo */
+.cuerpo { display: grid; grid-template-columns: 760px 1fr; gap: 56px; margin-top: 18px; }
+.barras { position: relative; width: 760px; height: 560px; }
+.barras .lbl { position: absolute; text-align: center; font-size: 24px; color: #FBFBF8; line-height: 1.2; }
+.barras .tot { position: absolute; text-align: center; font-size: 46px; font-weight: 700; }
+.barras .eje { position: absolute; text-align: center; font-size: 26px; font-weight: 700; line-height: 1.25; }
+.barras .eje span { color: var(--suave); }
+.barras .rango { position: absolute; font-size: 24px; color: var(--suave); }
+.calc { background: var(--tarjeta); border-radius: 28px; padding: 26px 36px; display: flex; flex-direction: column; gap: 10px; }
+.calc .bloque { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+.calc .bloque .tit { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+.calc .bloque .tit.azul { color: var(--azul); }
+.calc .bloque .total { font-size: 40px; font-weight: 700; white-space: nowrap; }
+.calc .bloque .total.azul { color: var(--azul); }
+.calc .renglon { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; font-size: 24px; color: var(--suave); line-height: 1.3; }
+.calc .renglon b { color: var(--tinta); white-space: nowrap; font-size: 26px; }
+.calc .control { font-size: 24px; font-style: italic; color: var(--gris); line-height: 1.3; }
+.calc hr { border-top: 2px solid #DCE1E8; }
+
+/* Lámina 4: TAM, SAM, SOM */
+.embudo { display: flex; flex-direction: column; gap: 14px; }
+.nivel { display: flex; justify-content: space-between; align-items: baseline; }
+.nivel .n { font-size: 28px; font-weight: 700; }
+.nivel .n span { font-weight: 400; color: var(--suave); }
+.nivel .v { font-size: 40px; font-weight: 700; white-space: nowrap; }
+.nivel .v.azul { color: var(--azul); }
+.nivel .v span { font-size: 24px; font-weight: 500; color: var(--suave); }
+.barra-h { height: 40px; border-radius: 4px; }
+.barra-fila { display: flex; align-items: center; gap: 18px; }
+.barra-fila .pct { font-size: 24px; font-style: italic; color: var(--suave); }
+.filtro { font-size: 24px; font-style: italic; color: var(--suave); line-height: 1.3; }
+
+/* Entrada suave al llegar a cada lámina */
+@keyframes subir { from { opacity: 0; transform: translateY(18px); } }
+.anim { animation: subir 520ms ease-out both; animation-delay: calc(var(--i, 0) * 140ms); }

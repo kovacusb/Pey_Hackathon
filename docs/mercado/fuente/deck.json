@@ -1,0 +1,19 @@
+{
+  "v": 5,
+  "createdOnFiles": { "v": 1, "at": "2026-11-15T19:10:00Z" },
+  "lists": "css",
+  "format": { "v": 1, "shared": ["project/deck.css"] },
+  "title": "Dimensionamiento de mercado (MXN)",
+  "order": ["personas", "ticket", "revenue", "tam"],
+  "cover": "personas",
+  "sections": {
+    "s1": { "description": "Quién: de 103 a ~31 millones de personas al segmentar a trabajadores informales conectados.", "start": "personas" },
+    "s2": { "description": "Cuánto por transacción: tickets altos en salud y seguros, ~$100 en pymes informales.", "start": "ticket" },
+    "s3": { "description": "Cuánto en total: ~$352 vs. ~$303 mil millones de pesos al año, y el alcanzable por CoDi.", "start": "revenue" }
+  },
+  "faces": {
+    "source-serif-4": { "family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" },
+    "inter": { "family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" }
+  },
+  "designSystems": []
+}

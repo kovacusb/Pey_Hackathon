@@ -1,0 +1,222 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Dimensionamiento de mercado (MXN)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&family=Inter:wght@400;500;600;700&display=swap">
+<style>* { margin: 0 } body { font: 32px/1.2 sans-serif; background:#222 }
+body > section { width: 1920px !important; height: 1080px !important; overflow: hidden !important; box-sizing: border-box !important; position: relative; isolation: isolate; break-after: page }
+h1 { font-size: 96px; font-weight: 600 } h2 { font-size: 64px; font-weight: 600 } h3 { font-size: 44px; font-weight: 600 }
+p, li, h1, h2, h3 { overflow-wrap: break-word }
+@page { size: 1920px 1080px; margin: 0 }
+.anim { animation: none !important }
+:root {
+  --tinta: #10213A;
+  --suave: #4A5A6E;
+  --gris: #6B7A8C;
+  --fondo: #FBFBF8;
+  --tarjeta: #F0F2F6;
+  --azul: #2350FF;
+  --pizarra: #5D7690;
+  --pizarra-clara: #AEBCCB;
+  --niebla: #DDE3EA;
+}
+
+body { font-family: 'Inter', Arial, sans-serif; color: var(--tinta); }
+
+section { background: var(--fondo); padding: 112px 128px 190px 128px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; }
+
+.ceja { font-size: 24px; font-weight: 700; letter-spacing: 3px; color: var(--azul); }
+section h1 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.12; color: var(--tinta); }
+.sub { font-size: 26px; color: var(--suave); }
+.sub b { color: var(--tinta); }
+
+.fuente { position: absolute; left: 128px; bottom: 56px; width: 1664px; font-size: 24px; line-height: 1.3; color: var(--gris); }
+
+/* Lámina 1: círculos de mercado */
+.diagrama { position: relative; width: 1664px; height: 560px; margin-top: 18px; }
+.diagrama .valor { position: absolute; width: 300px; text-align: center; font-size: 44px; font-weight: 700; }
+.diagrama .claro { color: #FBFBF8; }
+.diagrama .oscuro { color: var(--tinta); }
+.diagrama .nucleo { position: absolute; width: 240px; text-align: center; font-size: 24px; font-weight: 700; line-height: 1.2; color: var(--tinta); }
+.diagrama .etiqueta { position: absolute; left: 1030px; width: 634px; }
+.etiqueta .nombre { font-size: 28px; font-weight: 700; line-height: 1.15; color: var(--tinta); }
+.etiqueta .nombre.azul { color: var(--azul); }
+.etiqueta .detalle { font-size: 24px; color: var(--suave); }
+
+/* Lámina 2: tickets */
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 22px; }
+.tarjeta { background: var(--tarjeta); border-radius: 28px; padding: 36px 40px; display: flex; flex-direction: column; gap: 22px; }
+.tarjeta .ceja-t { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--tinta); }
+.tarjeta .ceja-t.azul { color: var(--azul); }
+.fila { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.fila .texto { display: flex; flex-direction: column; gap: 2px; }
+.fila .que { font-size: 28px; font-weight: 700; }
+.fila .nota { font-size: 24px; color: var(--suave); line-height: 1.25; }
+.fila .cifra { font-size: 46px; font-weight: 700; white-space: nowrap; text-align: right; }
+.fila .cifra.azul { color: var(--azul); }
+.fila .unidad { font-size: 26px; font-weight: 500; color: var(--suave); }
+
+/* Lámina 3: barras y cálculo */
+.cuerpo { display: grid; grid-template-columns: 760px 1fr; gap: 56px; margin-top: 18px; }
+.barras { position: relative; width: 760px; height: 560px; }
+.barras .lbl { position: absolute; text-align: center; font-size: 24px; color: #FBFBF8; line-height: 1.2; }
+.barras .tot { position: absolute; text-align: center; font-size: 46px; font-weight: 700; }
+.barras .eje { position: absolute; text-align: center; font-size: 26px; font-weight: 700; line-height: 1.25; }
+.barras .eje span { color: var(--suave); }
+.barras .rango { position: absolute; font-size: 24px; color: var(--suave); }
+.calc { background: var(--tarjeta); border-radius: 28px; padding: 26px 36px; display: flex; flex-direction: column; gap: 10px; }
+.calc .bloque { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+.calc .bloque .tit { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+.calc .bloque .tit.azul { color: var(--azul); }
+.calc .bloque .total { font-size: 40px; font-weight: 700; white-space: nowrap; }
+.calc .bloque .total.azul { color: var(--azul); }
+.calc .renglon { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; font-size: 24px; color: var(--suave); line-height: 1.3; }
+.calc .renglon b { color: var(--tinta); white-space: nowrap; font-size: 26px; }
+.calc .control { font-size: 24px; font-style: italic; color: var(--gris); line-height: 1.3; }
+.calc hr { border-top: 2px solid #DCE1E8; }
+
+/* Lámina 4: TAM, SAM, SOM */
+.embudo { display: flex; flex-direction: column; gap: 14px; }
+.nivel { display: flex; justify-content: space-between; align-items: baseline; }
+.nivel .n { font-size: 28px; font-weight: 700; }
+.nivel .n span { font-weight: 400; color: var(--suave); }
+.nivel .v { font-size: 40px; font-weight: 700; white-space: nowrap; }
+.nivel .v.azul { color: var(--azul); }
+.nivel .v span { font-size: 24px; font-weight: 500; color: var(--suave); }
+.barra-h { height: 40px; border-radius: 4px; }
+.barra-fila { display: flex; align-items: center; gap: 18px; }
+.barra-fila .pct { font-size: 24px; font-style: italic; color: var(--suave); }
+.filtro { font-size: 24px; font-style: italic; color: var(--suave); line-height: 1.3; }
+
+/* Entrada suave al llegar a cada lámina */
+@keyframes subir { from { opacity: 0; transform: translateY(18px); } }
+.anim { animation: subir 520ms ease-out both; animation-delay: calc(var(--i, 0) * 140ms); }
+</style></head><body>
+<section id="personas">
+<p class="ceja">DIMENSIONAMIENTO DE MERCADO</p>
+<h1>El mercado se acota de 103 a ~31 millones de personas al segmentar a trabajadores informales conectados</h1>
+<p class="sub"><b>Millones de personas</b>, México</p>
+<div class="diagrama anim" style="--i:1">
+<svg aria-label="Círculos concéntricos: 103.2, 75.3, 56.7 y 30.7 millones de personas, con el sector o solución por estimar al centro" width="1000" height="560" viewBox="0 0 1000 560" style="position:absolute;left:0;top:0;width:1000px;height:560px">
+<ellipse cx="450" cy="288" rx="440" ry="270" fill="#DDE3EA"/>
+<ellipse cx="450" cy="338" rx="380" ry="220" fill="#AEBCCB" stroke="#FBFBF8" stroke-width="4"/>
+<ellipse cx="450" cy="387" rx="315" ry="171" fill="#5D7690" stroke="#FBFBF8" stroke-width="4"/>
+<ellipse cx="450" cy="437" rx="240" ry="121" fill="#2350FF" stroke="#FBFBF8" stroke-width="4"/>
+<ellipse cx="450" cy="491" rx="140" ry="63" fill="#FBFBF8" stroke="#10213A" stroke-width="2" stroke-dasharray="8 7"/>
+<g stroke="#8A97A6" stroke-width="2">
+<line x1="520" y1="68" x2="1000" y2="68"/>
+<line x1="520" y1="166" x2="1000" y2="166"/>
+<line x1="520" y1="265" x2="1000" y2="265"/>
+<line x1="520" y1="365" x2="1000" y2="365"/>
+<line x1="560" y1="491" x2="1000" y2="491"/>
+</g>
+<g fill="#8A97A6"><circle cx="520" cy="68" r="5"/><circle cx="520" cy="166" r="5"/><circle cx="520" cy="265" r="5"/><circle cx="520" cy="365" r="5"/><circle cx="560" cy="491" r="5"/></g>
+</svg>
+<p class="valor oscuro" style="left:300px;top:40px">103.2</p>
+<p class="valor oscuro" style="left:300px;top:138px">75.3</p>
+<p class="valor claro" style="left:300px;top:237px">56.7</p>
+<p class="valor claro" style="left:300px;top:337px">30.7</p>
+<p class="nucleo" style="left:330px;top:462px">Sector /<br>solución</p>
+<div class="etiqueta" style="top:22px"><p class="nombre">Población con acceso a dispositivos móviles¹</p><p class="detalle">Punto de partida</p></div>
+<div class="etiqueta" style="top:134px"><p class="nombre">Usuarios con datos móviles o wifi²</p><p class="detalle">73% del nivel anterior</p></div>
+<div class="etiqueta" style="top:233px"><p class="nombre">Usuarios empleados³ ⁴</p><p class="detalle">75% del nivel anterior</p></div>
+<div class="etiqueta" style="top:333px"><p class="nombre azul">Informales, habilitados con NA-2⁴</p><p class="detalle">54% de los usuarios empleados · formales: 25.9</p></div>
+<div class="etiqueta" style="top:440px"><p class="nombre">Sector / solución: <span style="font-weight:400">¿gastos médicos? ¿seguros?</span></p><p class="detalle"><b>Por estimar:</b> ticket promedio y volumen de mercado</p></div>
+</div>
+<p class="fuente">Fuentes: ¹ ² INEGI, ENDUTIH 2025 (comunicado 32/26 y reporte de resultados 19/26, 16-jun-2026). ³ ⁴ INEGI, ENOE septiembre de 2026 e Indicadores de ocupación y empleo (boletín 634/26, 22-oct-2026).</p>
+
+</section>
+
+<section id="ticket">
+<p class="ceja">DIMENSIONAMIENTO DE MERCADO · TICKET PROMEDIO</p>
+<h1>Salud y seguros concentran tickets altos y poco frecuentes; las pymes informales, tickets de ~$100 con alta recurrencia</h1>
+<p class="sub"><b>Pesos por transacción</b> · ≈ = reconstruido desde la versión en dólares (FIX 18.49), por confirmar</p>
+<div class="dos">
+<div class="tarjeta anim" style="--i:1">
+<p class="ceja-t">FORMAL · SALUD Y SEGUROS</p>
+<div class="fila"><div class="texto"><p class="que">Consulta médica privada¹</p><p class="nota">Médico general; especialista ≈ $1,000–1,800</p></div><p class="cifra">≈ $700</p></div>
+<div class="fila"><div class="texto"><p class="que">Prima de gastos médicos mayores²</p><p class="nota">Promedio por asegurado, ≈ $1,017 al mes</p></div><p class="cifra">$12,203<span class="unidad">/año</span></p></div>
+<div class="fila"><div class="texto"><p class="que">Factura hospitalaria promedio² ⁷</p><p class="nota">La paga sobre todo la aseguradora; la usa 9.3% al año</p></div><p class="cifra">$132,175</p></div>
+<div class="fila"><div class="texto"><p class="que">Pago de bolsillo por hospitalización³</p><p class="nota">Deducible de $15,000 + coaseguro de 10%</p></div><p class="cifra">$26,718</p></div>
+</div>
+<div class="tarjeta anim" style="--i:2">
+<p class="ceja-t azul">INFORMAL · PYMES CON CUENTA N2 BIS</p>
+<div class="fila"><div class="texto"><p class="que">Comida corrida en fonda⁴</p><p class="nota">Por persona, CDMX, enero de 2026</p></div><p class="cifra azul">≈ $90–100</p></div>
+<div class="fila"><div class="texto"><p class="que">Torta o antojito⁴</p><p class="nota">Por pieza, CDMX, enero de 2026</p></div><p class="cifra azul">≈ $80</p></div>
+<div class="fila"><div class="texto"><p class="que">Restaurante casual (referencia)⁵</p><p class="nota">Ticket más frecuente por persona, CANIRAC</p></div><p class="cifra azul">≈ $260–400</p></div>
+<div class="fila"><div class="texto"><p class="que">Tope de abonos N2 bis⁶</p><p class="nota">≈ 1,300 cobros de $100; máx. 3,000 UDIs (≈ $26,500) en efectivo</p></div><p class="cifra azul">$132,283<span class="unidad">/mes</span></p></div>
+</div>
+</div>
+<p class="fuente">Fuentes: ¹ Cuánto Me Cuesta (may-2026) y Doctoralia. ² ⁷ AMIS (2026) vía Forbes México y Expansión. ³ Cálculo propio con Ahorra Seguros (2026). ⁴ Publimetro (18-ene-2026). ⁵ CANIRAC (2026) vía SDP Noticias. ⁶ Banxico, Circular 11/2026 (DOF 17-jun-2026).</p>
+
+</section>
+
+<section id="revenue">
+<p class="ceja">DIMENSIONAMIENTO DE MERCADO · INGRESO TOTAL</p>
+<h1>Formal e informal tienen un tamaño similar, ~$352 vs. ~$303 mil millones de pesos al año, pero el informal es más incierto</h1>
+<p class="sub"><b>Miles de millones de pesos al año (mmdp)</b>, en pesos corrientes de cada fuente (2024 y 2025)</p>
+<div class="cuerpo">
+<div class="barras anim" style="--i:1">
+<svg aria-label="Barras: formal 352.1 mmdp (primas 177.6 y gasto de bolsillo 174.5); informal 302.6 mmdp, con rango de 187.6 a 429.6" width="760" height="560" viewBox="0 0 760 560" style="position:absolute;left:0;top:0;width:760px;height:560px">
+<line x1="0" y1="470" x2="640" y2="470" stroke="#8A97A6" stroke-width="2"/>
+<rect x="40" y="290" width="230" height="180" fill="#0E2238"/>
+<rect x="40" y="114" width="230" height="176" fill="#5D7690"/>
+<rect x="360" y="164" width="230" height="306" fill="#2350FF"/>
+<g stroke="#4A5A6E" stroke-width="2" fill="none"><line x1="620" y1="35" x2="620" y2="281"/><line x1="608" y1="35" x2="632" y2="35"/><line x1="608" y1="281" x2="632" y2="281"/></g>
+</svg>
+<p class="tot" style="left:40px;top:52px;width:230px">352.1</p>
+<p class="lbl" style="left:40px;top:168px;width:230px">Gasto de bolsillo<br>en salud²<br><b>174.5</b></p>
+<p class="lbl" style="left:40px;top:342px;width:230px">Primas de gastos<br>médicos¹<br><b>177.6</b></p>
+<p class="tot" style="left:360px;top:102px;width:230px;color:#2350FF">302.6</p>
+<p class="lbl" style="left:360px;top:268px;width:230px">Restaurantes<br>informales⁴ ⁵<br>base: 50% del gasto</p>
+<p class="rango" style="left:640px;top:18px;width:120px">429.6<br>(71%)</p>
+<p class="rango" style="left:640px;top:264px;width:120px">187.6<br>(31%)</p>
+<p class="eje" style="left:0px;top:486px;width:310px">Formal<br><span>Salud y seguros</span></p>
+<p class="eje" style="left:320px;top:486px;width:310px;color:#2350FF">Informal<br><span>Restaurantes con N2 bis</span></p>
+</div>
+<div class="calc anim" style="--i:2">
+<div class="bloque"><p class="tit">FORMAL · SALUD Y SEGUROS</p><p class="total">$352.1 mmdp</p></div>
+<div class="renglon"><p>Primas de gastos médicos 2025: $188,948 mdp × 94%¹</p><b>177.6</b></div>
+<div class="renglon"><p>+ Gasto de bolsillo en salud sin medicamentos: $1,605 × 4 trimestres × 38.83 M hogares × 70%²</p><b>174.5</b></div>
+<p class="control">Control: 1.4 M hospitalizaciones × $26,718 de bolsillo = $37.4 mmdp, ~21% del rubro³</p>
+<hr>
+<div class="bloque"><p class="tit azul">INFORMAL · RESTAURANTES</p><p class="total azul">$302.6 mmdp</p></div>
+<div class="renglon"><p>Gasto en alimentos fuera del hogar: $3,896 × 4 trimestres × 38.83 M hogares⁴</p><b>605.1</b></div>
+<div class="renglon"><p>× Participación informal de 50% (rango de 31% a 71%)⁵</p><b>302.6</b></div>
+<p class="control">Equivale a ≥ 190 mil cuentas N2 bis cobrando al tope de ~$1.59 millones al año⁶</p>
+</div>
+</div>
+<p class="fuente">Fuentes: ¹ AMIS (2026) vía Forbes México y El CEO. ² ⁴ INEGI, ENIGH 2024 (CEFP, México Evalúa, La Verdad). ³ AMIS (2026). ⁵ INEGI, MEI 2024 y PIB 4T2024; México, ¿cómo vamos? (2026). ⁶ Banxico, Circular 11/2026.</p>
+
+</section>
+
+<section id="tam">
+<p class="ceja">DIMENSIONAMIENTO DE MERCADO · TAM, SAM Y SOM</p>
+<h1>Con filtros realistas, el alcanzable formal (~$122 mil millones de pesos) es 2.7 veces el informal (~$45 mil millones)</h1>
+<p class="sub"><b>Miles de millones de pesos al año (mmdp)</b>; TAM de la lámina anterior y captura como supuesto</p>
+<div class="dos">
+<div class="tarjeta embudo anim" style="--i:1">
+<p class="ceja-t">FORMAL · SALUD Y SEGUROS</p>
+<div class="nivel"><p class="n">TAM <span>· mercado total</span></p><p class="v">$352.1 <span>mmdp</span></p></div>
+<div class="barra-h" style="width:100%;background:#AEBCCB"></div>
+<p class="filtro">× 41% de las primas: solo pólizas individuales, que paga la persona¹; × 28% del gasto de bolsillo: hogares con declarante ante el SAT²</p>
+<div class="nivel"><p class="n">SAM <span>· alcanzable por CoDi</span></p><p class="v">$121.7 <span>mmdp</span></p></div>
+<div class="barra-fila"><div class="barra-h" style="width:240px;background:#0E2238"></div><p class="pct">35% del TAM</p></div>
+<p class="filtro">× 1%–3% de captura de Pey (supuesto a calibrar)⁴</p>
+<div class="nivel"><p class="n">SOM <span>· captura de Pey en 5 años</span></p><p class="v">$1.2–3.7 <span>mmdp</span></p></div>
+<div class="barra-fila"><div class="barra-h" style="width:8px;background:#0E2238"></div><p class="pct">1%–3% del SAM</p></div>
+</div>
+<div class="tarjeta embudo anim" style="--i:2">
+<p class="ceja-t azul">INFORMAL · RESTAURANTES CON N2 BIS</p>
+<div class="nivel"><p class="n">TAM <span>· mercado total</span></p><p class="v azul">$302.6 <span>mmdp</span></p></div>
+<div class="barra-h" style="width:86%;background:#B8C7FF"></div>
+<p class="filtro">× 14.8% que hoy se paga con tarjeta o transferencia en compras de hasta $500³</p>
+<div class="nivel"><p class="n">SAM <span>· alcanzable por CoDi</span></p><p class="v azul">$44.8 <span>mmdp</span></p></div>
+<div class="barra-fila"><div class="barra-h" style="width:88px;background:#2350FF"></div><p class="pct">15% del TAM</p></div>
+<p class="filtro">× 1%–3% de captura de Pey (supuesto a calibrar)⁴</p>
+<div class="nivel"><p class="n">SOM <span>· captura de Pey en 5 años</span></p><p class="v azul">$0.45–1.3 <span>mmdp</span></p></div>
+<div class="barra-fila"><div class="barra-h" style="width:6px;background:#2350FF"></div><p class="pct">1%–3% del SAM</p></div>
+</div>
+</div>
+<p class="fuente">Fuentes: ¹ AMIS (2025) vía Publimetro y Forbes México. ² SAT (El CEO, 2026) y CEFP. ³ INEGI, ENIF 2024 (El CEO) y Censos Económicos 2024. ⁴ Supuesto, no dato; referencia: Banxico vía La Razón (2025).</p>
+
+</section>
+
+</body></html>
