@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paga Fácil · Cobros con CoDi desde WhatsApp</title>
+<meta name="description" content="Cobra y paga con CoDi desde WhatsApp: sin apps y sin comisiones. Proyecto independiente para el Hackatón México 2026." />
+<link rel="icon" href="/marca/logo-512.png" />
+<style>
+  :root { --fondo: #0b0f14; --tinta: #f4f1ea; --sutil: #9aa6b2; --linea: #24303b; --acento: #2dd4bf; --tarjeta: #111920; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(900px 600px at 80% -10%, rgba(45,212,191,.14), transparent 60%), var(--fondo); color: var(--tinta); font: 18px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 16px 64px; }
+  header { display: flex; align-items: center; gap: 14px; }
+  header img { width: 56px; height: 56px; border-radius: 14px; }
+  header b { font-size: 24px; letter-spacing: -0.02em; }
+  header b span { color: var(--acento); }
+  h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1; letter-spacing: -0.04em; margin: 56px 0 18px; }
+  h1 span { color: var(--acento); }
+  .lead { font-size: 21px; color: var(--sutil); max-width: 640px; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 48px 0; }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 18px; padding: 22px; }
+  .tarjeta h2 { font-size: 20px; margin: 0 0 6px; }
+  .tarjeta p { margin: 0; color: var(--sutil); font-size: 16px; }
+  ol { color: var(--sutil); padding-left: 22px; }
+  ol b { color: var(--tinta); }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--linea); color: #6b7783; font-size: 14px; }
+  a { color: var(--acento); }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="/marca/logo-512.png" alt="" /><b>Paga <span>Fácil</span></b></header>
+
+  <h1>Cobra con <span>CoDi</span><br>desde WhatsApp.</h1>
+  <p class="lead">Sin descargar apps, sin comisiones y con cualquier banco. Quien paga autoriza en la app de su banco y el dinero llega directo a la cuenta de quien cobra.</p>
+
+  <section class="rejilla">
+    <div class="tarjeta"><h2>⚡ Cobro rápido</h2><p>Escribe el monto y el concepto; tu cliente recibe la solicitud en su banco o escanea un QR. Comprobante y factura en el chat.</p></div>
+    <div class="tarjeta"><h2>💡 Servicios y recargas</h2><p>Luz, agua, teléfono e internet desde el mismo chat. (En esta versión, el pago al proveedor es de demostración.)</p></div>
+    <div class="tarjeta"><h2>📚 Aprende CoDi</h2><p>Guías cortas con video: cómo activarlo, si es seguro, límites y qué hacer si algo falla.</p></div>
+    <div class="tarjeta"><h2>🔒 Seguro</h2><p>Nada se cobra sin tu autorización. No vemos tu NIP ni tus datos bancarios.</p></div>
+  </section>
+
+  <h2>Cómo empezar</h2>
+  <ol>
+    <li>Escribe <b>«hola»</b> al número de WhatsApp de Paga Fácil.</li>
+    <li>Elige qué quieres hacer en el menú.</li>
+    <li>Para pagar, autoriza en la app de tu banco (necesitas CoDi activo).</li>
+  </ol>
+
+  <footer>
+    Paga Fácil es un proyecto independiente desarrollado para el Hackatón México 2026; no es un producto de pey, de Banxico ni de Meta.
+    · <a href="/privacidad">Aviso de privacidad</a> · <a href="https://github.com/kovacusb/Pey_Hackathon">Código</a>
+    <br>CoDi® es una marca de Banco de México.
+  </footer>
+</main>
+</body>
+</html>

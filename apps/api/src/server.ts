@@ -22,8 +22,9 @@ const app = express();
 app.disable("x-powered-by");
 const crudo = express.raw({ type: "*/*", limit: "1mb" });
 
+// Página de inicio pública (sitio web del negocio para Meta y para quien llegue al enlace).
 app.get("/", (_req, res) => {
-  res.type("text/plain").send("Paga Fácil · ok");
+  res.sendFile(new URL("../public/inicio.html", import.meta.url).pathname);
 });
 
 app.get("/salud", (_req, res) => {
