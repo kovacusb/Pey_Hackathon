@@ -12,13 +12,15 @@ await pagina.goto("file://" + VIDEO + "paga-facil-video.html?render=1");
 await pagina.evaluate(() => window.listo);
 const total = await pagina.evaluate(() => window.TOTAL);
 const cuadros = Math.ceil(total * FPS);
+// La duración del video la marca la línea de tiempo, no el audio.
 
 const ff = spawn(ffmpeg, ["-y", "-hide_banner", "-loglevel", "error",
   "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
   "-i", VIDEO + "salida/mezcla.m4a",
   "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-  "-c:a", "aac", "-b:a", "192k", "-shortest", VIDEO + "paga-facil.mp4"], { stdio: ["pipe", "inherit", "inherit"] });
+  "-c:a", "aac", "-b:a", "192k", "-t", total.toFixed(3), VIDEO + "paga-facil.mp4"], { stdio: ["pipe", "inherit", "inherit"] });
 
+ff.stdin.on("error", (e) => { if (e.code !== "EPIPE") throw e; });
 const inicio = Date.now();
 for (let f = 0; f < cuadros; f++) {
   await pagina.evaluate((t) => window.irA(t), f / FPS);

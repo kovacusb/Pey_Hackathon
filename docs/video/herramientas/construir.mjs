@@ -59,7 +59,7 @@ const base = escenas.length;
 notas.forEach(([f], k) => entradas.push("-f", "lavfi", "-t", String(TOTAL), "-i", `sine=frequency=${f}:sample_rate=44100`));
 notas.forEach(([, a], k) => filtros.push(`[${base + k}:a]volume=${a},aformat=channel_layouts=stereo[n${k}]`));
 filtros.push(`${notas.map((_, k) => `[n${k}]`).join("")}amix=inputs=${notas.length}:normalize=0,lowpass=f=1400,tremolo=f=0.18:d=0.35,volume=0.07,afade=t=in:d=2.5,afade=t=out:st=${(TOTAL - 3.5).toFixed(2)}:d=3.5[mus]`);
-filtros.push(`[voz]asplit=2[voz1][vozsc]`);
+filtros.push(`[voz]apad=whole_dur=${TOTAL.toFixed(3)},asplit=2[voz1][vozsc]`); // la voz dura lo mismo que el video
 filtros.push(`[mus][vozsc]sidechaincompress=threshold=0.02:ratio=8:attack=20:release=450[musd]`);
 filtros.push(`[voz1][musd]amix=inputs=2:normalize=0,alimiter=limit=0.95,atrim=0:${TOTAL.toFixed(3)}[out]`);
 const r = spawnSync(ffmpeg, ["-y", "-hide_banner", "-loglevel", "error", ...entradas, "-filter_complex", filtros.join(";"), "-map", "[out]", "-c:a", "aac", "-b:a", "192k", `${SAL}mezcla.m4a`], { encoding: "utf8" });
