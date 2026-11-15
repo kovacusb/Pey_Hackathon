@@ -5,10 +5,10 @@ Para el equipo. Hay dos formas de tener una URL pública: un **túnel** desde la
 ## 1. Túnel (desarrollo)
 
 ```bash
-cd apps/api && npm run dev                                   # terminal 1
-~/.local/cloudflared/cloudflared tunnel --url http://localhost:3000   # terminal 2 → copia la URL https://….trycloudflare.com
+cd apps/api && npm run dev        # terminal 1
+bash scripts/tunel.sh             # terminal 2: abre el túnel (HTTP/2) y apunta el webhook de Meta a la URL nueva
 ```
-La URL cambia cada vez que reinicias el túnel, y la laptop debe seguir encendida.
+La URL cambia cada vez que se abre el túnel, y el script ya avisa a Meta. Si cambias de red o el túnel se cae ("Tunnel not found"), vuelve a correr `scripts/tunel.sh`. La laptop debe seguir encendida.
 
 ## 2. Render (entrega)
 
