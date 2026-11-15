@@ -49,6 +49,7 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `POST /api/webhook-pey` | Pagos de pey (Standard Webhooks): firma, ventana de 5 min y deduplicación por `webhook-id` |
 | `/dev/` | Chat de pruebas (solo con `DEV_TOOLS=1`). Local libre; desde fuera, `?clave=<DEV_CLAVE>` |
 | `/panel/` | Panel del negocio: cobros en tiempo real. Local libre; desde fuera, `?clave=<PANEL_CLAVE>` |
+| `/videos/<guía>.mp4` | Mini videos de Aprende CoDi (públicos). El bot los sube a Meta y los manda como mensaje de video |
 
 ## Diseño
 
@@ -62,7 +63,8 @@ Si la bitácora dice `WhatsApp 400 131030`, tu número no está en la lista de d
 | `src/core/whatsapp/` | Envío a la Graph API (`v27.0`, con límites de WhatsApp) y lectura del webhook |
 | `src/core/db.ts` | SQLite: sesiones, cobros y eventos ya procesados |
 | `src/modules/servicios/` | Módulo 1: servicios y recargas; `agregador.ts` es SIMULACIÓN detrás de una interfaz |
-| `src/modules/ayuda/` | Centro de ayuda: guías de CoDi con `video_url` opcional |
+| `src/modules/ayuda/` | Centro de ayuda: cada guía manda su mini video (`public/videos`, texto como pie) y luego botones; sin video, solo texto |
+| `public/videos/` | Los 8 mini videos (720×1280, < 1 MB). Se regeneran con `docs/video/herramientas/guias.mjs` |
 | `src/modules/tienda/` | Módulo 2: `motor.ts` (puro: estado + evento → mensajes + cobro), `catalogo.ts` y el adaptador `index.ts` |
 | `src/modules/p2p/` | Módulo 3: cobro rápido (QR o push a un tercero con aceptación explícita) y factura express |
 | `src/core/facturacion/` | Facturador detrás de una interfaz: Facturama o SIMULACIÓN; `pdf.ts` genera el PDF sin dependencias |

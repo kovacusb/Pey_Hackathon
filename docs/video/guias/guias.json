@@ -1,0 +1,86 @@
+{
+  "nota": "Mini videos de las guías de Aprende CoDi (apps/api/src/modules/ayuda/contenido.ts). Mismo contenido que la guía; fuentes: codi/01, codi/04, codi/05, codi/08. 'pantalla' es lo que se lee; 'voz' es lo que dice Marlene (números y siglas como se pronuncian).",
+  "guias": [
+    {
+      "id": "que-es", "emoji": "💡", "titulo": "¿Qué es CoDi?",
+      "intro": "¿Qué es CoDi? Es el Cobro Digital del Banco de México.",
+      "puntos": [
+        { "pantalla": "Pagas desde la app de tu banco", "voz": "Pagas desde la app de tu banco, sin tarjeta y sin efectivo." },
+        { "pantalla": "Sin comisión, sin importar el monto", "voz": "No cobra comisión, sin importar el monto." },
+        { "pantalla": "24/7 · el dinero llega en segundos", "voz": "Funciona las veinticuatro horas, y el dinero llega en segundos." },
+        { "pantalla": "Solo necesitas internet", "voz": "Solo necesitas internet: datos o wifi." }
+      ]
+    },
+    {
+      "id": "activar", "emoji": "✅", "titulo": "Activa CoDi en 4 pasos",
+      "intro": "Activa CoDi en cuatro pasos. Solo lo haces una vez.",
+      "puntos": [
+        { "pantalla": "Abre la app de tu banco", "voz": "Uno: abre la app de tu banco." },
+        { "pantalla": "Busca la opción CoDi", "voz": "Dos: busca la opción CoDi. A veces está en Transferir, o en Pagar." },
+        { "pantalla": "Registra tu CLABE, tarjeta de débito o celular", "voz": "Tres: registra tu cuenta con tu CLABE, tu tarjeta de débito o tu celular." },
+        { "pantalla": "Sigue la validación de tu banco", "voz": "Cuatro: sigue la validación que te pida tu banco." },
+        { "pantalla": "¿No te deja? Llama a tu banco", "voz": "Si tu app tiene CoDi pero no te deja usarlo, llama a tu banco." }
+      ]
+    },
+    {
+      "id": "pagar-notificacion", "emoji": "📲", "titulo": "Pagar con notificación",
+      "intro": "Pagar con notificación es la forma más fácil.",
+      "puntos": [
+        { "pantalla": "Toca «Pagar» en Paga Fácil", "voz": "Toca Pagar en Paga Fácil." },
+        { "pantalla": "Te llega una notificación de tu banco", "voz": "Te llega una notificación de tu banco." },
+        { "pantalla": "Revisa el monto y el concepto", "voz": "Revisa el monto y el concepto." },
+        { "pantalla": "Autoriza con tu NIP o huella", "voz": "Autoriza con tu NIP o con tu huella." },
+        { "pantalla": "Tu comprobante llega al chat ✅", "voz": "Y listo: tu comprobante llega aquí mismo, al chat." }
+      ]
+    },
+    {
+      "id": "pagar-qr", "emoji": "📷", "titulo": "Pagar con QR",
+      "intro": "Así se paga con un código QR.",
+      "puntos": [
+        { "pantalla": "Abre tu banco → CoDi → Pagar", "voz": "Abre la app de tu banco, entra a CoDi, y toca Pagar." },
+        { "pantalla": "Escanea el QR o impórtalo de tu galería", "voz": "Escanea el QR. Si lo tienes en el mismo celular, guárdalo e impórtalo desde tu galería." },
+        { "pantalla": "Revisa los datos del cobro", "voz": "Revisa los datos del cobro." },
+        { "pantalla": "Autoriza con tu NIP o huella", "voz": "Y autoriza con tu NIP o con tu huella." },
+        { "pantalla": "⚠️ La cámara normal no paga", "voz": "Ojo: la cámara del celular no paga el QR. Ábrelo siempre desde la app de tu banco." }
+      ]
+    },
+    {
+      "id": "seguridad", "emoji": "🛡️", "titulo": "¿Es seguro?",
+      "intro": "¿Es seguro pagar con CoDi? Tu dinero está protegido.",
+      "puntos": [
+        { "pantalla": "Nada se cobra sin tu autorización", "voz": "Nada se cobra sin tu autorización: una solicitud de cobro no mueve dinero hasta que tú aceptas." },
+        { "pantalla": "Paga Fácil no ve tu NIP ni tu cuenta", "voz": "Paga Fácil no ve tu NIP, ni los datos de tu cuenta." },
+        { "pantalla": "Puedes bloquear cobros que no pediste", "voz": "Puedes bloquear, desde tu app, los cobros que no pediste." },
+        { "pantalla": "🚩 ¿No coincide el monto o el nombre? No autorices", "voz": "Y si el monto o el nombre no coinciden con lo que vas a pagar, no autorices." }
+      ]
+    },
+    {
+      "id": "limites", "emoji": "💸", "titulo": "Costos y límites",
+      "intro": "Costos y límites de CoDi.",
+      "puntos": [
+        { "pantalla": "CoDi no cobra comisión", "voz": "CoDi no cobra comisión." },
+        { "pantalla": "Cobros de hasta 6,000 UDIS", "voz": "Los bancos deben permitir cobros CoDi de hasta seis mil UDIS. Algunos permiten más." },
+        { "pantalla": "Desde tu cuenta de débito, no con crédito", "voz": "Se paga desde una cuenta de depósito, no con tarjeta de crédito." }
+      ]
+    },
+    {
+      "id": "no-llego", "emoji": "🔎", "titulo": "Pagué y no llegó",
+      "intro": "¿Pagaste y no se reflejó? Esto es lo que puedes hacer.",
+      "puntos": [
+        { "pantalla": "Revisa en tu banco si aparece realizado", "voz": "Primero, revisa en la app de tu banco si el pago aparece como realizado." },
+        { "pantalla": "Atención a clientes de tu banco, con folio y fecha", "voz": "Si no hubo aviso, acude a atención a clientes de tu banco, con el folio y la fecha." },
+        { "pantalla": "800 BANXICO · 800 226 9426, opción 3", "voz": "También puedes llamar a ochocientos Banxico: ocho cero cero, dos dos seis, nueve cuatro dos seis, opción tres." },
+        { "pantalla": "¿No lo reconoces? Unidad Especializada de tu banco", "voz": "Y si te cobraron algo que no reconoces, acláralo con la Unidad Especializada de tu banco." }
+      ]
+    },
+    {
+      "id": "devoluciones", "emoji": "↩️", "titulo": "Devoluciones",
+      "intro": "¿Cómo funcionan las devoluciones?",
+      "puntos": [
+        { "pantalla": "Quien cobró puede devolverte, completo o en parte", "voz": "Quien recibió el pago puede devolverlo, completo o en parte." },
+        { "pantalla": "Sin contracargos: tú autorizas cada pago", "voz": "En CoDi no hay contracargos, porque tú autorizas cada pago." },
+        { "pantalla": "¿Problema con un servicio? Contacta a quien te cobró", "voz": "Si hay un problema con un servicio, contacta a quien te cobró." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "nota": "Manual de uso de Paga Fácil (documentación). Narración de Marlene escena por escena; los chats son conversaciones reales del bot (docs/video/conversaciones).",
+  "escenas": [
+    { "id": "m01", "texto": "Esta es la guía rápida para usar Paga Fácil, el bot de cobros con CoDi en WhatsApp." },
+    { "id": "m02", "texto": "Para empezar, escríbele hola al número de Paga Fácil. Te responde con el menú: pagar un servicio, recargas, mis pagos, cobro rápido y aprende CoDi. Escribe menú en cualquier momento para volver aquí." },
+    { "id": "m03", "texto": "Para cobrar, toca Cobro rápido. Escribe el monto, elige el concepto y decide cómo te paga tu cliente. Si eliges A su celular, escribe su número y confirma que aceptó recibir la solicitud." },
+    { "id": "m04", "texto": "Tu cliente autoriza en la app de su banco. En segundos te llega el comprobante, con la clave de rastreo de Banxico." },
+    { "id": "m05", "texto": "Si lo prefieres, toca QR en mi pantalla y muéstraselo. Tu cliente lo escanea desde la app de su banco; la cámara normal no sirve." },
+    { "id": "m06", "texto": "Si tu cliente pide factura, toca Facturar. Captura su erre efe ce, nombre, código postal, régimen y uso, o elige público en general. El pe de efe llega al chat para que se lo reenvíes. En esta versión, la factura es simulada." },
+    { "id": "m07", "texto": "Para pagar un servicio, elige la compañía, escribe tu número de servicio y revisa el adeudo. Por ahora, el pago al proveedor es una simulación: tu banco solo te cobra un centavo real, para que veas el flujo completo." },
+    { "id": "m08", "texto": "Para una recarga, elige la compañía, el número y el monto." },
+    { "id": "m09", "texto": "En Mis pagos ves tus últimos comprobantes." },
+    { "id": "m10", "texto": "Y en Aprende CoDi hay guías cortas, con video, para resolver dudas: cómo activar CoDi, si es seguro, los límites, y qué hacer si algo falla." },
+    { "id": "m11", "texto": "Si tienes un negocio, en el panel ves cada cobro en tiempo real: cuándo está esperando pago, cuándo ya se pagó, y su factura." },
+    { "id": "m12", "texto": "Unos consejos: si un cobro vence, el bot te ofrece generar otro. Si la notificación no llega, pide el QR. Y por seguridad, hay un tope por cobro y un límite de solicitudes al mismo celular." },
+    { "id": "m13", "texto": "Listo. Ya puedes cobrar con CoDi desde WhatsApp, con Paga Fácil." }
+  ]
+}

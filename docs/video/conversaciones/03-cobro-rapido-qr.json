@@ -111,7 +111,7 @@
         "cuerpo": "Te aviso aquí en cuanto se confirme ✅",
         "botones": [
           {
-            "id": "pago:cancelar:ad0213ff-c9f2-4705-ae01-d886517ef893",
+            "id": "pago:cancelar:c3baade9-0ed3-4da7-b41f-a8aaf7a302fd",
             "titulo": "Cancelar"
           }
         ]
@@ -125,10 +125,10 @@
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "✅ *¡Cobro recibido!*\n\nPlomería · $480.00\nFecha: 14/11/26, 10:45 p.m.\nClave de rastreo: MBAN01002611150000123\nFolio: 2\n\n¿Tu cliente quiere factura?",
+        "cuerpo": "✅ *¡Cobro recibido!*\n\nPlomería · $480.00\nFecha: 15/11/26, 8:46 a.m.\nClave de rastreo: MBAN01002611150000123\nFolio: 2\n\n¿Tu cliente quiere factura?",
         "botones": [
           {
-            "id": "p2p:fac:0fd9f779-f647-4234-b7e5-0e11b8cd7450",
+            "id": "p2p:fac:ac734683-c1be-47d7-b12e-d8dad05c89eb",
             "titulo": "🧾 Facturar"
           },
           {

@@ -1,5 +1,6 @@
 // Centro de ayuda: guías cortas para personas acostumbradas al efectivo.
-// Fuentes: codi/01, codi/04, codi/05, codi/08 (redacción propia). Cada guía puede llevar video_url (fase futura).
+// Fuentes: codi/01, codi/04, codi/05, codi/08 (redacción propia). Cada guía lleva un mini video en public/videos
+// (generado con docs/video/herramientas/guias.mjs); si el archivo no existe, el bot manda solo el texto.
 // Regla: no afirmar que pagar con QR ya es obligatorio (K02.4) ni aval de Banxico o pey.
 
 export interface Guia {
@@ -21,7 +22,7 @@ export const GUIAS: Guia[] = [
       "• *Sin comisión*, sin importar el monto.\n" +
       "• Funciona *24/7* y el dinero llega en segundos.\n" +
       "• Solo necesitas internet (datos o Wi-Fi).",
-    video_url: null,
+    video_url: "/videos/que-es.mp4",
   },
   {
     id: "activar",
@@ -34,7 +35,7 @@ export const GUIAS: Guia[] = [
       "3. Registra tu cuenta con tu *CLABE*, tu *tarjeta de débito* o tu *celular*.\n" +
       "4. Sigue la validación que te pida tu banco.\n\n" +
       "Si tu app tiene CoDi pero no te deja usarlo, llama a tu banco.",
-    video_url: null,
+    video_url: "/videos/activar.mp4",
   },
   {
     id: "pagar-notificacion",
@@ -47,7 +48,7 @@ export const GUIAS: Guia[] = [
       "3. Revisa el monto y el concepto.\n" +
       "4. Autoriza con tu *NIP o huella*.\n\n" +
       "Listo: aquí mismo te llega tu comprobante ✅",
-    video_url: null,
+    video_url: "/videos/pagar-notificacion.mp4",
   },
   {
     id: "pagar-qr",
@@ -60,7 +61,7 @@ export const GUIAS: Guia[] = [
       "3. Revisa los datos del cobro.\n" +
       "4. Autoriza con tu *NIP o huella*.\n\n" +
       "⚠️ La cámara del celular o un lector de QR común *no* pagan: solo muestran texto. Ábrelo siempre desde la app de tu banco.",
-    video_url: null,
+    video_url: "/videos/pagar-qr.mp4",
   },
   {
     id: "seguridad",
@@ -72,7 +73,7 @@ export const GUIAS: Guia[] = [
       "• Paga Fácil *no ve* tu NIP ni los datos de tu cuenta.\n" +
       "• Puedes *bloquear* cobros que no pediste desde tu app.\n\n" +
       "🚩 No autorices si el *monto* o el *nombre* no coinciden con lo que vas a pagar.",
-    video_url: null,
+    video_url: "/videos/seguridad.mp4",
   },
   {
     id: "limites",
@@ -83,7 +84,7 @@ export const GUIAS: Guia[] = [
       "• CoDi *no cobra comisión*.\n" +
       "• Los bancos deben permitir cobros CoDi de hasta *6,000 UDIS*; algunos permiten más.\n" +
       "• Se paga desde una *cuenta de depósito* (débito), no con tarjeta de crédito.",
-    video_url: null,
+    video_url: "/videos/limites.mp4",
   },
   {
     id: "no-llego",
@@ -95,7 +96,7 @@ export const GUIAS: Guia[] = [
       "2. Si no hubo aviso, acude a *atención a clientes de tu banco* con el *folio* y la *fecha*.\n" +
       "3. También puedes llamar a *800 BANXICO* (800 226 9426, opción 3).\n\n" +
       "Si te cobraron algo que no reconoces, acláralo con la Unidad Especializada de tu banco.",
-    video_url: null,
+    video_url: "/videos/no-llego.mp4",
   },
   {
     id: "devoluciones",
@@ -106,6 +107,6 @@ export const GUIAS: Guia[] = [
       "• Quien recibió el pago puede *devolverlo* completo o en parte.\n" +
       "• En CoDi *no hay contracargos*, porque tú autorizas cada pago.\n" +
       "• Si hay un problema con un servicio, contacta a quien te cobró.",
-    video_url: null,
+    video_url: "/videos/devoluciones.mp4",
   },
 ];

@@ -26,6 +26,8 @@ export interface Respuesta {
   imagen(png: Buffer, pie?: string): Promise<void>;
   /** Documento (p. ej. PDF de una factura). */
   documento(archivo: Buffer, nombre: string, pie?: string): Promise<void>;
+  /** Video propio servido en /videos (p. ej. "/videos/que-es.mp4"). El pie admite hasta 1024 caracteres. */
+  video(ruta: string, pie?: string): Promise<void>;
 }
 
 /** Mensaje entrante ya normalizado. */

@@ -116,6 +116,8 @@ app.post("/api/webhook-pey", crudo, async (req, res) => {
 
 if (config.devTools) app.use("/dev", rutasDev());
 app.use("/panel", rutasPanel());
+// Videos de las guías (públicos: los muestra el chat de pruebas y sirven de enlace en la documentación).
+app.use("/videos", express.static(new URL("../public/videos/", import.meta.url).pathname, { maxAge: "7d", fallthrough: false, index: false }));
 
 iniciarPolling();
 

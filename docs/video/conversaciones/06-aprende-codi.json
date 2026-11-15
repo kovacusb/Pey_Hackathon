@@ -68,16 +68,24 @@
     {
       "de": "bot",
       "mensaje": {
+        "tipo": "video",
+        "url": "/videos/seguridad.mp4",
+        "pie": "*Tu dinero está protegido:*\n\n• *Nada se cobra sin tu autorización*: una solicitud de cobro no mueve dinero hasta que tú aceptas.\n• Paga Fácil *no ve* tu NIP ni los datos de tu cuenta.\n• Puedes *bloquear* cobros que no pediste desde tu app.\n\n🚩 No autorices si el *monto* o el *nombre* no coinciden con lo que vas a pagar."
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
         "tipo": "botones",
-        "cuerpo": "*Tu dinero está protegido:*\n\n• *Nada se cobra sin tu autorización*: una solicitud de cobro no mueve dinero hasta que tú aceptas.\n• Paga Fácil *no ve* tu NIP ni los datos de tu cuenta.\n• Puedes *bloquear* cobros que no pediste desde tu app.\n\n🚩 No autorices si el *monto* o el *nombre* no coinciden con lo que vas a pagar.",
+        "cuerpo": "¿Te quedó claro? 🙂",
         "botones": [
           {
             "id": "ayuda:temas",
             "titulo": "Otra duda"
           },
           {
-            "id": "svc:servicios",
-            "titulo": "Pagar un servicio"
+            "id": "p2p:inicio",
+            "titulo": "⚡ Cobro rápido"
           },
           {
             "id": "core:menu",

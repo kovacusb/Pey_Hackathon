@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paga Fácil · Guía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root { --fondo: #0b0f14; --tinta: #f4f1ea; --sutil: #9aa6b2; --linea: #24303b; --acento: #2dd4bf; --acento2: #0f766e; --ambar: #fbbf24; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #000; height: 100%; overflow: hidden; }
+  body { display: grid; place-items: center; font-family: "Inter Tight", system-ui, -apple-system, sans-serif; color: var(--tinta); }
+  #escenario { width: 1080px; height: 1920px; position: relative; overflow: hidden; flex: none;
+    background: radial-gradient(900px 900px at 85% 8%, rgba(45,212,191,.16), transparent 60%), radial-gradient(800px 700px at 5% 100%, rgba(15,118,110,.18), transparent 60%), var(--fondo); }
+  #escenario::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+    background-size: 72px 72px; mask-image: radial-gradient(ellipse at center, #000 35%, transparent 85%); }
+  .arriba { position: absolute; top: 110px; left: 90px; right: 90px; display: flex; justify-content: space-between; align-items: center; }
+  .pildora { font-size: 34px; font-weight: 800; padding: 14px 28px; border-radius: 999px; background: rgba(45,212,191,.12); color: var(--acento); border: 2px solid rgba(45,212,191,.4); }
+  .marca { font-size: 40px; font-weight: 900; letter-spacing: -0.04em; }
+  .marca span { color: var(--acento); }
+  .cabeza { position: absolute; top: 280px; left: 90px; right: 90px; }
+  .emoji { font-size: 150px; line-height: 1; }
+  h1 { font-size: 112px; font-weight: 900; letter-spacing: -0.045em; line-height: .98; margin-top: 30px; }
+  .puntos { position: absolute; left: 90px; right: 90px; top: 760px; display: flex; flex-direction: column; gap: 26px; }
+  .punto { display: flex; gap: 28px; align-items: center; padding: 30px 34px; border-radius: 34px; background: linear-gradient(180deg, #121a22, #0e141a); border: 2px solid var(--linea); opacity: 0; }
+  .punto b { flex: none; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font-size: 38px; font-weight: 900; background: #1a2a2c; color: var(--acento); }
+  .punto span { font-size: 50px; font-weight: 700; line-height: 1.12; letter-spacing: -0.015em; }
+  .punto.activo { border-color: var(--acento); box-shadow: 0 0 60px rgba(45,212,191,.16); }
+  .punto.activo b { background: var(--acento); color: #04201c; }
+  .abajo { position: absolute; left: 90px; right: 90px; bottom: 110px; }
+  .barra { height: 10px; border-radius: 10px; background: #1c252e; overflow: hidden; }
+  .barra i { display: block; height: 100%; width: 0; background: var(--acento); border-radius: 10px; }
+  .pie { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; font-size: 30px; color: var(--sutil); font-weight: 600; }
+  .pie small { font-size: 22px; color: #66727e; }
+</style>
+</head>
+<body>
+<div id="escenario">
+  <div class="arriba"><div class="pildora">📚 Aprende CoDi</div><div class="marca">Paga <span>Fácil</span></div></div>
+  <div class="cabeza" id="cabeza"><div class="emoji" id="emoji"></div><h1 id="titulo"></h1></div>
+  <div class="puntos" id="puntos"></div>
+  <div class="abajo"><div class="barra"><i id="progreso"></i></div><div class="pie"><span>CoDi · sin comisiones · 24/7</span><small>Proyecto independiente · no es un producto de pey ni de Banxico</small></div></div>
+</div>
+<script>
+const G = /*__DATOS__*/null; // { emoji, titulo, puntos:[{pantalla, inicio}], total }
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const suave = (p) => 1 - Math.pow(1 - clamp(p), 3);
+document.getElementById("emoji").textContent = G.emoji;
+document.getElementById("titulo").textContent = G.titulo;
+const cont = document.getElementById("puntos");
+const filas = G.puntos.map((p, i) => {
+  const d = document.createElement("div"); d.className = "punto";
+  d.innerHTML = `<b>${i + 1}</b><span></span>`; d.querySelector("span").textContent = p.pantalla;
+  cont.appendChild(d); return d;
+});
+const cabeza = document.getElementById("cabeza");
+function irA(t) {
+  t = clamp(t, 0, G.total);
+  const pc = suave((t - 0.15) / 0.7);
+  cabeza.style.opacity = pc; cabeza.style.transform = `translateY(${(1 - pc) * 50}px) scale(${0.96 + 0.04 * pc})`;
+  filas.forEach((el, i) => {
+    const t0 = G.puntos[i].inicio, p = suave((t - t0) / 0.5);
+    const sig = G.puntos[i + 1]?.inicio ?? G.total;
+    el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 60}px)`;
+    el.classList.toggle("activo", t >= t0 && t < sig);
+  });
+  document.getElementById("progreso").style.width = `${(t / G.total) * 100}%`;
+  // Fundido final
+  document.getElementById("escenario").style.opacity = String(Math.min(1, suave((G.total - t) / 0.5) + (t < G.total - 0.5 ? 1 : 0)));
+  return t;
+}
+window.irA = irA; window.TOTAL = G.total;
+window.listo = document.fonts.ready.then(() => { irA(0); return true; });
+// Reproducción simple al abrir el HTML directo (sin ?render): corre en tiempo real.
+if (!new URLSearchParams(location.search).has("render")) {
+  const k = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById("escenario").style.transform = `scale(${s})`; };
+  addEventListener("resize", k); k();
+  const t0 = performance.now(); const f = () => { const t = (performance.now() - t0) / 1000; irA(t % (G.total + 1)); requestAnimationFrame(f); }; requestAnimationFrame(f);
+}
+</script>
+</body>
+</html>

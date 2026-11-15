@@ -1,0 +1,23 @@
+{
+  "titulo": "Mis pagos: historial de comprobantes",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "🧾 Mis pagos"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "🧾 *Tus últimos pagos*\n• 15 nov · 💡 CFE •••• 9012 · $482.50 (SIMULACIÓN)",
+        "botones": [
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ]
+      }
+    }
+  ]
+}

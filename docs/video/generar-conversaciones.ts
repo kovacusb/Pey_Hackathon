@@ -39,7 +39,7 @@ type Paso = { de: "persona"; texto: string } | { de: "bot"; mensaje: unknown } |
 
 async function grabar(archivo: string, titulo: string, waId: string, guion: (p: (e: any, eco: string) => Promise<void>, banco: (t: string) => void, recogerAhora: () => void) => Promise<void>) {
   const pasos: Paso[] = [];
-  let visto = 0;
+  let visto = Math.max(0, ...buzon(waId).map((c) => c.n)); // solo lo nuevo de esta grabación
   const recoger = () => {
     for (const c of buzon(waId, visto)) {
       visto = Math.max(visto, c.n);
@@ -121,6 +121,11 @@ await grabar("05-recarga.json", "Recarga de saldo", "dev5510000005", async (p) =
 await grabar("06-aprende-codi.json", "Centro de ayuda: aprender CoDi", "dev5510000006", async (p) => {
   await p({ tipo: "boton", id: "ayuda:temas" }, "📚 Aprende CoDi");
   await p({ tipo: "boton", id: "ayuda:g:seguridad" }, "¿Es seguro?");
+});
+
+// Mis pagos: la misma persona que pagó la luz revisa su historial.
+await grabar("08-mis-pagos.json", "Mis pagos: historial de comprobantes", "dev5510000004", async (p) => {
+  await p({ tipo: "boton", id: "svc:historial" }, "🧾 Mis pagos");
 });
 
 // Panel: lo que vería el negocio después de esos cobros (mismo formato que /panel/api/resumen, sin datos personales).

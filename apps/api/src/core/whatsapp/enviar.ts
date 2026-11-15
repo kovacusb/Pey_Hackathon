@@ -1,4 +1,5 @@
 // Envío de mensajes: WhatsApp Cloud API para usuarios reales y captura en memoria para el chat de pruebas (/dev).
+import { readFile } from "node:fs/promises";
 import { config } from "../../config.ts";
 import type { Boton, Respuesta, Seccion } from "../tipos.ts";
 import { aPngRgb } from "./png.ts";
@@ -8,7 +9,8 @@ export type Saliente =
   | { tipo: "botones"; cuerpo: string; botones: Boton[]; encabezado?: string; pie?: string }
   | { tipo: "lista"; cuerpo: string; textoBoton: string; secciones: Seccion[]; encabezado?: string; pie?: string }
   | { tipo: "imagen"; png: Buffer; pie?: string }
-  | { tipo: "documento"; archivo: Buffer; nombre: string; pie?: string };
+  | { tipo: "documento"; archivo: Buffer; nombre: string; pie?: string }
+  | { tipo: "video"; ruta: string; pie?: string };
 
 // --- Límites de WhatsApp (se recorta para que Meta no rechace el mensaje) ---
 const corta = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
@@ -47,9 +49,10 @@ export interface Capturado {
   n: number;
   en: number;
   mensaje:
-    | Exclude<Saliente, { tipo: "imagen" } | { tipo: "documento" }>
+    | Exclude<Saliente, { tipo: "imagen" } | { tipo: "documento" } | { tipo: "video" }>
     | { tipo: "imagen"; dataUrl: string; pie?: string }
-    | { tipo: "documento"; dataUrl: string; nombre: string; pie?: string };
+    | { tipo: "documento"; dataUrl: string; nombre: string; pie?: string }
+    | { tipo: "video"; url: string; pie?: string };
 }
 const buzones = new Map<string, Capturado[]>();
 let contador = 0;
@@ -65,7 +68,9 @@ function capturar(waId: string, m: Saliente) {
       ? { tipo: "imagen", dataUrl: `data:image/png;base64,${m.png.toString("base64")}`, pie: m.pie }
       : m.tipo === "documento"
         ? { tipo: "documento", dataUrl: `data:application/pdf;base64,${m.archivo.toString("base64")}`, nombre: m.nombre, pie: m.pie }
-        : m;
+        : m.tipo === "video"
+          ? { tipo: "video", url: m.ruta, pie: m.pie } // el chat de pruebas lo reproduce desde /videos del mismo servidor
+          : m;
   lista.push({ n: ++contador, en: Date.now(), mensaje });
   buzones.set(waId, lista.slice(-200));
 }
@@ -102,6 +107,22 @@ async function subirMedio(archivo: Buffer, tipoMime: string, nombre: string): Pr
   form.append("file", new Blob([new Uint8Array(archivo)], { type: tipoMime }), nombre);
   const r = await llamarGraph(`${config.wa.phoneNumberId}/media`, { method: "POST", body: form });
   return r.id as string;
+}
+
+// Videos propios (public/videos): se suben a Meta una vez y se reutiliza el id (Meta conserva los archivos ~30 días;
+// renovamos a los 7 para ir a la segura). Solo rutas /videos/<nombre>.mp4: nada de rutas arbitrarias del disco.
+const DIR_PUBLICO = new URL("../../../public/", import.meta.url).pathname;
+const videosSubidos = new Map<string, { id: string; hasta: number }>();
+export const rutaDeVideoValida = (ruta: string) => /^\/videos\/[a-z0-9-]+\.mp4$/.test(ruta);
+
+async function idDeVideo(ruta: string): Promise<string> {
+  if (!rutaDeVideoValida(ruta)) throw new Error(`Ruta de video no permitida: ${ruta}`);
+  const guardado = videosSubidos.get(ruta);
+  if (guardado && guardado.hasta > Date.now()) return guardado.id;
+  const archivo = await readFile(DIR_PUBLICO + ruta.slice(1));
+  const id = await subirMedio(archivo, "video/mp4", ruta.split("/").pop()!);
+  videosSubidos.set(ruta, { id, hasta: Date.now() + 7 * 86_400_000 });
+  return id;
 }
 
 async function enviarCloud(waId: string, m: Saliente) {
@@ -154,6 +175,11 @@ async function enviarCloud(waId: string, m: Saliente) {
       cuerpo = { ...base, type: "document", document: { id: mediaId, filename: m.nombre, ...(m.pie ? { caption: m.pie } : {}) } };
       break;
     }
+    case "video": {
+      const mediaId = await idDeVideo(m.ruta);
+      cuerpo = { ...base, type: "video", video: { id: mediaId, ...(m.pie ? { caption: m.pie.slice(0, 1024) } : {}) } };
+      break;
+    }
   }
   await llamarGraph(`${config.wa.phoneNumberId}/messages`, {
     method: "POST",
@@ -184,5 +210,6 @@ export function respuestaPara(waId: string): Respuesta {
     lista: (cuerpo, textoBoton, secciones, o) => enviar(waId, { tipo: "lista", cuerpo, textoBoton, secciones, ...o }),
     imagen: (png, pie) => enviar(waId, { tipo: "imagen", png, pie }),
     documento: (archivo, nombre, pie) => enviar(waId, { tipo: "documento", archivo, nombre, pie }),
+    video: (ruta, pie) => enviar(waId, { tipo: "video", ruta, pie }),
   };
 }

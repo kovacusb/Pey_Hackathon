@@ -139,11 +139,11 @@
         "cuerpo": "📲 *Solicitud enviada al celular •••• 5678*\nPídele que abra la notificación de su banco y autorice *$650.00* con su NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
         "botones": [
           {
-            "id": "pago:qr:5cdd48ca-a2e9-4d8d-a01c-a448e6b577fe",
+            "id": "pago:qr:d8f2b033-a2a5-4a95-880a-492c3d75364e",
             "titulo": "📷 Mejor un QR"
           },
           {
-            "id": "pago:cancelar:5cdd48ca-a2e9-4d8d-a01c-a448e6b577fe",
+            "id": "pago:cancelar:d8f2b033-a2a5-4a95-880a-492c3d75364e",
             "titulo": "Cancelar"
           }
         ],
@@ -158,10 +158,10 @@
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "✅ *¡Cobro recibido!*\n\nConsulta médica · $650.00\nFecha: 14/11/26, 10:45 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio: 1\n\n¿Tu cliente quiere factura?",
+        "cuerpo": "✅ *¡Cobro recibido!*\n\nConsulta médica · $650.00\nFecha: 15/11/26, 8:46 a.m.\nClave de rastreo: MBAN01002611150000456\nFolio: 1\n\n¿Tu cliente quiere factura?",
         "botones": [
           {
-            "id": "p2p:fac:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
+            "id": "p2p:fac:29c5f2ab-659f-40b1-a79f-fb55c1cdd8c9",
             "titulo": "🧾 Facturar"
           },
           {
@@ -187,7 +187,7 @@
         "cuerpo": "🧾 *Factura*\nEscribe el *RFC* de tu cliente.",
         "botones": [
           {
-            "id": "p2p:pg:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
+            "id": "p2p:pg:29c5f2ab-659f-40b1-a79f-fb55c1cdd8c9",
             "titulo": "Público en general"
           },
           {
@@ -327,7 +327,7 @@
             "titulo": "✅ Emitir factura"
           },
           {
-            "id": "p2p:fac:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
+            "id": "p2p:fac:29c5f2ab-659f-40b1-a79f-fb55c1cdd8c9",
             "titulo": "Corregir"
           },
           {

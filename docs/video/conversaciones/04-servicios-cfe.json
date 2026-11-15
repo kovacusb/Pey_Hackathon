@@ -87,7 +87,7 @@
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "💡 *CFE*\nReferencia: •••• 9012\nPeriodo: oct–nov 2026\nVence: 20 nov\n\n*Total: $482.50*\n\n🧪 *El pago a CFE es una SIMULACIÓN* (aún no conectamos al proveedor).\nPara que veas que el cobro CoDi es real, tu banco te cobrará solo *$0.01*.",
+        "cuerpo": "💡 *CFE*\nReferencia: •••• 9012\nPeriodo: oct–nov 2026\nVence: 21 nov\n\n*Total: $482.50*\n\n🧪 *El pago a CFE es una SIMULACIÓN* (aún no conectamos al proveedor).\nPara que veas que el cobro CoDi es real, tu banco te cobrará solo *$0.01*.",
         "botones": [
           {
             "id": "svc:pagar:pn",
@@ -123,11 +123,11 @@
         "cuerpo": "📲 *Revisa la app de tu banco*\nTe llegó una solicitud CoDi por *$0.01*.\nÁbrela y autoriza con tu NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
         "botones": [
           {
-            "id": "pago:qr:1c1c71ea-06ab-4c5f-96be-873d9795501e",
+            "id": "pago:qr:43b04769-47df-4a88-8192-8735a6b20d7f",
             "titulo": "📷 Mejor un QR"
           },
           {
-            "id": "pago:cancelar:1c1c71ea-06ab-4c5f-96be-873d9795501e",
+            "id": "pago:cancelar:43b04769-47df-4a88-8192-8735a6b20d7f",
             "titulo": "Cancelar"
           }
         ],
@@ -142,7 +142,7 @@
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "✅ *¡Pago confirmado!*\n\n💡 CFE · •••• 9012\nMonto: $482.50\nCobrado vía CoDi: $0.01 (real)\nFecha: 14/11/26, 10:45 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio Paga Fácil: 3\nFolio CFE: SIM-894EEBAF (SIMULACIÓN)\n\n⚠️ El pago a CFE es una SIMULACIÓN: solo se cobró $0.01 real vía CoDi.",
+        "cuerpo": "✅ *¡Pago confirmado!*\n\n💡 CFE · •••• 9012\nMonto: $482.50\nCobrado vía CoDi: $0.01 (real)\nFecha: 15/11/26, 8:46 a.m.\nClave de rastreo: MBAN01002611150000456\nFolio Paga Fácil: 3\nFolio CFE: SIM-A77C26C6 (SIMULACIÓN)\n\n⚠️ El pago a CFE es una SIMULACIÓN: solo se cobró $0.01 real vía CoDi.",
         "botones": [
           {
             "id": "svc:servicios",
