@@ -91,6 +91,8 @@ export interface Contexto {
   menu(): Promise<void>;
   /** Crea un cobro CoDi (push o QR) y se encarga de la conversación de pago. */
   cobrar(solicitud: SolicitudCobro): Promise<void>;
+  /** SIMULACIÓN: registra la orden como pagada sin crear cobro en pey ni mover dinero; onPagado recibe simulado = true. */
+  simularCobro(solicitud: SolicitudCobro): Promise<void>;
 }
 
 export interface Modulo {

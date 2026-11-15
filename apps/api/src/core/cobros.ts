@@ -350,6 +350,19 @@ export function iniciarPolling() {
   setInterval(() => void ciclo(), config.pollingMs).unref();
 }
 
+/** SIMULACIÓN sin pey: registra la orden y la confirma como simulada (no hay Mensaje de Cobro ni dinero). */
+export async function cobroSimulado(waId: string, modulo: string, s: SolicitudCobro): Promise<void> {
+  const id = crypto.randomUUID();
+  const ins = db
+    .prepare(
+      `INSERT INTO cobros (id, grupo, modulo, wa_id, metodo, centavos, concepto, num_ref, estado, payload, creado_en, vence_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, '0', 'pendiente', ?, ?, ?)`,
+    )
+    .run(id, crypto.randomUUID(), modulo, waId, s.metodo, s.centavos, s.concepto, JSON.stringify(s.payload), Date.now(), Date.now() + 600_000);
+  db.prepare("UPDATE cobros SET num_ref = ? WHERE id = ?").run(String(Number(ins.lastInsertRowid) % 10_000_000 || 1), id);
+  await confirmarPago(id, { txId: `SIM-${crypto.randomUUID()}`, centavos: s.centavos, simulado: true, fuente: "simulacion" });
+}
+
 /** Solo /dev: simula el pago de un cobro, marcado como SIMULACIÓN en el comprobante. */
 export function simularPago(cobroId: string) {
   const c = cobroPorId(cobroId);

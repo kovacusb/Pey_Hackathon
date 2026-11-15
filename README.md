@@ -1,14 +1,14 @@
 # Pey_Hackathon
 
-Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero. Lo que construimos es **Paga Fácil** (antes «peybot»): un bot de WhatsApp para pagar servicios y recargas, comprar en una tiendita y, después, cobrar al instante entre personas, todo con CoDi vía pey, más una app Android para el comercio ([PRD](docs/PRD.md)). Es un proyecto independiente: no es un producto de pey ni de Banxico. La base del proyecto son dos cosas:
+Proyecto para el **Hackatón México** (14 nov–12 dic 2026): construir con **CoDi®** (Cobro Digital de Banxico) y la API de **pey**. Arrancamos el 14 de noviembre de 2026 desde cero. Lo que construimos es **Paga Fácil** (antes «peybot»): un bot de WhatsApp para cobrar al instante con CoDi vía pey (profesionistas y comercios), con factura en el chat, más pago de servicios y recargas (simulado por ahora) y un panel del negocio ([PRD](docs/PRD.md)). Es un proyecto independiente: no es un producto de pey ni de Banxico. La base del proyecto son dos cosas:
 
 1. **Una base de conocimiento** sobre pey, CoDi, la ley de pagos digitales y el contexto de los comercios en México. Está en español de México, cada dato trae su fuente y lo no verificado está marcado con ⚪. La investigación se hizo entre el 5 y el 7 de noviembre de 2026 y no se ha reconsultado.
 2. **Una forma de trabajar con agentes de IA** (Claude Code, Codex, Cursor, ChatGPT): reglas en [`AGENTS.md`](AGENTS.md) y [`CLAUDE.md`](CLAUDE.md), más scripts que mantienen la base verificable.
 
 ## Estado (14-nov-2026)
-- **Idea:** Paga Fácil ([docs/PRD.md](docs/PRD.md)). Un solo bot y un solo servidor con módulos: servicios y recargas, tiendita, cobro rápido con factura y centro de ayuda, más un panel web del negocio ([docs/MODULOS.md](docs/MODULOS.md)).
+- **Idea:** Paga Fácil ([docs/PRD.md](docs/PRD.md)). Un solo bot y un solo servidor con módulos: cobro rápido con factura (real), servicios y recargas (simulación por ahora) y centro de ayuda, más un panel web del negocio ([docs/MODULOS.md](docs/MODULOS.md)).
 - **Hackatón:** Hackatón México: postulación hasta el 10-dic y entregas hasta el 12-dic (23:59, hora de la Ciudad de México); resultados el 14-dic. Reglas oficiales resumidas en K01.8.
-- **Cobros reales con pey:** una push CoDi de $0.01 creada, pagada desde BBVA y confirmada por la API el 14-nov.
+- **Cobros reales con pey:** push y QR CoDi pagados desde varios bancos y confirmados por la API (14-nov). En producción en Render: https://paga-facil.onrender.com
 
 ## Correr el proyecto
 
@@ -17,7 +17,7 @@ cp .env.example .env      # en la raíz: llena PEY_API_KEY y, cuando las tengas,
 cd apps/api
 npm install
 npm run dev               # http://localhost:3000/dev (bot en el navegador) y /panel/ (panel del negocio)
-npm test                  # 29 pruebas sin red: firmas, idempotencia, tope, tiendita, cobro rápido y factura
+npm test                  # 33 pruebas sin red: firmas, idempotencia, tope, cobro rápido, factura y simulación
 npm run typecheck
 ```
 

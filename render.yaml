@@ -15,9 +15,11 @@ services:
       - key: DEV_TOOLS
         value: "1"   # deja /dev como plan B de la demo; pon "0" cuando ya no se necesite
       - key: MAX_MONTO_MXN
-        value: "1"
+        value: "500"
       - key: DEMO_COBRO_MXN
-        value: "0.01"
+        value: "0"
+      - key: SERVICIOS_SIMULADOS
+        value: "1"
       - key: WHATSAPP_GRAPH_VERSION
         value: v27.0
       - key: PEY_API_KEY

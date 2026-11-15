@@ -6,14 +6,14 @@ Textos para el formulario de entrega del Hackatón México (reglas resumidas en 
 
 **Paga Fácil** lleva los pagos CoDi a WhatsApp: sin instalar nada, sin comisiones y con botones. Quien paga autoriza en la app de su banco y el dinero llega directo a la cuenta de quien cobra.
 
-**El problema.** Hay 21.8 millones de cuentas con CoDi validado, pero solo 2.5 millones han pagado alguna vez (K04.4). La luz y las recargas se pagan en efectivo, la tiendita "comprueba" transferencias con capturas y el profesionista evita la terminal, que cuesta hasta 3.95 % por venta.
+**El problema.** Hay 21.8 millones de cuentas con CoDi validado, pero solo 2.5 millones han pagado alguna vez (K04.4). La luz y las recargas se pagan en efectivo, y el doctor, el plomero o el mecánico cobran en efectivo o con transferencias que se "comprueban" con capturas, porque la terminal cuesta hasta 3.95 % por venta.
 
-**Qué hace.** Un solo bot con cuatro módulos:
+**Qué hace.** Un solo bot con tres módulos y un panel:
 
-1. **Servicios y recargas:** la persona elige CFE, agua, Telmex, izzi y otros, escribe su referencia, ve su adeudo y toca **Pagar**. Le llega una solicitud CoDi a la app de su banco (`POST /codi/pn`) o, si prefiere, un QR para importar desde la galería (`POST /codi/qr`). Al confirmarse el pago recibe su comprobante en el chat.
-2. **Tiendita:** el cliente arma su carrito desde el catálogo y paga igual. El dueño ve el pedido pagado al instante en el **panel del negocio**.
-3. **Cobro rápido con factura:** un profesionista (doctor, plomero, mecánico) escribe el monto y el concepto. Le muestra un QR a su cliente o le manda la solicitud a su celular, siempre con aceptación explícita. Al confirmarse el pago, captura RFC, nombre, código postal, régimen y uso del CFDI, y la factura en PDF llega al chat.
-4. **Centro de ayuda:** guías cortas para activar CoDi, pagar con QR o notificación, seguridad y qué hacer si algo falla.
+1. **Cobro rápido con factura:** un profesionista (doctor, plomero, mecánico) escribe el monto y el concepto. Le muestra un QR a su cliente (`POST /codi/qr`) o le manda la solicitud a su celular (`POST /codi/pn`), siempre con aceptación explícita. El cliente autoriza en la app de **cualquier banco**. Al confirmarse el pago llega el comprobante y, si lo pide, la factura en PDF al chat.
+2. **Servicios y recargas:** la persona elige CFE, agua, Telmex, izzi o una recarga, escribe su referencia, ve su adeudo, paga y recibe su comprobante.
+3. **Centro de ayuda:** guías cortas para activar CoDi, pagar con QR o notificación, seguridad y qué hacer si algo falla.
+4. **Panel del negocio:** cada cobro en tiempo real, de «Esperando pago» a «Pagado».
 
 **Cómo usa la API de pey.** Toda la integración es nueva, escrita desde el 14-nov:
 - Crea Mensajes de Cobro reales en producción, por QR y por notificación push.
@@ -21,7 +21,7 @@ Textos para el formulario de entrega del Hackatón México (reglas resumidas en 
 - Solo marca "pagado" cuando pey confirma el monto esperado, y entrega cada orden una sola vez aunque se paguen push y QR.
 - El servidor impone un tope por cobro, nada se cobra sin un botón de confirmación y los registros solo guardan identificadores.
 
-**Qué es real y qué es simulación.** El cobro CoDi es **real**: probamos una push de $0.01 pagada desde BBVA y confirmada por la API. El pago al proveedor del servicio (CFE, Telcel…) y la factura sin credenciales de un PAC son **SIMULACIÓN**, y el bot y el PDF lo dicen de forma visible. Ambas viven detrás de interfaces listas para un agregador y para Facturama, cuyo conector ya está escrito. En la demo se cobran $0.01 reales y el monto completo se muestra como referencia.
+**Qué es real y qué es simulación.** El **cobro rápido es real**: cobra el monto que se escriba (hasta un tope configurable en el servidor) y lo probamos con push y QR desde varios bancos. **Servicios y recargas son SIMULACIÓN**: sin un agregador contratado no cobramos dinero por recibos que no se pagarían, así que el bot lo dice en cada paso. La factura sin credenciales de un PAC también es simulada y el PDF lo indica. Ambas piezas viven detrás de interfaces: un interruptor activa el cobro real de servicios cuando haya proveedor, y el conector de Facturama ya está escrito.
 
 **Impacto.** Sin descargar nada, la conversación guía la primera vez con CoDi, justo cuando los bancos deben homologar el pago de cobros CoDi (14-dic-2026, K02.5). Comercios y profesionistas cobran sin comisión, con comprobante y factura automáticos.
 
@@ -31,12 +31,11 @@ Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico
 
 **Opción A · WhatsApp**
 1. Escribe «hola» al ‹número de WhatsApp del bot›. El número de prueba de Meta solo responde a números registrados: pídenos que agreguemos el tuyo.
-2. Necesitas CoDi activo en la app de tu banco (BBVA, Banorte, Santander, etc.). Todos los cobros de la demo son de **$0.01 a $1**.
-3. **Servicios:** Pagar un servicio → CFE → escribe `123456789012` → verás un adeudo (simulado) → **Pagar**. Abre la notificación de tu banco y autoriza $0.01. En segundos llega el comprobante, con la clave de rastreo de Banxico. Si la notificación no llega, toca **Mejor un QR**, guarda la imagen e impórtala en tu banco (CoDi → Pagar → galería).
-4. **Tiendita:** Tiendita (demo) → elige productos → Pagar → «A mi número» o «Mándame QR».
-5. **Cobro rápido:** escribe un monto (ej. `350`) → Consulta médica → «QR en mi pantalla». Escanéalo con otro celular, o elige «A su celular» con otro número que acepte el cobro. Al confirmarse, toca **Facturar** → «Público en general» (o captura un RFC) → **Emitir factura**. Llega un PDF marcado SIMULACIÓN.
-6. **Aprende CoDi:** guías cortas desde el menú.
-7. Escribe «menú» en cualquier momento para volver al inicio.
+2. Necesitas CoDi activo en la app de tu banco (funciona con cualquier banco participante). Los cobros son **reales** y llegan a la cuenta de prueba del proyecto: usa montos chicos (el servidor tiene un tope de ‹tope› por cobro).
+3. **Cobro rápido (real):** ⚡ Cobro rápido → escribe un monto (ej. `25`) → Consulta médica → «A su celular» → escribe tu propio número y confirma → abre la notificación de tu banco y autoriza. En segundos llega el comprobante con la clave de rastreo de Banxico. Para probar el QR, elige «QR en mi pantalla» y escanéalo **desde la app de tu banco** (CoDi → Pagar; la cámara normal no lo paga) o impórtalo desde la galería. Después toca **Facturar** → «Público en general» → **Emitir factura**: llega un PDF marcado SIMULACIÓN.
+4. **Servicios (simulación):** Pagar un servicio → CFE → `123456789012` → verás un adeudo → **Pagar (simulado)**. Llega un comprobante marcado SIMULACIÓN; no se cobra dinero.
+5. **Aprende CoDi:** guías cortas desde el menú.
+6. Escribe «menú» en cualquier momento para volver al inicio.
 
 **Opción B · Panel del negocio y chat web**
 - Panel: ‹URL›/panel/?clave=‹clave› muestra cada cobro en tiempo real: módulo, detalle, monto, método (push o QR), estado («Esperando pago» → «Pagado») y factura. Déjalo abierto mientras pagas desde WhatsApp.
@@ -51,7 +50,7 @@ Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico
 ```bash
 cp .env.example .env    # PEY_API_KEY y, opcional, credenciales de WhatsApp
 cd apps/api && npm install
-npm test                # 29 pruebas sin red
+npm test                # 33 pruebas sin red
 npm run dev             # http://localhost:3000/dev y /panel/
 ```
 
@@ -59,7 +58,7 @@ npm run dev             # http://localhost:3000/dev y /panel/
 
 **Previo al arranque (14-nov-2026), creado por el equipo:** base de conocimiento en `conocimiento/`, `pey/`, `codi/` y `docs/REVISION-PEY-2026-11-07.md`. Es investigación consultada del 5 al 7 de noviembre. Sus ejemplos de código (K03.7) no se copiaron: la integración con pey se escribió nueva.
 
-**Construido durante el hackatón (desde el 14-nov):** todo el código de `apps/api`. Incluye el núcleo de conversación, el cliente de pey, la verificación de webhooks, el motor de cobros, los cuatro módulos, el panel, el chat web, el generador de PDF y las pruebas.
+**Construido durante el hackatón (desde el 14-nov):** todo el código de `apps/api`. Incluye el núcleo de conversación, el cliente de pey, la verificación de webhooks, el motor de cobros, los módulos, el panel, el chat web, el generador de PDF y las pruebas.
 
 **Terceros:**
 - Express 5 (MIT).

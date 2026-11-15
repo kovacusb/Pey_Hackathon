@@ -3,6 +3,7 @@
 //   monto → concepto → QR en su pantalla o push al celular del cliente (con su aceptación) → pey confirma
 //   → datos fiscales mínimos del cliente → factura PDF en el chat para reenviarla.
 // La factura sale del facturador configurado: Facturama si hay credenciales; si no, SIMULACIÓN sin validez fiscal.
+import { config } from "../../config.ts";
 import { actualizarPayload, cobroPorId } from "../../core/cobros.ts";
 import { enDemo, montoACobrar } from "../../core/demo.ts";
 import { mxn } from "../../core/dinero.ts";
@@ -38,7 +39,7 @@ async function pedirMonto(ctx: Contexto) {
 async function pedirMetodo(ctx: Contexto) {
   const { centavosReal, concepto } = ctx.sesion.datos as { centavosReal: number; concepto: string };
   const cobro = montoACobrar(centavosReal);
-  if (cobro === null) return ctx.responder.botones("Ese monto supera el máximo de esta demo.", [{ id: "core:menu", titulo: "Menú" }]);
+  if (cobro === null) return ctx.responder.botones(`Ese monto supera el máximo de ${mxn(config.maxCobroCentavos)} por cobro.`, [{ id: "core:menu", titulo: "Menú" }]);
   ctx.irA("metodo");
   const lineas = [`⚡ *${concepto}*`, `Total: *${mxn(centavosReal)}*`];
   if (enDemo()) lineas.push("", `🧪 _Demo: se cobran ${mxn(cobro)} reales vía CoDi._`);
@@ -208,6 +209,8 @@ async function atender(ctx: Contexto, e: Entrada) {
     case "monto": {
       const c = leerMonto(texto);
       if (c === null) return ctx.responder.texto("Escribe solo el monto, por ejemplo *350* o *1200.50*.");
+      // Tope que impone el servidor (MAX_MONTO_MXN): se avisa desde aquí, antes de elegir concepto.
+      if (montoACobrar(c) === null) return ctx.responder.texto(`El máximo por cobro es *${mxn(config.maxCobroCentavos)}*. Escribe un monto menor.`);
       ctx.irA("concepto", { centavosReal: c });
       return ctx.responder.lista(`Cobro de *${mxn(c)}*. ¿Por qué concepto?`, "Elegir concepto", [
         { titulo: "Conceptos", filas: [...CONCEPTOS.map((x) => ({ id: `p2p:con:${x.clave}`, titulo: x.titulo })), { id: "p2p:con:otro", titulo: "✏️ Otro (escribir)" }] },

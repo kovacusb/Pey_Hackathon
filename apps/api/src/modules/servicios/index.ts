@@ -44,7 +44,7 @@ async function listaMontos(ctx: Contexto, operador: string, numero: string) {
 }
 
 async function confirmar(ctx: Contexto, orden: Orden) {
-  const cobro = montoACobrar(orden.centavosReal);
+  const cobro = config.serviciosSimulados ? orden.centavosReal : montoACobrar(orden.centavosReal);
   if (cobro === null) {
     await ctx.responder.botones(`Ese monto supera el máximo de ${mxn(config.maxCobroCentavos)} de esta demo.`, [{ id: "core:menu", titulo: "Menú" }]);
     return;
@@ -54,8 +54,17 @@ async function confirmar(ctx: Contexto, orden: Orden) {
     orden.tipo === "servicio"
       ? [`${orden.emoji} *${orden.nombre}*`, `Referencia: ${ocultar(orden.referencia)}`, `Periodo: ${orden.periodo}`, `Vence: ${orden.vence}`, ``, `*Total: ${mxn(orden.centavosReal)}*`]
       : [`📱 *Recarga ${orden.nombre}*`, `Número: ${ocultar(orden.referencia)}`, ``, `*Total: ${mxn(orden.centavosReal)}*`];
+  if (config.serviciosSimulados) {
+    // Sin agregador real no se cobra dinero por un recibo inventado (K01.8: no engañar al pagador).
+    lineas.push(``, `🧪 *SIMULACIÓN:* no se cobra dinero real y el pago a ${orden.nombre} no se realiza. Así se verá el pago cuando conectemos al proveedor.`);
+    await ctx.responder.botones(lineas.join("\n"), [
+      { id: "svc:pagar:pn", titulo: "✅ Pagar (simulado)" },
+      { id: "core:menu", titulo: "Cancelar" },
+    ]);
+    return;
+  }
   if (enDemo()) lineas.push(``, `🧪 _Demo: tu banco te cobrará ${mxn(cobro)} reales vía CoDi. El pago a ${orden.nombre} es una SIMULACIÓN._`);
-  else lineas.push(`Sin comisiones.`);
+  else lineas.push(``, `Se cobra vía CoDi, sin comisiones. ⚠️ El pago a ${orden.nombre} es una SIMULACIÓN.`);
   await ctx.responder.botones(lineas.join("\n"), [
     { id: "svc:pagar:pn", titulo: "✅ Pagar" },
     { id: "svc:pagar:qr", titulo: "📷 Pagar con QR" },
@@ -66,6 +75,12 @@ async function confirmar(ctx: Contexto, orden: Orden) {
 async function pagar(ctx: Contexto, metodo: MetodoCobro) {
   const orden = ctx.sesion.datos.orden as Orden | undefined;
   if (!orden || ctx.sesion.paso !== "confirmar") return ctx.menu();
+  if (config.serviciosSimulados) {
+    ctx.irA("cobrando");
+    const concepto = orden.tipo === "servicio" ? `Pago ${orden.nombre} ${orden.referencia.slice(-4)}` : `Recarga ${orden.nombre} ${orden.referencia.slice(-4)}`;
+    await ctx.responder.texto("⏳ Procesando pago simulado…");
+    return ctx.simularCobro({ centavos: orden.centavosReal, concepto, metodo, payload: { orden } });
+  }
   const centavos = montoACobrar(orden.centavosReal);
   if (centavos === null) return ctx.menu();
   ctx.irA("cobrando");

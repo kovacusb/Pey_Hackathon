@@ -13,8 +13,8 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 
 | # | Módulo | Para quién | Estado (14-nov) |
 |---|---|---|---|
-| 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | Funcional. Cobro CoDi real con pey (push de $0.01 verificada en BBVA). Pago al servicio SIMULADO |
-| 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Bot funcional y conectado al cobro real. App Android pendiente |
+| 1 | **Servicios y recargas** (CFE, agua, Telmex, izzi…; Telcel, AT&T…) + **Centro de ayuda** (guías de CoDi, con `video_url` para videos futuros) | Consumidor | SIMULACIÓN completa (decisión 15-nov): sin agregador contratado no se cobra dinero por recibos que no se pagarían. `SERVICIOS_SIMULADOS=0` activa el cobro CoDi real |
+| 2 | **Tiendita**: el cliente elige productos, arma su carrito y paga; la tienda lo ve | Comercio y su cliente | Fuera del menú por ahora (15-nov); el código sigue en `src/modules/tienda` |
 | 3 | **Cobro rápido P2P + factura express** (consultas, plomería, reparaciones) | Profesionistas independientes | Funcional: QR o push al celular del cliente (con aceptación explícita), factura PDF en el chat. Factura SIMULADA sin credenciales; conector de Facturama listo |
 
 - **App del comercio (Android, módulo 2):** el dueño configura su bot (nombre, saludo, horario, encendido), su catálogo, y ve pedidos y pagos en tiempo real.
@@ -29,7 +29,7 @@ Sin instalar nada, sin comisiones y con botones en lugar de menús eternos. Quie
 2. **Servicios:** servicio → referencia → adeudo (simulado) → «Pagar» (push, `POST /codi/pn`) o «Pagar con QR» (`POST /codi/qr`) → pey confirma → comprobante. Se cobra `DEMO_COBRO_MXN` ($0.01) y se muestra el monto real del recibo con la etiqueta de demo; el pago al servicio dice SIMULACIÓN.
 3. **Tiendita:** menú → producto → carrito → «Pagar» → «A mi número» (push) o «Mándame QR» → webhook de pey verificado → «Pago recibido» en WhatsApp y en la app ([pey/04](../pey/04-api-codi-qr-y-push.md), [pey/09](../pey/09-webhooks.md)).
 4. App Android: pantallas Bot, Productos, Pedidos y Pagos.
-5. Cobros de $0.01 a $1, con tope impuesto por el servidor (`MAX_MONTO_MXN`).
+5. Cobros reales por el monto capturado, con tope configurable impuesto por el servidor (`MAX_MONTO_MXN`); los organizadores pidieron probar con montos mayores a $1 (15-nov).
 
 **Fuera de alcance del demo:** tarjetas y ligas de pago, varios comercios, devoluciones, NFC, pago real a CFE/Telmex (agregador simulado detrás de una interfaz).
 
@@ -99,7 +99,7 @@ Cómo se reparte el trabajo sin conflictos de Git: [MODULOS.md](MODULOS.md).
 
 ## Riesgos y preguntas abiertas
 - **Ambiente productivo de pey:** sin aprobación no hay entrega válida; se pide por orden de llegada (K01.8).
-- **Push a un número sin CoDi:** comportamiento no documentado; el QR queda como alternativa (K01.7, pey). Con BBVA, la push sí llegó (14-nov).
+- **Push a un número sin CoDi:** comportamiento no documentado; el QR queda como alternativa (K01.7, pey). La push llegó en BBVA y en otros bancos probados (14-nov).
 - **Formato del número de WhatsApp:** pey pide 10 dígitos; WhatsApp manda `52` o `521` + 10 dígitos. El núcleo acepta los dos (`celularDe`) y, para enviar, quita el `1` (⚪ confirmar con el primer mensaje real de Meta).
 - **Usuarios de WhatsApp sin número visible:** Meta puede omitir el número si la persona usa nombre de usuario; entonces solo se ofrece QR.
 - **Ventana de 24 h de Meta:** avisar a alguien que no escribió primero requiere plantillas aprobadas.

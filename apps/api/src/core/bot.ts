@@ -4,7 +4,7 @@
 //   3. botón "<modulo>:..."            → ese módulo
 //   4. sesión activa en un módulo      → ese módulo (p. ej. esperando que escriba una referencia)
 //   5. cualquier otra cosa             → menú principal
-import { alConfirmarPago, atenderBotonPago, iniciarCobro } from "./cobros.ts";
+import { alConfirmarPago, atenderBotonPago, cobroSimulado, iniciarCobro } from "./cobros.ts";
 import { borrarSesion, guardarSesion, leerSesion } from "./sesiones.ts";
 import { respuestaPara } from "./whatsapp/enviar.ts";
 import type { Cobro, Contexto, Entrada, Modulo } from "./tipos.ts";
@@ -41,6 +41,9 @@ export function crearContexto(waId: string, nombre: string | null): Contexto {
     cobrar(solicitud) {
       return iniciarCobro(waId, sesion.modulo ?? "core", solicitud);
     },
+    simularCobro(solicitud) {
+      return cobroSimulado(waId, sesion.modulo ?? "core", solicitud);
+    },
   };
   return ctx;
 }
@@ -49,7 +52,7 @@ export async function enviarMenu(ctx: Contexto) {
   const filas = [...modulos.values()].flatMap((m) => m.menu);
   const hola = ctx.nombre ? `¡Hola, ${ctx.nombre.split(" ")[0]}! 👋` : "¡Hola! 👋";
   await ctx.responder.lista(
-    `${hola} Soy *Paga Fácil*.\nPaga servicios, recargas y compras con CoDi desde aquí: directo desde tu banco y sin comisiones.`,
+    `${hola} Soy *Paga Fácil*.\nCobra al momento con CoDi y conoce cómo pagar servicios y recargas: directo desde tu banco y sin comisiones.`,
     "Ver opciones",
     [{ titulo: "¿Qué quieres hacer?", filas }],
     { pie: "Proyecto independiente · cobros vía la API de pey" },

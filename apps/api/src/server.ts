@@ -9,13 +9,12 @@ import { extraerMensajes, fallosDeEntrega, firmaMetaValida } from "./core/whatsa
 import { rutasDev } from "./dev/rutas.ts";
 import { rutasPanel } from "./panel/rutas.ts";
 import { ayuda } from "./modules/ayuda/index.ts";
-import { tienda } from "./modules/tienda/index.ts";
 import { p2p } from "./modules/p2p/index.ts";
 import { servicios } from "./modules/servicios/index.ts";
 
 // El orden define el orden del menú principal.
 registrarModulo(servicios);
-registrarModulo(tienda);
+// Tiendita (src/modules/tienda) fuera del menú por ahora (decisión del 15-nov); el código se conserva.
 registrarModulo(p2p);
 registrarModulo(ayuda);
 

@@ -24,9 +24,14 @@ export const config = {
   },
 
   // Tope de cobro que impone el servidor, diga lo que diga la interfaz (AGENTS.md §3). No es límite de pey.
+  // Configurable: los organizadores pidieron probar con montos mayores a $1 (15-nov).
   maxCobroCentavos: pesosACentavos(num("MAX_MONTO_MXN", 1)),
-  // Monto real que se cobra en la demo, sin importar el monto del recibo. 0 = cobrar el monto real (hasta el tope).
-  demoCobroCentavos: pesosACentavos(num("DEMO_COBRO_MXN", 0.01)),
+  // Si es > 0, todo cobro real se reduce a este monto de prueba (y se muestra el monto real como referencia).
+  // 0 (por defecto) = se cobra el monto real, hasta el tope.
+  demoCobroCentavos: pesosACentavos(num("DEMO_COBRO_MXN", 0)),
+  // Servicios y recargas: mientras no haya un agregador real, el flujo completo es SIMULACIÓN (no se cobra dinero),
+  // para no cobrar de verdad un recibo inventado. "0" = cobro CoDi real del monto (con liquidación simulada).
+  serviciosSimulados: (process.env.SERVICIOS_SIMULADOS ?? "1") !== "0",
 
   // Vigencias en segundos. pey exige 0 o >= 360 en QR y >= 360 en push (pey/04).
   vigenciaQrSeg: num("VIGENCIA_QR_SEG", 600),

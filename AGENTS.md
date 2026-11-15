@@ -25,7 +25,7 @@ Construir un proyecto para el **Hackatón México** (14 nov–12 dic 2026, CoDi 
 5. Los datos se consultaron entre el 5 y el 7 de noviembre de 2026. Antes de una demo, revisa el changelog y la versión del OpenAPI de pey ([pey/13](pey/13-registro-de-cambios.md)).
 
 ## 3. Reglas de dinero (pey cobra de verdad)
-- **pey solo tiene producción:** no hay sandbox, todo cobro es real y lo que se paga a la cuenta de prueba no se devuelve. En pruebas y en la demo se cobran montos de $0.01 a $1, con un tope que impone el servidor (K03.3, K03.6).
+- **pey solo tiene producción:** no hay sandbox, todo cobro es real y lo que se paga a la cuenta de prueba no se devuelve. En pruebas y en la demo se cobran montos chicos, con un tope que impone el servidor (`MAX_MONTO_MXN`; K03.3, K03.6). El 15-nov el equipo subió el tope porque los organizadores pidieron probar con montos mayores a $1.
 - **Confirmación humana:** ningún cobro sin que la persona lo confirme explícitamente. El servidor impone el monto máximo, diga lo que diga la interfaz o un modelo de IA (K03.9).
 - **Verdad de pago:** "pagado" solo si pey lo confirma: `PAID` vinculado al cobro con el monto y la moneda esperados, o un webhook con firma válida. Nunca por una captura de pantalla, un recibo ni la redirección de una liga de pago (K03.4, K03.5, [pey/06](pey/06-api-ligas-de-pago.md)).
 - **SIMULACIÓN visible:** si existe un modo de simulación, la interfaz dice "SIMULACIÓN" de forma visible y nunca se presenta como pago real.
