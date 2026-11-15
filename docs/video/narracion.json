@@ -1,0 +1,20 @@
+{
+  "voz": { "nombre": "Marlene (ElevenLabs, español de México)", "voice_id": "JYyJjNPfmNJdaby8LdZs", "modelo": "eleven_multilingual_v2" },
+  "nota": "Números y siglas escritos como se pronuncian. Las cifras salen de datos.md.",
+  "escenas": [
+    { "id": "e01", "texto": "En México, veintiún punto ocho millones de cuentas tienen CoDi activo." },
+    { "id": "e02", "texto": "Pero solo dos punto cinco millones lo han usado alguna vez." },
+    { "id": "e03", "texto": "Mientras tanto, cobrar con tarjeta le cuesta a una miscelánea hasta casi cuatro por ciento de cada venta. Con CoDi: cero." },
+    { "id": "e04", "texto": "Por eso creamos Paga Fácil: cobros con CoDi desde WhatsApp. Sin descargar apps, sin comisiones y con cualquier banco." },
+    { "id": "e05", "texto": "Un doctor termina la consulta. Escribe el monto, elige el concepto y, con el permiso de su paciente, le manda la solicitud de cobro a su celular." },
+    { "id": "e06", "texto": "Al paciente le llega la solicitud en la app de su banco. La revisa, y autoriza con su huella." },
+    { "id": "e07", "texto": "En segundos, el pago se confirma. El comprobante llega al chat con la clave de rastreo de Banxico, y el negocio lo ve al instante en su panel." },
+    { "id": "e08", "texto": "¿Necesita factura? Captura el erre efe ce y el uso, y el pe de efe llega al chat. En esta demostración la factura es simulada; la conexión con el proveedor de timbrado ya está lista." },
+    { "id": "e09", "texto": "¿El cliente no trae su celular a la mano? Se le muestra un código QR, y lo escanea desde la app de su banco." },
+    { "id": "e10", "texto": "También preparamos el pago de luz, agua y recargas. El cobro con CoDi es real; el pago al proveedor, por ahora, es una simulación." },
+    { "id": "e11", "texto": "Y para quien nunca ha usado CoDi, hay guías cortas y claras dentro del mismo chat." },
+    { "id": "e12", "texto": "Todo con reglas claras: solo se marca como pagado cuando se confirma, cada orden se entrega una sola vez, hay un tope por cobro y protección contra el spam." },
+    { "id": "e13", "texto": "Detrás, hay una integración real con la API de pey: notificaciones push, códigos QR y webhooks verificados." },
+    { "id": "e14", "texto": "Paga Fácil. Cobra hoy, con CoDi, desde WhatsApp." }
+  ]
+}

@@ -37,7 +37,7 @@ cobros.usarClientePey({
 
 type Paso = { de: "persona"; texto: string } | { de: "bot"; mensaje: unknown } | { de: "banco"; texto: string };
 
-async function grabar(archivo: string, titulo: string, waId: string, guion: (p: (e: any, eco: string) => Promise<void>, banco: (t: string) => void) => Promise<void>) {
+async function grabar(archivo: string, titulo: string, waId: string, guion: (p: (e: any, eco: string) => Promise<void>, banco: (t: string) => void, recogerAhora: () => void) => Promise<void>) {
   const pasos: Paso[] = [];
   let visto = 0;
   const recoger = () => {
@@ -54,7 +54,7 @@ async function grabar(archivo: string, titulo: string, waId: string, guion: (p: 
     recoger();
   };
   const banco = (t: string) => pasos.push({ de: "banco", texto: t });
-  await guion(persona, banco);
+  await guion(persona, banco, recoger);
   recoger();
   writeFileSync(SALIDA + archivo, JSON.stringify({ titulo, nota: "Textos reales del bot (generados con el código). Nombres y números ficticios.", pasos }, null, 2));
   console.log(`✓ ${archivo}: ${pasos.length} pasos`);
@@ -71,7 +71,7 @@ await grabar("01-menu.json", "Saludo y menú principal", "dev5510000001", async 
   await p({ tipo: "texto", texto: "hola" }, "hola");
 });
 
-await grabar("02-cobro-rapido-push-y-factura.json", "Cobro rápido: el doctor cobra la consulta por notificación y factura", "dev5510000002", async (p, banco) => {
+await grabar("02-cobro-rapido-push-y-factura.json", "Cobro rápido: el doctor cobra la consulta por notificación y factura", "dev5510000002", async (p, banco, recoger) => {
   await p({ tipo: "boton", id: "p2p:inicio" }, "⚡ Cobro rápido");
   await p({ tipo: "texto", texto: "650" }, "650");
   await p({ tipo: "boton", id: "p2p:con:consulta" }, "Consulta médica");
@@ -80,6 +80,7 @@ await grabar("02-cobro-rapido-push-y-factura.json", "Cobro rápido: el doctor co
   await p({ tipo: "boton", id: "p2p:enviar" }, "Sí, enviar");
   banco("📲 Al paciente le llega a su app bancaria: «Solicitud de cobro CoDi · $650.00 · Consulta médica» → autoriza con su huella");
   await confirmar("pn", `TX${n}`, 650);
+  recoger();
   const id = cobros.cobrosRecientes(1)[0].id;
   await p({ tipo: "boton", id: `p2p:fac:${id}` }, "🧾 Facturar");
   await p({ tipo: "texto", texto: "GODE561231GR8" }, "GODE561231GR8");
@@ -90,22 +91,24 @@ await grabar("02-cobro-rapido-push-y-factura.json", "Cobro rápido: el doctor co
   await p({ tipo: "boton", id: "p2p:emitir" }, "✅ Emitir factura");
 });
 
-await grabar("03-cobro-rapido-qr.json", "Cobro rápido con QR: el plomero le muestra el QR al cliente", "dev5510000003", async (p, banco) => {
+await grabar("03-cobro-rapido-qr.json", "Cobro rápido con QR: el plomero le muestra el QR al cliente", "dev5510000003", async (p, banco, recoger) => {
   await p({ tipo: "boton", id: "p2p:inicio" }, "⚡ Cobro rápido");
   await p({ tipo: "texto", texto: "480" }, "480");
   await p({ tipo: "boton", id: "p2p:con:plomeria" }, "Plomería");
   await p({ tipo: "boton", id: "p2p:metodo:qr" }, "📷 QR en mi pantalla");
   banco("📷 El cliente abre la app de su banco → CoDi → Pagar → escanea el QR → autoriza");
   await confirmar("qr", `QR${n}`, 480);
+  recoger();
 });
 
-await grabar("04-servicios-cfe.json", "Pagar la luz (cobro CoDi real de $0.01; pago a CFE simulado)", "dev5510000004", async (p, banco) => {
+await grabar("04-servicios-cfe.json", "Pagar la luz (cobro CoDi real de $0.01; pago a CFE simulado)", "dev5510000004", async (p, banco, recoger) => {
   await p({ tipo: "boton", id: "svc:servicios" }, "💡 Pagar un servicio");
   await p({ tipo: "boton", id: "svc:srv:cfe" }, "💡 CFE");
   await p({ tipo: "texto", texto: "123456789012" }, "123456789012");
   await p({ tipo: "boton", id: "svc:pagar:pn" }, "✅ Pagar");
   banco("📲 Llega la solicitud CoDi de $0.01 a la app del banco → autoriza");
   await confirmar("pn", `TX${n}`, 0.01);
+  recoger();
 });
 
 await grabar("05-recarga.json", "Recarga de saldo", "dev5510000005", async (p) => {

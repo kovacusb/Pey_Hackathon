@@ -6,3 +6,5 @@ node_modules/
 __pycache__/
 .DS_Store
 data/
+docs/video/salida/
+docs/video/paga-facil.mp4

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paga Fácil · Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --fondo: #0b0f14; --fondo2: #10161d; --tinta: #f4f1ea; --sutil: #9aa6b2; --linea: #24303b;
+    --acento: #2dd4bf; --acento2: #0f766e; --ambar: #fbbf24; --rojo: #f87171; --burbuja: #1b242d; --mia: #0f5a52;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #000; height: 100%; overflow: hidden; }
+  body { display: grid; place-items: center; font-family: "Inter Tight", system-ui, -apple-system, sans-serif; color: var(--tinta); }
+  #escenario { width: 1920px; height: 1080px; position: relative; overflow: hidden; transform-origin: center; flex: none;
+    background: radial-gradient(1200px 700px at 78% 18%, rgba(45,212,191,.10), transparent 60%), radial-gradient(900px 600px at 10% 95%, rgba(15,118,110,.14), transparent 60%), var(--fondo); }
+  #escenario::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 64px 64px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%); }
+  .escena { position: absolute; inset: 0; opacity: 0; }
+  [data-in] { opacity: 0; will-change: transform, opacity; }
+
+  /* Tipografía */
+  .xxl { font-size: 220px; font-weight: 900; letter-spacing: -0.045em; line-height: .9; }
+  .xl { font-size: 150px; font-weight: 800; letter-spacing: -0.04em; line-height: .95; }
+  .l { font-size: 96px; font-weight: 800; letter-spacing: -0.035em; line-height: 1; }
+  .m { font-size: 52px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--tinta); }
+  .s { font-size: 36px; font-weight: 500; color: var(--sutil); line-height: 1.3; }
+  .xs { font-size: 26px; font-weight: 500; color: #6b7783; letter-spacing: .01em; }
+  .acento { color: var(--acento); }
+  .ambar { color: var(--ambar); }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .centro { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 28px; }
+  .izq { position: absolute; left: 140px; top: 0; bottom: 0; width: 900px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  .der { position: absolute; right: 140px; top: 0; bottom: 0; width: 900px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  .etiqueta { display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; font-size: 28px; font-weight: 700; padding: 10px 20px; border-radius: 999px; }
+  .etiqueta.sim { background: rgba(251,191,36,.12); color: var(--ambar); border: 1px solid rgba(251,191,36,.4); }
+  .etiqueta.ok { background: rgba(45,212,191,.12); color: var(--acento); border: 1px solid rgba(45,212,191,.4); }
+  .fuente { position: absolute; bottom: 56px; left: 0; right: 0; text-align: center; }
+  .marca { font-weight: 900; letter-spacing: -0.05em; }
+  .marca span { color: var(--acento); }
+
+  /* Barras (e02) */
+  .barras { width: 1100px; display: flex; flex-direction: column; gap: 22px; margin-top: 30px; }
+  .barra { height: 40px; border-radius: 12px; background: #1c252e; position: relative; overflow: hidden; }
+  .barra i { position: absolute; inset: 0 auto 0 0; border-radius: 12px; }
+  .barra-et { display: flex; justify-content: space-between; font-size: 30px; color: var(--sutil); font-weight: 600; }
+
+  /* Comparativa (e03) */
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; width: 1500px; }
+  .tarjeta { background: linear-gradient(180deg, #121a22, #0e141a); border: 1px solid var(--linea); border-radius: 36px; padding: 56px 60px; text-align: left; }
+  .tarjeta .s { margin-top: 10px; }
+
+  /* Chips (e04) */
+  .chips { display: flex; gap: 22px; justify-content: center; }
+  .chip { font-size: 38px; font-weight: 700; padding: 18px 34px; border-radius: 999px; border: 2px solid var(--linea); background: #0f151b; }
+
+  /* Teléfono */
+  .telefono { position: absolute; top: 60px; width: 540px; height: 960px; border-radius: 64px; background: #05080b; padding: 16px;
+    box-shadow: 0 0 0 2px #2a333c, 0 40px 120px rgba(0,0,0,.6), 0 0 120px rgba(45,212,191,.08); }
+  .telefono.der-tel { right: 170px; }
+  .telefono.izq-tel { left: 170px; }
+  .pantalla { position: relative; width: 100%; height: 100%; border-radius: 50px; overflow: hidden; background: #0d1418; }
+  .barra-chat { position: absolute; top: 0; left: 0; right: 0; height: 118px; padding: 48px 26px 0; display: flex; align-items: center; gap: 16px; background: #121b21; z-index: 2; border-bottom: 1px solid #1d2830; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--acento), var(--acento2)); display: grid; place-items: center; font-weight: 900; font-size: 26px; color: #04201c; }
+  .barra-chat b { font-size: 26px; display: block; }
+  .barra-chat small { font-size: 18px; color: var(--sutil); }
+  .muesca { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 150px; height: 34px; border-radius: 20px; background: #000; z-index: 3; }
+  .hilo { position: absolute; left: 0; right: 0; top: 118px; bottom: 0; overflow: hidden; }
+  .mensajes { position: absolute; left: 0; right: 0; top: 0; padding: 20px 18px 40px; display: flex; flex-direction: column; gap: 12px; }
+  .msj { max-width: 86%; padding: 14px 18px; border-radius: 22px; font-size: 22px; line-height: 1.32; white-space: pre-wrap; word-wrap: break-word; opacity: 0; }
+  .msj.bot { align-self: flex-start; background: var(--burbuja); border-top-left-radius: 8px; }
+  .msj.yo { align-self: flex-end; background: var(--mia); border-top-right-radius: 8px; }
+  .msj .enc { font-weight: 800; margin-bottom: 4px; }
+  .msj .pie { font-size: 17px; color: var(--sutil); margin-top: 6px; }
+  .msj .btns { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .msj .btns span { display: block; text-align: center; padding: 10px; border-radius: 14px; background: #24303a; color: #8fe8db; font-weight: 600; font-size: 20px; }
+  .msj .fila { display: block; padding: 8px 2px; border-top: 1px solid #2a3640; font-size: 20px; }
+  .msj .fila small { display: block; color: var(--sutil); font-size: 16px; }
+  .msj .qr { width: 300px; height: 300px; border-radius: 12px; background: #fff; padding: 18px; margin-bottom: 10px; }
+  .msj .doc { display: flex; align-items: center; gap: 14px; background: #24303a; border-radius: 14px; padding: 14px; margin-bottom: 8px; font-weight: 700; }
+  .msj .doc i { font-style: normal; font-size: 40px; }
+
+  /* Banco (e06) */
+  .banco { position: absolute; right: 230px; top: 140px; width: 620px; height: 800px; border-radius: 48px; background: linear-gradient(180deg, #f7f7f5, #e9ecef); color: #10161d; padding: 56px 50px; display: flex; flex-direction: column; gap: 26px; box-shadow: 0 40px 120px rgba(0,0,0,.6); }
+  .banco .titulo { font-size: 30px; font-weight: 700; color: #4b5563; }
+  .banco .monto { font-size: 110px; font-weight: 900; letter-spacing: -0.04em; }
+  .banco .dato { display: flex; justify-content: space-between; font-size: 28px; border-bottom: 1px solid #d5d9de; padding-bottom: 14px; }
+  .banco .dato b { font-weight: 700; }
+  .huella { margin: auto auto 0; width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center; position: relative; }
+  .huella svg { position: absolute; inset: 0; }
+  .huella .ico { font-size: 80px; }
+  .banco .ok { text-align: center; font-size: 40px; font-weight: 800; color: #0f766e; opacity: 0; }
+
+  /* Panel (e07) */
+  .panel { position: absolute; right: 120px; top: 230px; width: 1000px; background: #0f151b; border: 1px solid var(--linea); border-radius: 32px; padding: 34px; box-shadow: 0 40px 120px rgba(0,0,0,.5); }
+  .panel h3 { font-size: 30px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .panel h3 small { font-size: 22px; color: var(--acento); display: flex; align-items: center; gap: 8px; }
+  .panel h3 small::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--acento); }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; }
+  .kpi { background: #141c24; border-radius: 20px; padding: 18px 22px; }
+  .kpi span { font-size: 18px; color: var(--sutil); text-transform: uppercase; letter-spacing: .05em; }
+  .kpi b { display: block; font-size: 44px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .filap { display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center; padding: 18px 8px; border-top: 1px solid var(--linea); font-size: 26px; }
+  .filap small { display: block; font-size: 19px; color: var(--sutil); }
+  .pill { font-size: 20px; font-weight: 700; padding: 6px 16px; border-radius: 999px; white-space: nowrap; }
+  .pill.pend { background: rgba(251,191,36,.14); color: var(--ambar); }
+  .pill.pag { background: rgba(45,212,191,.16); color: var(--acento); }
+
+  /* Factura (e08) */
+  .factura { position: absolute; right: 90px; top: 150px; width: 560px; border-radius: 10px; box-shadow: 0 40px 120px rgba(0,0,0,.6); }
+
+  /* Reglas (e12) */
+  .rejilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; width: 1620px; }
+  .regla { background: linear-gradient(180deg, #121a22, #0e141a); border: 1px solid var(--linea); border-radius: 30px; padding: 40px; text-align: left; min-height: 250px; }
+  .regla .num { font-size: 30px; font-weight: 800; color: var(--acento); }
+  .regla .m { font-size: 42px; margin-top: 14px; }
+
+  /* Diagrama (e13) */
+  .diagrama { position: relative; width: 1480px; height: 420px; }
+  .nodo { position: absolute; top: 120px; width: 280px; height: 170px; border-radius: 30px; background: #111920; border: 2px solid var(--linea); display: grid; place-items: center; text-align: center; font-size: 36px; font-weight: 800; padding: 20px; }
+  .nodo small { display: block; font-size: 22px; font-weight: 500; color: var(--sutil); margin-top: 6px; }
+  .nodo.clave { border-color: var(--acento); box-shadow: 0 0 60px rgba(45,212,191,.18); }
+  .diagrama svg { position: absolute; inset: 0; overflow: visible; }
+  .endpoints { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
+  .endpoints span { font-size: 28px; padding: 12px 24px; border-radius: 14px; background: #0f1a1a; border: 1px solid #1f3b37; color: #8fe8db; }
+
+  /* Controles (solo en reproducción, no en el render) */
+  #controles { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; background: rgba(15,20,26,.85); border: 1px solid #2a333c; border-radius: 999px; padding: 8px 14px; font: 14px system-ui; color: #cfd6dd; z-index: 10; opacity: .25; transition: opacity .2s; }
+  #controles:hover { opacity: 1; }
+  #controles button { background: none; border: 0; color: inherit; font-size: 18px; cursor: pointer; }
+  #progreso { width: 320px; accent-color: #2dd4bf; }
+  body.render #controles { display: none; }
+</style>
+</head>
+<body>
+<div id="escenario">
+
+  <!-- e01 -->
+  <section class="escena" id="e01"><div class="centro">
+    <div class="s" data-in="0.1">En México</div>
+    <div class="xxl" data-in="0.25"><span data-contador="21.8" data-dec="1">0</span> millones</div>
+    <div class="m" data-in="0.9">de cuentas tienen <b class="acento">CoDi</b> activo</div>
+  </div><div class="fuente xs" data-in="1.4">Fuente: Banxico (sep-2025), vía la base de conocimiento del proyecto (K04)</div></section>
+
+  <!-- e02 -->
+  <section class="escena" id="e02"><div class="centro">
+    <div class="xs" data-in="0">pero solo</div>
+    <div class="xxl acento" data-in="0.1"><span data-contador="2.5" data-dec="1">0</span> millones</div>
+    <div class="m" data-in="0.6">lo han usado alguna vez</div>
+    <div class="barras" data-in="0.9">
+      <div><div class="barra-et"><span>Cuentas con CoDi</span><span>21.8 M</span></div><div class="barra"><i style="background:#3a4652" data-ancho="100"></i></div></div>
+      <div><div class="barra-et"><span>Han pagado alguna vez</span><span class="acento">2.5 M</span></div><div class="barra"><i style="background:var(--acento)" data-ancho="11.5"></i></div></div>
+    </div>
+  </div><div class="fuente xs" data-in="1.2">Fuente: Banxico (sep-2025), vía K04</div></section>
+
+  <!-- e03 -->
+  <section class="escena" id="e03"><div class="centro">
+    <div class="versus">
+      <div class="tarjeta" data-in="0.1"><div class="s">Cobrar con tarjeta en una miscelánea</div><div class="m" style="color:var(--rojo);margin-top:18px">hasta</div><div class="xl" style="color:var(--rojo)"><span data-contador="3.95" data-dec="2">0</span>%</div><div class="s">por cada venta</div></div>
+      <div class="tarjeta" data-in="2.4" style="border-color:#1f4d47"><div class="s">Cobrar con CoDi</div><div class="m acento" style="margin-top:18px">solo</div><div class="xl acento">0%</div><div class="s">sin comisión, en segundos, 24/7</div></div>
+    </div>
+  </div><div class="fuente xs" data-in="1">Fuente: comisiones con débito (jul-2026) y preguntas frecuentes de CoDi, vía K04 y codi/08</div></section>
+
+  <!-- e04 -->
+  <section class="escena" id="e04"><div class="centro">
+    <div class="xxl marca" data-in="0.1" data-desde="escala">Paga <span>Fácil</span></div>
+    <div class="m" data-in="1.2" style="margin-top:24px">Cobros con <b class="acento">CoDi</b> desde WhatsApp</div>
+    <div class="chips"><span class="chip" data-in="3.2">Sin apps</span><span class="chip" data-in="3.9">Sin comisiones</span><span class="chip" data-in="4.6">Con cualquier banco</span></div>
+  </div></section>
+
+  <!-- e05 -->
+  <section class="escena" id="e05">
+    <div class="izq"><div class="etiqueta ok" data-in="0">⚡ Cobro rápido</div><div class="xl" data-in="0.2">Cobra en<br>segundos</div><div class="s" data-in="0.6">El doctor escribe el monto, elige el concepto y manda la solicitud al celular de su paciente, con su permiso.</div></div>
+    <div class="telefono der-tel" data-in="0" data-desde="derecha" data-chat="c02a"></div>
+  </section>
+
+  <!-- e06 -->
+  <section class="escena" id="e06">
+    <div class="izq" style="width:880px"><div class="l" data-in="0.1">El cliente autoriza<br><span class="acento">en su banco</span></div><div class="s" data-in="0.6">Con su NIP o su huella, en la app de cualquier banco. Nadie más ve sus datos bancarios.</div></div>
+    <div class="banco" data-in="0.3" data-desde="abajo">
+      <div class="titulo">Tu banco · CoDi</div>
+      <div style="font-size:36px;font-weight:800">Solicitud de cobro</div>
+      <div class="monto">$650.00</div>
+      <div class="dato"><span>Concepto</span><b>Consulta médica</b></div>
+      <div class="dato"><span>Cobra</span><b>Paga Fácil · demo</b></div>
+      <div class="huella" id="huella"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="78" fill="none" stroke="#cfd5db" stroke-width="8"/><circle id="arco" cx="85" cy="85" r="78" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="490" transform="rotate(-90 85 85)"/></svg><div class="ico">👆</div></div>
+      <div class="ok" id="autorizado">✓ Autorizado</div>
+    </div>
+  </section>
+
+  <!-- e07 -->
+  <section class="escena" id="e07">
+    <div class="telefono izq-tel" data-in="0" data-chat="c02b"></div>
+    <div style="position:absolute;left:800px;top:90px" class="l" data-in="0.1">Confirmado <span class="acento">al instante</span></div>
+    <div class="panel" data-in="0.6" data-desde="derecha">
+      <h3>Panel del negocio <small>En vivo</small></h3>
+      <div class="kpis"><div class="kpi"><span>Pagos de hoy</span><b id="kpiPagos">2</b></div><div class="kpi"><span>Cobrado hoy</span><b id="kpiMonto">$480.01</b></div><div class="kpi"><span>Esperando</span><b id="kpiPend">1</b></div></div>
+      <div class="filap" id="filaNueva"><div>Consulta médica<small>Cobro rápido · Push · cliente •••• 5678</small></div><b>$650.00</b><span class="pill pend" id="pillNueva">Esperando pago</span></div>
+      <div class="filap"><div>Plomería<small>Cobro rápido · QR</small></div><b>$480.00</b><span class="pill pag">Pagado</span></div>
+      <div class="filap"><div>CFE •••• 9012<small>Servicios · cobro real $0.01 · pago a CFE simulado</small></div><b>$482.50</b><span class="pill pag">Pagado</span></div>
+    </div>
+  </section>
+
+  <!-- e08 -->
+  <section class="escena" id="e08">
+    <div class="telefono izq-tel" data-in="0" data-chat="c02c"></div>
+    <div style="position:absolute;left:780px;top:150px;width:420px;display:flex;flex-direction:column;gap:24px">
+      <div class="l" data-in="0.1" style="font-size:80px">Y la factura,<br><span class="acento">en el chat</span></div>
+      <div class="s" data-in="0.5">RFC, régimen y uso del CFDI → PDF listo para reenviar.</div>
+      <div class="etiqueta sim" data-in="1">Demo: factura simulada · conexión al PAC lista</div>
+    </div>
+    <img class="factura" data-in="7.5" data-desde="derecha" src="__FACTURA__" alt="Factura de ejemplo marcada SIMULACIÓN" />
+  </section>
+
+  <!-- e09 -->
+  <section class="escena" id="e09">
+    <div class="izq"><div class="xl" data-in="0.1">¿Sin celular<br>a la mano?</div><div class="l acento" data-in="0.6">QR</div><div class="s" data-in="1">Se escanea desde la app del banco. La cámara normal no lo paga.</div></div>
+    <div class="telefono der-tel" data-in="0" data-desde="derecha" data-chat="c03"></div>
+  </section>
+
+  <!-- e10 -->
+  <section class="escena" id="e10">
+    <div class="telefono izq-tel" data-in="0" data-desde="izquierda" data-chat="c04"></div>
+    <div class="der"><div class="xl" data-in="0.1">Luz, agua<br>y recargas</div><div class="s" data-in="0.6">Desde el mismo chat. Hoy el cobro CoDi es real por $0.01; el pago al proveedor llega cuando conectemos al agregador.</div><div class="etiqueta sim" data-in="1.2">Pago al proveedor: SIMULACIÓN</div></div>
+  </section>
+
+  <!-- e11 -->
+  <section class="escena" id="e11">
+    <div class="izq"><div class="xl" data-in="0.1">Aprende<br><span class="acento">CoDi</span></div><div class="s" data-in="0.5">Guías cortas para quien siempre ha pagado en efectivo: activar CoDi, seguridad, límites y qué hacer si algo falla.</div></div>
+    <div class="telefono der-tel" data-in="0" data-desde="derecha" data-chat="c06"></div>
+  </section>
+
+  <!-- e12 -->
+  <section class="escena" id="e12"><div class="centro" style="gap:50px">
+    <div class="l" data-in="0">Seguro <span class="acento">por diseño</span></div>
+    <div class="rejilla">
+      <div class="regla" data-in="0.6"><div class="num">01</div><div class="m">«Pagado» solo cuando pey lo confirma</div></div>
+      <div class="regla" data-in="2.6"><div class="num">02</div><div class="m">Cada orden se entrega una sola vez</div></div>
+      <div class="regla" data-in="4.4"><div class="num">03</div><div class="m">Tope por cobro en el servidor</div></div>
+      <div class="regla" data-in="5.8"><div class="num">04</div><div class="m">Antispam: máx. 3 solicitudes por celular</div></div>
+      <div class="regla" data-in="6.6"><div class="num">05</div><div class="m">Webhooks con firma verificada</div></div>
+      <div class="regla" data-in="7.4"><div class="num">06</div><div class="m">Sin datos personales en registros</div></div>
+    </div>
+  </div></section>
+
+  <!-- e13 -->
+  <section class="escena" id="e13"><div class="centro" style="gap:30px">
+    <div class="l" data-in="0">Integración real con la <span class="acento">API de pey</span></div>
+    <div class="diagrama">
+      <svg viewBox="0 0 1480 420"><path id="ruta" d="M280 205 H400 M680 205 H800 M1080 205 H1200" stroke="#2dd4bf" stroke-width="5" fill="none" stroke-dasharray="720" stroke-dashoffset="720"/>
+        <path id="vuelta" d="M1340 290 C1340 400, 540 400, 540 290" stroke="#fbbf24" stroke-width="4" fill="none" stroke-dasharray="10 10" opacity="0"/></svg>
+      <div class="nodo" style="left:0" data-in="0.5">WhatsApp<small>quien cobra</small></div>
+      <div class="nodo clave" style="left:400px" data-in="1">Paga Fácil<small>bot + panel</small></div>
+      <div class="nodo" style="left:800px" data-in="1.6">API de pey<small>CoDi</small></div>
+      <div class="nodo" style="left:1200px" data-in="2.2">Banco<small>quien paga autoriza</small></div>
+      <div class="xs" style="position:absolute;left:640px;top:380px;width:600px;text-align:center;color:var(--ambar)" data-in="4">webhook firmado → comprobante</div>
+    </div>
+    <div class="endpoints mono"><span data-in="3">POST /codi/pn</span><span data-in="3.6">POST /codi/qr</span><span data-in="4.2">Standard Webhooks</span></div>
+  </div></section>
+
+  <!-- e14 -->
+  <section class="escena" id="e14"><div class="centro">
+    <div class="xxl marca" data-in="0" data-desde="escala">Paga <span>Fácil</span></div>
+    <div class="m" data-in="0.8">Cobra hoy, con <b class="acento">CoDi</b>, desde WhatsApp.</div>
+  </div><div class="fuente xs" data-in="1.2">Proyecto independiente para el Hackatón México · no es un producto de pey ni de Banxico · voz: ElevenLabs</div></section>
+</div>
+
+<div id="controles"><button id="bPlay" title="Reproducir/pausa (espacio)">▶</button><button id="bReinicio" title="Reiniciar">⟲</button><input id="progreso" type="range" min="0" max="1000" value="0" /><span id="reloj">0:00</span></div>
+<audio id="audio" src="__AUDIO__" preload="auto"></audio>
+
+<script>
+const DATOS = /*__DATOS__*/null;
+const RENDER = new URLSearchParams(location.search).has("render");
+if (RENDER) document.body.classList.add("render");
+
+// ---------- Escalado ----------
+const escenario = document.getElementById("escenario");
+function escalar() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); escenario.style.transform = `scale(${k})`; }
+addEventListener("resize", escalar); escalar();
+
+// ---------- Utilidades ----------
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const suave = (p) => 1 - Math.pow(1 - clamp(p), 3);
+const fmt = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" });
+function wa(texto) {
+  const esc = String(texto ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
+  return esc.replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/(^|\s)_([^_\n]+)_/g, "$1<i>$2</i>");
+}
+function qrFalso(semilla) {
+  // QR estilizado (no escaneable): cuadrícula determinista con las tres esquinas de posición.
+  const n = 25, c = 264 / n; let s = semilla, cel = "";
+  const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  const esquina = (x, y) => (x < 7 && y < 7) || (x >= n - 7 && y < 7) || (x < 7 && y >= n - 7);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    let on;
+    if (esquina(x, y)) { const lx = x >= n - 7 ? x - (n - 7) : x, ly = y >= n - 7 ? y - (n - 7) : y; on = lx === 0 || ly === 0 || lx === 6 || ly === 6 || (lx >= 2 && lx <= 4 && ly >= 2 && ly <= 4); }
+    else on = rnd() > 0.52;
+    if (on) cel += `<rect x="${x * c}" y="${y * c}" width="${c + .3}" height="${c + .3}"/>`;
+  }
+  return `<svg class="qr" viewBox="0 0 264 264" style="padding:18px"><g fill="#0b0f14">${cel}</g></svg>`;
+}
+
+// ---------- Línea de tiempo ----------
+const ESCENAS = DATOS.escenas; // [{id, inicio, dur, voz}]
+const TOTAL = ESCENAS.at(-1).inicio + ESCENAS.at(-1).dur;
+const nodos = Object.fromEntries(ESCENAS.map((e) => [e.id, document.getElementById(e.id)]));
+
+// ---------- Chats ----------
+const CHATS = {};
+for (const tel of document.querySelectorAll("[data-chat]")) {
+  const clave = tel.dataset.chat, def = DATOS.chats[clave];
+  tel.innerHTML = `<div class="pantalla"><div class="muesca"></div><div class="barra-chat"><div class="avatar">P</div><div><b>Paga Fácil</b><small>en línea</small></div></div><div class="hilo"><div class="mensajes"></div></div></div>`;
+  const cont = tel.querySelector(".mensajes");
+  const elems = def.pasos.map((p, i) => {
+    const d = document.createElement("div");
+    if (p.de === "persona") { d.className = "msj yo"; d.innerHTML = wa(p.texto); }
+    else {
+      const m = p.mensaje; d.className = "msj bot";
+      let h = m.encabezado ? `<div class="enc">${wa(m.encabezado)}</div>` : "";
+      if (m.tipo === "imagen") h += qrFalso(17 + i) + `<div>${wa(m.pie)}</div>`;
+      else if (m.tipo === "documento") h += `<div class="doc"><i>📄</i><span>${wa(m.nombre)}</span></div><div>${wa(m.pie)}</div>`;
+      else h += `<div>${wa(m.cuerpo)}</div>`;
+      if (m.tipo === "botones") h += `<div class="btns">${m.botones.map((b) => `<span>${wa(b.titulo)}</span>`).join("")}</div>`;
+      if (m.tipo === "lista") h += `<div class="btns"><span>☰ ${wa(m.textoBoton)}</span></div>` + m.secciones.flatMap((s) => s.filas.slice(0, 7)).map((f) => `<span class="fila">${wa(f.titulo)}${f.descripcion ? `<small>${wa(f.descripcion)}</small>` : ""}</span>`).join("");
+      if (m.pie && m.tipo !== "imagen" && m.tipo !== "documento") h += `<div class="pie">${wa(m.pie)}</div>`;
+      d.innerHTML = h;
+    }
+    cont.appendChild(d); return d;
+  });
+  CHATS[clave] = { tel, cont, elems, def, fondos: null };
+}
+function medirChats() {
+  for (const ch of Object.values(CHATS)) {
+    const alto = ch.tel.querySelector(".hilo").clientHeight;
+    ch.objetivos = ch.elems.map((el) => Math.max(0, el.offsetTop + el.offsetHeight + 40 - alto));
+  }
+}
+function pintarChat(ch, lt, dur) {
+  const n = ch.elems.length, ini = ch.def.inicio ?? 0.5, fin = dur - (ch.def.colchon ?? 1.0);
+  const paso = (fin - ini) / Math.max(1, n);
+  let scroll = 0;
+  ch.elems.forEach((el, k) => {
+    const t0 = ch.def.tiempos?.[k] ?? ini + k * paso;
+    const p = suave((lt - t0) / 0.35);
+    el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 18}px)`;
+    if (lt >= t0) { const prev = k > 0 ? ch.objetivos[k - 1] : 0; scroll = prev + (ch.objetivos[k] - prev) * suave((lt - t0) / 0.4); }
+  });
+  ch.cont.style.transform = `translateY(${-scroll}px)`;
+}
+
+// ---------- Render de un instante ----------
+function animar(el, lt) {
+  const d = Number(el.dataset.in), p = suave((lt - d) / 0.6);
+  const desde = el.dataset.desde || "arriba";
+  const tr = { arriba: `translateY(${(1 - p) * 40}px)`, abajo: `translateY(${(1 - p) * 120}px)`, derecha: `translateX(${(1 - p) * 140}px)`, izquierda: `translateX(${(1 - p) * -140}px)`, escala: `scale(${0.9 + 0.1 * p})` }[desde];
+  el.style.opacity = p; el.style.transform = tr;
+}
+function irA(t) {
+  t = clamp(t, 0, TOTAL);
+  for (const e of ESCENAS) {
+    const nodo = nodos[e.id], lt = t - e.inicio;
+    const visible = lt >= -0.01 && lt <= e.dur + 0.01;
+    // Fundido de 0.45 s al entrar y al salir
+    const op = visible ? Math.min(suave(lt / 0.45), suave((e.dur - lt) / 0.45)) : 0;
+    nodo.style.opacity = e.id === ESCENAS[0].id ? Math.min(1, suave((e.dur - lt) / 0.45)) * (visible ? 1 : 0) : op;
+    if (!visible) continue;
+    nodo.querySelectorAll("[data-in]").forEach((el) => animar(el, lt));
+    nodo.querySelectorAll("[data-contador]").forEach((el) => { const p = suave((lt - 0.3) / 1.4); el.textContent = (Number(el.dataset.contador) * p).toFixed(Number(el.dataset.dec)); });
+    nodo.querySelectorAll("[data-ancho]").forEach((el) => { el.style.width = `${Number(el.dataset.ancho) * suave((lt - 1.1) / 1.2)}%`; });
+    nodo.querySelectorAll("[data-chat]").forEach((tel) => pintarChat(CHATS[tel.dataset.chat], lt, e.dur));
+    if (e.id === "e06") {
+      const p = suave((lt - 3.2) / 1.4);
+      document.getElementById("arco").setAttribute("stroke-dashoffset", String(490 * (1 - p)));
+      const ok = suave((lt - 4.7) / 0.4); document.getElementById("autorizado").style.opacity = ok;
+      document.getElementById("huella").style.transform = `scale(${1 - 0.06 * Math.sin(clamp((lt - 3.2) / 1.4) * Math.PI)})`;
+    }
+    if (e.id === "e07") {
+      const pagado = lt >= 3.4, p = suave((lt - 3.4) / 0.5);
+      const pill = document.getElementById("pillNueva");
+      pill.textContent = pagado ? "Pagado" : "Esperando pago"; pill.className = "pill " + (pagado ? "pag" : "pend");
+      document.getElementById("filaNueva").style.background = pagado ? `rgba(45,212,191,${0.18 * (1 - suave((lt - 3.9) / 1.6))})` : "transparent";
+      document.getElementById("kpiPagos").textContent = pagado ? "3" : "2";
+      document.getElementById("kpiPend").textContent = pagado ? "0" : "1";
+      document.getElementById("kpiMonto").textContent = fmt.format(480.01 + 650 * p);
+    }
+    if (e.id === "e13") {
+      document.getElementById("ruta").setAttribute("stroke-dashoffset", String(720 * (1 - suave((lt - 0.8) / 2))));
+      document.getElementById("vuelta").setAttribute("opacity", String(suave((lt - 3.8) / 0.6)));
+    }
+  }
+  return t;
+}
+window.irA = irA; window.TOTAL = TOTAL;
+
+// ---------- Reproducción ----------
+const audio = document.getElementById("audio"), barra = document.getElementById("progreso"), reloj = document.getElementById("reloj"), bPlay = document.getElementById("bPlay");
+let reproduciendo = false, t0 = 0, base = 0;
+const ahora = () => (audio.src && !isNaN(audio.duration) && !audio.paused ? audio.currentTime : reproduciendo ? base + (performance.now() - t0) / 1000 : base);
+function cuadro() {
+  const t = ahora(); irA(t); barra.value = String(Math.round((t / TOTAL) * 1000));
+  reloj.textContent = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+  if (t >= TOTAL) pausar();
+  if (reproduciendo) requestAnimationFrame(cuadro);
+}
+function reproducir() { reproduciendo = true; t0 = performance.now(); audio.currentTime = base; audio.play().catch(() => {}); bPlay.textContent = "❚❚"; requestAnimationFrame(cuadro); }
+function pausar() { base = ahora(); reproduciendo = false; audio.pause(); bPlay.textContent = "▶"; }
+function saltar(t) { base = clamp(t, 0, TOTAL); audio.currentTime = base; t0 = performance.now(); irA(base); }
+bPlay.onclick = () => (reproduciendo ? pausar() : reproducir());
+document.getElementById("bReinicio").onclick = () => { pausar(); saltar(0); };
+barra.oninput = () => saltar((Number(barra.value) / 1000) * TOTAL);
+addEventListener("keydown", (ev) => {
+  if (ev.code === "Space") { ev.preventDefault(); reproduciendo ? pausar() : reproducir(); }
+  const i = ESCENAS.findIndex((e) => ahora() < e.inicio + e.dur);
+  if (ev.code === "ArrowRight") saltar(ESCENAS[Math.min(ESCENAS.length - 1, i + 1)].inicio);
+  if (ev.code === "ArrowLeft") saltar(ESCENAS[Math.max(0, i - 1)].inicio);
+});
+window.listo = document.fonts.ready.then(() => { medirChats(); irA(0); return true; });
+</script>
+</body>
+</html>

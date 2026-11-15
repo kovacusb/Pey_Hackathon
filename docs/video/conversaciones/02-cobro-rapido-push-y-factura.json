@@ -139,11 +139,11 @@
         "cuerpo": "📲 *Solicitud enviada al celular •••• 5678*\nPídele que abra la notificación de su banco y autorice *$650.00* con su NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
         "botones": [
           {
-            "id": "pago:qr:489931ab-5740-4755-b719-41b20c400d8d",
+            "id": "pago:qr:5cdd48ca-a2e9-4d8d-a01c-a448e6b577fe",
             "titulo": "📷 Mejor un QR"
           },
           {
-            "id": "pago:cancelar:489931ab-5740-4755-b719-41b20c400d8d",
+            "id": "pago:cancelar:5cdd48ca-a2e9-4d8d-a01c-a448e6b577fe",
             "titulo": "Cancelar"
           }
         ],
@@ -155,17 +155,13 @@
       "texto": "📲 Al paciente le llega a su app bancaria: «Solicitud de cobro CoDi · $650.00 · Consulta médica» → autoriza con su huella"
     },
     {
-      "de": "persona",
-      "texto": "🧾 Facturar"
-    },
-    {
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "✅ *¡Cobro recibido!*\n\nConsulta médica · $650.00\nFecha: 14/11/26, 10:20 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio: 1\n\n¿Tu cliente quiere factura?",
+        "cuerpo": "✅ *¡Cobro recibido!*\n\nConsulta médica · $650.00\nFecha: 14/11/26, 10:45 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio: 1\n\n¿Tu cliente quiere factura?",
         "botones": [
           {
-            "id": "p2p:fac:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "id": "p2p:fac:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
             "titulo": "🧾 Facturar"
           },
           {
@@ -181,13 +177,17 @@
       }
     },
     {
+      "de": "persona",
+      "texto": "🧾 Facturar"
+    },
+    {
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
         "cuerpo": "🧾 *Factura*\nEscribe el *RFC* de tu cliente.",
         "botones": [
           {
-            "id": "p2p:pg:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "id": "p2p:pg:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
             "titulo": "Público en general"
           },
           {
@@ -327,7 +327,7 @@
             "titulo": "✅ Emitir factura"
           },
           {
-            "id": "p2p:fac:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "id": "p2p:fac:d85ab66f-bf70-4810-b71a-f54b8a86d1c4",
             "titulo": "Corregir"
           },
           {

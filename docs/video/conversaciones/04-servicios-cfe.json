@@ -123,11 +123,11 @@
         "cuerpo": "📲 *Revisa la app de tu banco*\nTe llegó una solicitud CoDi por *$0.01*.\nÁbrela y autoriza con tu NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
         "botones": [
           {
-            "id": "pago:qr:eee42ef4-397a-4210-9899-b4c54bffd205",
+            "id": "pago:qr:1c1c71ea-06ab-4c5f-96be-873d9795501e",
             "titulo": "📷 Mejor un QR"
           },
           {
-            "id": "pago:cancelar:eee42ef4-397a-4210-9899-b4c54bffd205",
+            "id": "pago:cancelar:1c1c71ea-06ab-4c5f-96be-873d9795501e",
             "titulo": "Cancelar"
           }
         ],
@@ -142,7 +142,7 @@
       "de": "bot",
       "mensaje": {
         "tipo": "botones",
-        "cuerpo": "✅ *¡Pago confirmado!*\n\n💡 CFE · •••• 9012\nMonto: $482.50\nCobrado vía CoDi: $0.01 (real)\nFecha: 14/11/26, 10:20 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio Paga Fácil: 3\nFolio CFE: SIM-700E4D3A (SIMULACIÓN)\n\n⚠️ El pago a CFE es una SIMULACIÓN: solo se cobró $0.01 real vía CoDi.",
+        "cuerpo": "✅ *¡Pago confirmado!*\n\n💡 CFE · •••• 9012\nMonto: $482.50\nCobrado vía CoDi: $0.01 (real)\nFecha: 14/11/26, 10:45 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio Paga Fácil: 3\nFolio CFE: SIM-894EEBAF (SIMULACIÓN)\n\n⚠️ El pago a CFE es una SIMULACIÓN: solo se cobró $0.01 real vía CoDi.",
         "botones": [
           {
             "id": "svc:servicios",
