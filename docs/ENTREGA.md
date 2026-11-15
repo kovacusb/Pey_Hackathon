@@ -30,7 +30,7 @@ Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico
 ## Instrucciones de prueba (≤ 1000 palabras)
 
 **Opción A · WhatsApp**
-1. Escribe «hola» al ‹número de WhatsApp del bot›. El número de prueba de Meta solo responde a números registrados: pídenos que agreguemos el tuyo.
+1. Escribe «hola» al **+52 720 836 2454** en WhatsApp (o abre https://wa.me/527208362454?text=hola). Funciona desde cualquier número.
 2. Necesitas CoDi activo en la app de tu banco (funciona con cualquier banco participante). Los cobros son **reales** y llegan a la cuenta de prueba del proyecto: usa montos chicos (el servidor tiene un tope de ‹tope› por cobro).
 3. **Cobro rápido (real):** ⚡ Cobro rápido → escribe un monto (ej. `25`) → Consulta médica → «A su celular» → escribe tu propio número y confirma → abre la notificación de tu banco y autoriza. En segundos llega el comprobante con la clave de rastreo de Banxico. Para probar el QR, elige «QR en mi pantalla» y escanéalo **desde la app de tu banco** (CoDi → Pagar; la cámara normal no lo paga) o impórtalo desde la galería. Después toca **Facturar** → «Público en general» → **Emitir factura**: llega un PDF marcado SIMULACIÓN.
 4. **Servicios (pago al proveedor simulado):** Pagar un servicio → CFE → `123456789012` → verás un adeudo → **Pagar**. Tu banco recibe un cobro CoDi **real de $0.01**; al autorizarlo llega el comprobante, que aclara que el pago a CFE es una SIMULACIÓN.
@@ -38,8 +38,8 @@ Paga Fácil es un proyecto independiente: no es un producto de pey ni de Banxico
 6. Escribe «menú» en cualquier momento para volver al inicio.
 
 **Opción B · Panel del negocio y chat web**
-- Panel: ‹URL›/panel/?clave=‹clave› muestra cada cobro en tiempo real: módulo, detalle, monto, método (push o QR), estado («Esperando pago» → «Pagado») y factura. Déjalo abierto mientras pagas desde WhatsApp.
-- Chat web (plan B si WhatsApp falla): ‹URL›/dev/?clave=‹clave›. Es el mismo bot en el navegador. Escribe tu celular arriba y la push CoDi real llega a tu banco. El botón «Simular pago» existe solo para pruebas y el comprobante dice SIMULACIÓN.
+- Panel: https://paga-facil.onrender.com/panel/?clave=‹clave› muestra cada cobro en tiempo real: módulo, detalle, monto, método (push o QR), estado («Esperando pago» → «Pagado») y factura. Déjalo abierto mientras pagas desde WhatsApp.
+- Chat web (plan B si WhatsApp falla): https://paga-facil.onrender.com/dev/?clave=‹clave›. Es el mismo bot en el navegador. Escribe tu celular arriba y la push CoDi real llega a tu banco. El botón «Simular pago» existe solo para pruebas y el comprobante dice SIMULACIÓN.
 
 **Qué observar**
 - «Pagado» aparece solo después de que pey confirma el cobro, nunca antes.
