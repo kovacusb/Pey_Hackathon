@@ -1,0 +1,75 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 3396 >>
+stream
+0.8 G 0.5 w 50 595 m 562 595 l S
+0.8 G 0.5 w 50 550 m 562 550 l S
+0.8 G 0.5 w 400 497 m 562 497 l S
+BT /F2 90 Tf 0.9 g 0.8192 0.5736 -0.5736 0.8192 120 330 Tm (SIMULACIÓN) Tj ET
+BT /F2 18 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 740 Tm (Factura electrónica \(CFDI 4.0\)) Tj ET
+BT /F2 10 Tf 0.75 0.1 0.1 rg 1.0000 0.0000 0.0000 1.0000 50 720 Tm (SIMULACIÓN · SIN VALIDEZ FISCAL · no fue timbrada ante el SAT) Tj ET
+BT /F2 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 400 740 Tm (Folio: PF-1042) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 400 726 Tm (Fecha: 14 de noviembre de 2026 a las 10:20 p.m.) Tj ET
+BT /F1 8 Tf 0.35 g 1.0000 0.0000 0.0000 1.0000 50 700 Tm (UUID \(ficticio\): 3BCB0EA7-44C4-4A25-B0E4-6F7E8977912D) Tj ET
+BT /F2 9 Tf 0.4 g 1.0000 0.0000 0.0000 1.0000 50 670 Tm (EMISOR) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 656 Tm (Profesionista de demostración \(datos ficticios\)) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 642 Tm (RFC: XAXX010101000 · Régimen: 612) Tj ET
+BT /F2 9 Tf 0.4 g 1.0000 0.0000 0.0000 1.0000 320 670 Tm (RECEPTOR) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 320 656 Tm (EMILIO GONZÁLEZ DURÁN) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 320 642 Tm (RFC: GODE561231GR8 · CP: 06000) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 320 628 Tm (Régimen: 612 Act. empresarial y prof.) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 320 614 Tm (Uso CFDI: D01 Honorarios médicos) Tj ET
+BT /F2 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 580 Tm (Clave) Tj ET
+BT /F2 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 110 580 Tm (Descripción) Tj ET
+BT /F2 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 360 580 Tm (Cant.) Tj ET
+BT /F2 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 410 580 Tm (Valor unitario) Tj ET
+BT /F2 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 510 580 Tm (Importe) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 562 Tm (01010101) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 110 562 Tm (Consulta médica) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 360 562 Tm (1 E48) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 410 562 Tm ($560.34) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 510 562 Tm ($560.34) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 410 520 Tm (Subtotal) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 510 520 Tm ($560.34) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 410 504 Tm (IVA 16 %) Tj ET
+BT /F1 10 Tf 0 g 1.0000 0.0000 0.0000 1.0000 510 504 Tm ($89.65) Tj ET
+BT /F2 12 Tf 0 g 1.0000 0.0000 0.0000 1.0000 410 484 Tm (Total) Tj ET
+BT /F2 12 Tf 0 g 1.0000 0.0000 0.0000 1.0000 510 484 Tm ($649.99) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 520 Tm (Forma de pago: 03 Transferencia electrónica de fondos \(CoDi\)) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 506 Tm (Método de pago: PUE Pago en una sola exhibición) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 492 Tm (Moneda: MXN · Exportación: 01 No aplica) Tj ET
+BT /F1 9 Tf 0 g 1.0000 0.0000 0.0000 1.0000 50 478 Tm (Clave de rastreo CoDi: MBAN01002611150000456) Tj ET
+BT /F1 8 Tf 0.4 g 1.0000 0.0000 0.0000 1.0000 50 80 Tm (Documento de demostración generado por Paga Fácil \(proyecto independiente; no es un producto de pey ni del SAT\).) Tj ET
+BT /F1 8 Tf 0.4 g 1.0000 0.0000 0.0000 1.0000 50 68 Tm (Para facturas reales se conecta un proveedor de timbrado \(PAC\) con FACTURAMA_USUARIO y FACTURAMA_CLAVE.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000257 00000 n 
+0000000354 00000 n 
+0000000456 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3904
+%%EOF

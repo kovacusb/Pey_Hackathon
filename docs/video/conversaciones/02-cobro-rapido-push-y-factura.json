@@ -1,0 +1,378 @@
+{
+  "titulo": "Cobro rápido: el doctor cobra la consulta por notificación y factura",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "⚡ Cobro rápido"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⚡ *Cobro rápido*\n¿Cuánto vas a cobrar? Escribe el monto, por ejemplo *350*."
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "650"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "Cobro de *$650.00*. ¿Por qué concepto?",
+        "textoBoton": "Elegir concepto",
+        "secciones": [
+          {
+            "titulo": "Conceptos",
+            "filas": [
+              {
+                "id": "p2p:con:consulta",
+                "titulo": "Consulta médica"
+              },
+              {
+                "id": "p2p:con:auto",
+                "titulo": "Reparación de auto"
+              },
+              {
+                "id": "p2p:con:plomeria",
+                "titulo": "Plomería"
+              },
+              {
+                "id": "p2p:con:electricidad",
+                "titulo": "Electricidad"
+              },
+              {
+                "id": "p2p:con:tecnico",
+                "titulo": "Servicio técnico"
+              },
+              {
+                "id": "p2p:con:clase",
+                "titulo": "Clase particular"
+              },
+              {
+                "id": "p2p:con:otro",
+                "titulo": "✏️ Otro (escribir)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Consulta médica"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "⚡ *Consulta médica*\nTotal: *$650.00*\n\n¿Cómo te paga tu cliente?",
+        "botones": [
+          {
+            "id": "p2p:metodo:qr",
+            "titulo": "📷 QR en mi pantalla"
+          },
+          {
+            "id": "p2p:metodo:pn",
+            "titulo": "📲 A su celular"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "📲 A su celular"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "Escribe el celular de tu cliente a 10 dígitos.\n_Le llegará una solicitud de cobro en la app de su banco._"
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "55 1234 5678"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "¿Tu cliente aceptó recibir la solicitud de cobro en el •••• 5678?",
+        "botones": [
+          {
+            "id": "p2p:enviar",
+            "titulo": "Sí, enviar"
+          },
+          {
+            "id": "p2p:metodo:qr",
+            "titulo": "Mejor QR"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Sí, enviar"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⏳ Generando el cobro CoDi…"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "📲 *Solicitud enviada al celular •••• 5678*\nPídele que abra la notificación de su banco y autorice *$650.00* con su NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
+        "botones": [
+          {
+            "id": "pago:qr:489931ab-5740-4755-b719-41b20c400d8d",
+            "titulo": "📷 Mejor un QR"
+          },
+          {
+            "id": "pago:cancelar:489931ab-5740-4755-b719-41b20c400d8d",
+            "titulo": "Cancelar"
+          }
+        ],
+        "pie": "¿No le llegó? Muéstrale el QR."
+      }
+    },
+    {
+      "de": "banco",
+      "texto": "📲 Al paciente le llega a su app bancaria: «Solicitud de cobro CoDi · $650.00 · Consulta médica» → autoriza con su huella"
+    },
+    {
+      "de": "persona",
+      "texto": "🧾 Facturar"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "✅ *¡Cobro recibido!*\n\nConsulta médica · $650.00\nFecha: 14/11/26, 10:20 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio: 1\n\n¿Tu cliente quiere factura?",
+        "botones": [
+          {
+            "id": "p2p:fac:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "titulo": "🧾 Facturar"
+          },
+          {
+            "id": "p2p:inicio",
+            "titulo": "Nuevo cobro"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ],
+        "encabezado": "Comprobante"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "🧾 *Factura*\nEscribe el *RFC* de tu cliente.",
+        "botones": [
+          {
+            "id": "p2p:pg:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "titulo": "Público en general"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "GODE561231GR8"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "Escribe el *nombre o razón social* tal como aparece en su constancia de situación fiscal."
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Emilio González Durán"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "Escribe el *código postal* de su domicilio fiscal (5 dígitos)."
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "06000"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "¿Cuál es su régimen fiscal?",
+        "textoBoton": "Elegir régimen",
+        "secciones": [
+          {
+            "titulo": "Régimen fiscal",
+            "filas": [
+              {
+                "id": "p2p:reg:605",
+                "titulo": "Sueldos y salarios",
+                "descripcion": "605"
+              },
+              {
+                "id": "p2p:reg:612",
+                "titulo": "Act. empresarial y prof.",
+                "descripcion": "612"
+              },
+              {
+                "id": "p2p:reg:626",
+                "titulo": "RESICO",
+                "descripcion": "626"
+              },
+              {
+                "id": "p2p:reg:616",
+                "titulo": "Sin obligaciones fiscal…",
+                "descripcion": "616"
+              },
+              {
+                "id": "p2p:reg:606",
+                "titulo": "Arrendamiento",
+                "descripcion": "606"
+              },
+              {
+                "id": "p2p:reg:601",
+                "titulo": "General personas morales",
+                "descripcion": "601"
+              },
+              {
+                "id": "p2p:reg:603",
+                "titulo": "PM sin fines de lucro",
+                "descripcion": "603"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Act. empresarial y prof."
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "¿Para qué usará la factura?",
+        "textoBoton": "Elegir uso",
+        "secciones": [
+          {
+            "titulo": "Uso del CFDI",
+            "filas": [
+              {
+                "id": "p2p:uso:G03",
+                "titulo": "Gastos en general",
+                "descripcion": "G03"
+              },
+              {
+                "id": "p2p:uso:D01",
+                "titulo": "Honorarios médicos",
+                "descripcion": "D01"
+              },
+              {
+                "id": "p2p:uso:G01",
+                "titulo": "Adquisición de mercancí…",
+                "descripcion": "G01"
+              },
+              {
+                "id": "p2p:uso:S01",
+                "titulo": "Sin efectos fiscales",
+                "descripcion": "S01"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Honorarios médicos"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "🧾 *Revisa los datos*\nRFC: GODE561231GR8\nNombre: EMILIO GONZÁLEZ DURÁN\nCP: 06000\nRégimen: Act. empresarial y prof.\nUso: Honorarios médicos\n\nConsulta médica · $650.00 (IVA incluido)\n\n⚠️ _SIMULACIÓN: el PDF no tiene validez fiscal._",
+        "botones": [
+          {
+            "id": "p2p:emitir",
+            "titulo": "✅ Emitir factura"
+          },
+          {
+            "id": "p2p:fac:ae52e873-b202-46a1-b10b-6eabc92098be",
+            "titulo": "Corregir"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "✅ Emitir factura"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⏳ Generando la factura…"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "documento",
+        "dataUrl": "[Factura-PF-1.pdf]",
+        "nombre": "Factura-PF-1.pdf",
+        "pie": "🧾 PF-1 · SIMULACIÓN sin validez fiscal"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "Listo ✅ Reenvíale este PDF a tu cliente.",
+        "botones": [
+          {
+            "id": "p2p:inicio",
+            "titulo": "Nuevo cobro"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ]
+      }
+    }
+  ]
+}

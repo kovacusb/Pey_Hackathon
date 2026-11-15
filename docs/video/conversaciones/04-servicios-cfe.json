@@ -1,0 +1,160 @@
+{
+  "titulo": "Pagar la luz (cobro CoDi real de $0.01; pago a CFE simulado)",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "💡 Pagar un servicio"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "¿Qué servicio quieres pagar?",
+        "textoBoton": "Elegir servicio",
+        "secciones": [
+          {
+            "titulo": "Servicios",
+            "filas": [
+              {
+                "id": "svc:srv:cfe",
+                "titulo": "💡 CFE",
+                "descripcion": "Luz"
+              },
+              {
+                "id": "svc:srv:agua",
+                "titulo": "🚰 Agua CDMX",
+                "descripcion": "Agua"
+              },
+              {
+                "id": "svc:srv:telmex",
+                "titulo": "☎️ Telmex",
+                "descripcion": "Teléfono e internet"
+              },
+              {
+                "id": "svc:srv:izzi",
+                "titulo": "📡 izzi",
+                "descripcion": "Internet y TV"
+              },
+              {
+                "id": "svc:srv:totalplay",
+                "titulo": "📡 Totalplay",
+                "descripcion": "Internet y TV"
+              },
+              {
+                "id": "svc:srv:megacable",
+                "titulo": "📡 Megacable",
+                "descripcion": "Internet y TV"
+              },
+              {
+                "id": "svc:srv:gas",
+                "titulo": "🔥 Naturgy",
+                "descripcion": "Gas natural"
+              },
+              {
+                "id": "svc:srv:sky",
+                "titulo": "🛰️ SKY",
+                "descripcion": "TV satelital"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "💡 CFE"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "💡 *CFE*\nEscribe tu número de servicio.\n_Son 12 dígitos; vienen en tu recibo, arriba a la derecha._"
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "123456789012"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "🔎 Consultando tu adeudo…"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "💡 *CFE*\nReferencia: •••• 9012\nPeriodo: oct–nov 2026\nVence: 20 nov\n\n*Total: $482.50*\n\n🧪 *El pago a CFE es una SIMULACIÓN* (aún no conectamos al proveedor).\nPara que veas que el cobro CoDi es real, tu banco te cobrará solo *$0.01*.",
+        "botones": [
+          {
+            "id": "svc:pagar:pn",
+            "titulo": "✅ Pagar"
+          },
+          {
+            "id": "svc:pagar:qr",
+            "titulo": "📷 Pagar con QR"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ],
+        "pie": "Pagar = solicitud a tu app bancaria"
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "✅ Pagar"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⏳ Generando tu cobro CoDi…"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "📲 *Revisa la app de tu banco*\nTe llegó una solicitud CoDi por *$0.01*.\nÁbrela y autoriza con tu NIP o huella.\n\n⏱️ Vence en 6 min. Te aviso aquí cuando se confirme.",
+        "botones": [
+          {
+            "id": "pago:qr:eee42ef4-397a-4210-9899-b4c54bffd205",
+            "titulo": "📷 Mejor un QR"
+          },
+          {
+            "id": "pago:cancelar:eee42ef4-397a-4210-9899-b4c54bffd205",
+            "titulo": "Cancelar"
+          }
+        ],
+        "pie": "¿No te llegó? Pide el QR."
+      }
+    },
+    {
+      "de": "banco",
+      "texto": "📲 Llega la solicitud CoDi de $0.01 a la app del banco → autoriza"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "✅ *¡Pago confirmado!*\n\n💡 CFE · •••• 9012\nMonto: $482.50\nCobrado vía CoDi: $0.01 (real)\nFecha: 14/11/26, 10:20 p.m.\nClave de rastreo: MBAN01002611150000456\nFolio Paga Fácil: 3\nFolio CFE: SIM-700E4D3A (SIMULACIÓN)\n\n⚠️ El pago a CFE es una SIMULACIÓN: solo se cobró $0.01 real vía CoDi.",
+        "botones": [
+          {
+            "id": "svc:servicios",
+            "titulo": "Pagar otro"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ],
+        "encabezado": "Comprobante de pago"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "titulo": "Centro de ayuda: aprender CoDi",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "📚 Aprende CoDi"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "📚 *Aprende a pagar con CoDi.*\nElige un tema:",
+        "textoBoton": "Ver temas",
+        "secciones": [
+          {
+            "titulo": "Guías",
+            "filas": [
+              {
+                "id": "ayuda:g:que-es",
+                "titulo": "¿Qué es CoDi?",
+                "descripcion": "Pagar desde tu celular, sin efectivo y sin comisión"
+              },
+              {
+                "id": "ayuda:g:activar",
+                "titulo": "Activar CoDi",
+                "descripcion": "Lo haces una sola vez en la app de tu banco"
+              },
+              {
+                "id": "ayuda:g:pagar-notificacion",
+                "titulo": "Pagar con notificación",
+                "descripcion": "La forma más fácil: te llega la solicitud a tu celular"
+              },
+              {
+                "id": "ayuda:g:pagar-qr",
+                "titulo": "Pagar con QR",
+                "descripcion": "Escanea o importa el QR desde tu galería"
+              },
+              {
+                "id": "ayuda:g:seguridad",
+                "titulo": "¿Es seguro?",
+                "descripcion": "Tú autorizas cada pago; nadie ve tu NIP"
+              },
+              {
+                "id": "ayuda:g:limites",
+                "titulo": "Costos y límites",
+                "descripcion": "Sin comisiones; cuánto puedes pagar"
+              },
+              {
+                "id": "ayuda:g:no-llego",
+                "titulo": "Pagué y no llegó",
+                "descripcion": "Qué hacer si algo sale mal"
+              },
+              {
+                "id": "ayuda:g:devoluciones",
+                "titulo": "Devoluciones",
+                "descripcion": "Cómo funciona si necesitas que te regresen dinero"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "¿Es seguro?"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "*Tu dinero está protegido:*\n\n• *Nada se cobra sin tu autorización*: una solicitud de cobro no mueve dinero hasta que tú aceptas.\n• Paga Fácil *no ve* tu NIP ni los datos de tu cuenta.\n• Puedes *bloquear* cobros que no pediste desde tu app.\n\n🚩 No autorices si el *monto* o el *nombre* no coinciden con lo que vas a pagar.",
+        "botones": [
+          {
+            "id": "ayuda:temas",
+            "titulo": "Otra duda"
+          },
+          {
+            "id": "svc:servicios",
+            "titulo": "Pagar un servicio"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ]
+      }
+    }
+  ]
+}

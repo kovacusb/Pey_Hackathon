@@ -1,0 +1,51 @@
+{
+  "titulo": "Saludo y menú principal",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "hola"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "¡Hola, Ana! 👋 Soy *Paga Fácil*.\nCobra al momento con CoDi y conoce cómo pagar servicios y recargas: directo desde tu banco y sin comisiones.",
+        "textoBoton": "Ver opciones",
+        "secciones": [
+          {
+            "titulo": "¿Qué quieres hacer?",
+            "filas": [
+              {
+                "id": "svc:servicios",
+                "titulo": "💡 Pagar un servicio",
+                "descripcion": "Luz, agua, teléfono, internet, TV, gas"
+              },
+              {
+                "id": "svc:recargas",
+                "titulo": "📱 Recarga de saldo",
+                "descripcion": "Telcel, AT&T, Movistar, Bait y más"
+              },
+              {
+                "id": "svc:historial",
+                "titulo": "🧾 Mis pagos",
+                "descripcion": "Tus últimos comprobantes"
+              },
+              {
+                "id": "p2p:inicio",
+                "titulo": "⚡ Cobro rápido",
+                "descripcion": "Cobra un servicio al momento y factura"
+              },
+              {
+                "id": "ayuda:temas",
+                "titulo": "📚 Aprende CoDi",
+                "descripcion": "Activar CoDi, seguridad, límites, dudas"
+              }
+            ]
+          }
+        ],
+        "pie": "Proyecto independiente · cobros vía la API de pey"
+      }
+    }
+  ]
+}

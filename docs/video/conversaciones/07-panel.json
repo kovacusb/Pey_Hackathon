@@ -1,0 +1,32 @@
+{
+  "titulo": "Panel del negocio después de los cobros",
+  "cobros": [
+    {
+      "modulo": "svc",
+      "concepto": "CFE",
+      "montoCentavos": 48250,
+      "cobradoCentavos": 1,
+      "metodo": "pn",
+      "estado": "pagado",
+      "factura": null
+    },
+    {
+      "modulo": "p2p",
+      "concepto": "Plomería",
+      "montoCentavos": 48000,
+      "cobradoCentavos": 48000,
+      "metodo": "qr",
+      "estado": "pagado",
+      "factura": null
+    },
+    {
+      "modulo": "p2p",
+      "concepto": "Consulta médica",
+      "montoCentavos": 65000,
+      "cobradoCentavos": 65000,
+      "metodo": "pn",
+      "estado": "pagado",
+      "factura": "PF-1"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "titulo": "Recarga de saldo",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "📱 Recarga de saldo"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "¿De qué compañía es el celular?",
+        "textoBoton": "Elegir compañía",
+        "secciones": [
+          {
+            "titulo": "Recargas",
+            "filas": [
+              {
+                "id": "svc:rec:telcel",
+                "titulo": "📱 Telcel"
+              },
+              {
+                "id": "svc:rec:att",
+                "titulo": "📱 AT&T"
+              },
+              {
+                "id": "svc:rec:movistar",
+                "titulo": "📱 Movistar"
+              },
+              {
+                "id": "svc:rec:bait",
+                "titulo": "📱 Bait"
+              },
+              {
+                "id": "svc:rec:unefon",
+                "titulo": "📱 Unefon"
+              },
+              {
+                "id": "svc:rec:virgin",
+                "titulo": "📱 Virgin Mobile"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "📱 Telcel"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "📱 Recarga *Telcel*. ¿A qué número?",
+        "botones": [
+          {
+            "id": "svc:recnum:yo",
+            "titulo": "A este (0005)"
+          },
+          {
+            "id": "svc:recnum:otro",
+            "titulo": "Otro número"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "A este número"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "Recarga Telcel al •••• 0005.\n¿De cuánto?",
+        "textoBoton": "Elegir monto",
+        "secciones": [
+          {
+            "titulo": "Montos",
+            "filas": [
+              {
+                "id": "svc:recmonto:20",
+                "titulo": "$20"
+              },
+              {
+                "id": "svc:recmonto:30",
+                "titulo": "$30"
+              },
+              {
+                "id": "svc:recmonto:50",
+                "titulo": "$50"
+              },
+              {
+                "id": "svc:recmonto:100",
+                "titulo": "$100"
+              },
+              {
+                "id": "svc:recmonto:150",
+                "titulo": "$150"
+              },
+              {
+                "id": "svc:recmonto:200",
+                "titulo": "$200"
+              },
+              {
+                "id": "svc:recmonto:300",
+                "titulo": "$300"
+              },
+              {
+                "id": "svc:recmonto:500",
+                "titulo": "$500"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "$100"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "📱 *Recarga Telcel*\nNúmero: •••• 0005\n\n*Total: $100.00*\n\n🧪 *El pago a Telcel es una SIMULACIÓN* (aún no conectamos al proveedor).\nPara que veas que el cobro CoDi es real, tu banco te cobrará solo *$0.01*.",
+        "botones": [
+          {
+            "id": "svc:pagar:pn",
+            "titulo": "✅ Pagar"
+          },
+          {
+            "id": "svc:pagar:qr",
+            "titulo": "📷 Pagar con QR"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ],
+        "pie": "Pagar = solicitud a tu app bancaria"
+      }
+    }
+  ]
+}

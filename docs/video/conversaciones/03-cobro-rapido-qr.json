@@ -1,0 +1,147 @@
+{
+  "titulo": "Cobro rápido con QR: el plomero le muestra el QR al cliente",
+  "nota": "Textos reales del bot (generados con el código). Nombres y números ficticios.",
+  "pasos": [
+    {
+      "de": "persona",
+      "texto": "⚡ Cobro rápido"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⚡ *Cobro rápido*\n¿Cuánto vas a cobrar? Escribe el monto, por ejemplo *350*."
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "480"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "lista",
+        "cuerpo": "Cobro de *$480.00*. ¿Por qué concepto?",
+        "textoBoton": "Elegir concepto",
+        "secciones": [
+          {
+            "titulo": "Conceptos",
+            "filas": [
+              {
+                "id": "p2p:con:consulta",
+                "titulo": "Consulta médica"
+              },
+              {
+                "id": "p2p:con:auto",
+                "titulo": "Reparación de auto"
+              },
+              {
+                "id": "p2p:con:plomeria",
+                "titulo": "Plomería"
+              },
+              {
+                "id": "p2p:con:electricidad",
+                "titulo": "Electricidad"
+              },
+              {
+                "id": "p2p:con:tecnico",
+                "titulo": "Servicio técnico"
+              },
+              {
+                "id": "p2p:con:clase",
+                "titulo": "Clase particular"
+              },
+              {
+                "id": "p2p:con:otro",
+                "titulo": "✏️ Otro (escribir)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "Plomería"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "⚡ *Plomería*\nTotal: *$480.00*\n\n¿Cómo te paga tu cliente?",
+        "botones": [
+          {
+            "id": "p2p:metodo:qr",
+            "titulo": "📷 QR en mi pantalla"
+          },
+          {
+            "id": "p2p:metodo:pn",
+            "titulo": "📲 A su celular"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "persona",
+      "texto": "📷 QR en mi pantalla"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "texto",
+        "cuerpo": "⏳ Generando el cobro CoDi…"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "imagen",
+        "dataUrl": "[imagen del QR CoDi]",
+        "pie": "📷 Muéstrale este QR a quien te paga (*$480.00*)\nLo escanea *desde la app de su banco* → CoDi → Pagar (la cámara normal no sirve).\n⏱️ Vence en 10 min"
+      }
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "Te aviso aquí en cuanto se confirme ✅",
+        "botones": [
+          {
+            "id": "pago:cancelar:e15ce5af-516d-4c36-9fd9-5dce5d752545",
+            "titulo": "Cancelar"
+          }
+        ]
+      }
+    },
+    {
+      "de": "banco",
+      "texto": "📷 El cliente abre la app de su banco → CoDi → Pagar → escanea el QR → autoriza"
+    },
+    {
+      "de": "bot",
+      "mensaje": {
+        "tipo": "botones",
+        "cuerpo": "✅ *¡Cobro recibido!*\n\nPlomería · $480.00\nFecha: 14/11/26, 10:20 p.m.\nClave de rastreo: MBAN01002611150000123\nFolio: 2\n\n¿Tu cliente quiere factura?",
+        "botones": [
+          {
+            "id": "p2p:fac:0f2a4e37-e23c-4eb7-b782-4127bb843c06",
+            "titulo": "🧾 Facturar"
+          },
+          {
+            "id": "p2p:inicio",
+            "titulo": "Nuevo cobro"
+          },
+          {
+            "id": "core:menu",
+            "titulo": "Menú"
+          }
+        ],
+        "encabezado": "Comprobante"
+      }
+    }
+  ]
+}
