@@ -27,6 +27,8 @@
   footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--linea); color: #6b7783; font-size: 14px; }
   a { color: var(--acento); }
   .boton { display: inline-block; margin-top: 18px; background: var(--acento); color: #04201c; font-weight: 800; text-decoration: none; padding: 14px 24px; border-radius: 999px; }
+  .video { width: 100%; border-radius: 18px; border: 1px solid var(--linea); background: #000; margin-top: 8px; }
+  .enlaces { color: var(--sutil); font-size: 16px; }
   .numero { margin-left: 12px; color: var(--sutil); font-variant-numeric: tabular-nums; }
 </style>
 </head>
@@ -44,6 +46,15 @@
     <div class="tarjeta"><h2>📚 Aprende CoDi</h2><p>Guías cortas con video: cómo activarlo, si es seguro, límites y qué hacer si algo falla.</p></div>
     <div class="tarjeta"><h2>🔒 Seguro</h2><p>Nada se cobra sin tu autorización. No vemos tu NIP ni tus datos bancarios.</p></div>
   </section>
+
+  <h2>Míralo en 2 minutos</h2>
+  <video class="video" src="/videos/paga-facil-demo.mp4" controls preload="metadata" playsinline></video>
+  <p class="enlaces">
+    <a href="/videos/paga-facil-demo.mp4">▶ Video demo</a> ·
+    <a href="/videos/manual-paga-facil.mp4">📘 Manual de uso (2:22)</a> ·
+    <a href="/videos/que-es.mp4">📚 Guía: ¿Qué es CoDi?</a> ·
+    <a href="https://github.com/kovacusb/Pey_Hackathon">💻 Código</a>
+  </p>
 
   <h2>Cómo empezar</h2>
   <ol>
