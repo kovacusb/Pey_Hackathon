@@ -145,7 +145,8 @@ async function emitir(ctx: Contexto) {
       `Factura-${f.folio}.pdf`,
       f.simulada ? `🧾 ${f.folio} · SIMULACIÓN sin validez fiscal` : `🧾 Factura ${f.folio} · UUID ${f.uuid}`,
     );
-    ctx.irA("fin");
+    // Minimización (aviso de privacidad): el nombre y el CP del cliente no se quedan en la sesión después de facturar.
+    ctx.irA("fin", { factura: null });
     await ctx.responder.botones("Listo ✅ Reenvíale este PDF a tu cliente.", [
       { id: "p2p:inicio", titulo: "Nuevo cobro" },
       { id: "core:menu", titulo: "Menú" },

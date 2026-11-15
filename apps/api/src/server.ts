@@ -116,6 +116,11 @@ app.post("/api/webhook-pey", crudo, async (req, res) => {
 
 if (config.devTools) app.use("/dev", rutasDev());
 app.use("/panel", rutasPanel());
+// Aviso de privacidad (lo pide Meta para publicar la app y K01.8 para la entrega) y logo (ícono de la app y del perfil).
+app.get(["/privacidad", "/privacidad/"], (_req, res) => {
+  res.sendFile(new URL("../public/legal/privacidad.html", import.meta.url).pathname);
+});
+app.use("/marca", express.static(new URL("../public/marca/", import.meta.url).pathname, { maxAge: "7d", fallthrough: false, index: false }));
 // Videos de las guías (públicos: los muestra el chat de pruebas y sirven de enlace en la documentación).
 app.use("/videos", express.static(new URL("../public/videos/", import.meta.url).pathname, { maxAge: "7d", fallthrough: false, index: false }));
 

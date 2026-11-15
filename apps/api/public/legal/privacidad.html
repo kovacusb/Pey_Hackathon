@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aviso de privacidad · Paga Fácil</title>
+<link rel="icon" href="/marca/logo-512.png" />
+<style>
+  :root { --fondo: #ffffff; --tinta: #14181f; --sutil: #5f6b7a; --linea: #e3e7ed; --acento: #0f766e; }
+  @media (prefers-color-scheme: dark) { :root { --fondo: #0d1117; --tinta: #e6edf3; --sutil: #8b949e; --linea: #30363d; --acento: #2dd4bf; } }
+  body { margin: 0; background: var(--fondo); color: var(--tinta); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 80px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  header img { width: 56px; height: 56px; border-radius: 14px; }
+  h1 { font-size: 30px; margin: 0; }
+  h2 { font-size: 20px; margin: 34px 0 8px; color: var(--acento); }
+  p, li { color: var(--tinta); }
+  small, .meta { color: var(--sutil); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 8px 0; }
+  th, td { text-align: left; border-bottom: 1px solid var(--linea); padding: 8px 6px; vertical-align: top; }
+  a { color: var(--acento); }
+  .caja { border: 1px solid var(--linea); border-radius: 12px; padding: 14px 16px; }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="/marca/logo-512.png" alt="" /><div><h1>Aviso de privacidad</h1><div class="meta">Paga Fácil · última actualización: 15 de noviembre de 2026</div></div></header>
+
+  <p class="caja"><b>Paga Fácil</b> es un proyecto independiente desarrollado para el Hackatón México 2026. Permite cobrar y pagar con CoDi® desde WhatsApp por medio de la API de pey. No es un producto de pey, de Banxico ni de Meta.</p>
+
+  <h2>Quién es responsable</h2>
+  <p>El equipo de Paga Fácil, que desarrolla el proyecto. Para cualquier asunto de privacidad, escríbenos a través de los medios del apartado <a href="#contacto">Contacto</a>.</p>
+
+  <h2>Qué datos tratamos y para qué</h2>
+  <table>
+    <tr><th>Dato</th><th>Para qué</th><th>Cuánto tiempo</th></tr>
+    <tr><td>Tu número de WhatsApp y tu nombre de perfil</td><td>Responderte en el chat y, si lo pides, enviar la solicitud de cobro CoDi a tu celular</td><td>Mientras se conserve el registro del cobro o de la conversación</td></tr>
+    <tr><td>Lo que escribes y los botones que tocas</td><td>Llevar la conversación (paso en el que vas)</td><td>Se reemplaza en cada paso; la conversación se reinicia tras 30 minutos sin actividad o al volver al menú</td></tr>
+    <tr><td>Datos del cobro: monto, concepto, referencia, folio, clave de rastreo</td><td>Crear el cobro, confirmar el pago, enviarte el comprobante y mostrarlo en el panel del negocio</td><td>Mientras se conserve el registro del cobro</td></tr>
+    <tr><td>Celular de un cliente (en «Cobro rápido → A su celular»)</td><td>Enviarle la solicitud de cobro, solo si confirmas que aceptó recibirla</td><td>Mientras se conserve el registro del cobro</td></tr>
+    <tr><td>Datos fiscales para una factura: RFC, nombre o razón social, código postal, régimen y uso del CFDI</td><td>Emitir la factura que pidió tu cliente</td><td>Nombre y CP solo durante la captura; el RFC se guarda con el folio de la factura</td></tr>
+  </table>
+  <p>No pedimos ni recibimos tu NIP, tus contraseñas bancarias, tu CLABE ni tu tarjeta: los pagos se autorizan dentro de la app de tu banco. En nuestros registros técnicos solo guardamos identificadores, nunca números de teléfono completos.</p>
+
+  <h2>Con quién se comparten</h2>
+  <ul>
+    <li><b>Meta (WhatsApp)</b>: transporta los mensajes del chat.</li>
+    <li><b>pey</b>: crea los cobros CoDi; recibe el monto, el concepto y, si eliges notificación, el celular de quien paga.</li>
+    <li><b>Proveedor de facturación</b> (cuando esté activo): recibe los datos fiscales para timbrar la factura. Hoy las facturas son de demostración y no se envían a ningún proveedor.</li>
+    <li><b>Proveedor de hospedaje</b> del servidor, que almacena los datos técnicos del servicio.</li>
+  </ul>
+  <p>No vendemos tus datos ni los usamos para publicidad.</p>
+
+  <h2>Tus derechos (ARCO)</h2>
+  <p>Puedes pedir <b>acceso</b>, <b>rectificación</b>, <b>cancelación</b> u <b>oposición</b> al tratamiento de tus datos personales, así como revocar tu consentimiento, por los medios de <a href="#contacto">Contacto</a>. Te responderemos por el mismo medio.</p>
+
+  <h2 id="borrar">Cómo borrar tus datos</h2>
+  <ol>
+    <li>Escríbenos por los medios de <a href="#contacto">Contacto</a> pidiendo «borrar mis datos» e indica el número de WhatsApp con el que usaste Paga Fácil.</li>
+    <li>Borramos tu conversación y los registros asociados a ese número, salvo lo que debamos conservar por una obligación legal, por ejemplo las facturas emitidas.</li>
+    <li>Te confirmamos por el mismo medio cuando esté hecho.</li>
+  </ol>
+  <p>También puedes bloquear o eliminar el chat desde WhatsApp en cualquier momento.</p>
+
+  <h2 id="contacto">Contacto</h2>
+  <ul>
+    <li>En el chat de WhatsApp de Paga Fácil.</li>
+    <li>En el repositorio público del proyecto: <a href="https://github.com/kovacusb/Pey_Hackathon/issues">github.com/kovacusb/Pey_Hackathon/issues</a> (no publiques ahí datos personales; pide que te contactemos).</li>
+  </ul>
+
+  <h2>Cambios a este aviso</h2>
+  <p>Si cambia, publicaremos la nueva versión en esta misma página con su fecha.</p>
+
+  <p><small>CoDi® es una marca de Banco de México. pey® es una marca de su titular. WhatsApp es una marca de Meta.</small></p>
+</main>
+</body>
+</html>
