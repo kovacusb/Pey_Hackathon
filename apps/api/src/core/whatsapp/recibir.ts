@@ -13,6 +13,8 @@ export function firmaMetaValida(appSecret: string, cuerpoCrudo: Buffer, header: 
 export interface MensajeEntrante {
   idMensaje: string;
   waId: string;
+  /** Número del negocio al que escribió la persona (metadata.phone_number_id): se contesta desde ese mismo. */
+  numeroNegocio: string | null;
   nombre: string | null;
   entrada: Entrada;
 }
@@ -41,7 +43,7 @@ export function extraerMensajes(payload: any): MensajeEntrante[] {
       for (const m of value.messages) {
         // TODO(⚪): Meta puede omitir "from" si la persona usa nombre de usuario; sin número no podemos responder ni cobrar.
         if (!m?.id || !m?.from) continue;
-        salida.push({ idMensaje: m.id, waId: String(m.from), nombre: nombres.get(m.from) ?? null, entrada: normalizar(m) });
+        salida.push({ idMensaje: m.id, waId: String(m.from), numeroNegocio: value.metadata?.phone_number_id ? String(value.metadata.phone_number_id) : null, nombre: nombres.get(m.from) ?? null, entrada: normalizar(m) });
       }
     }
   }

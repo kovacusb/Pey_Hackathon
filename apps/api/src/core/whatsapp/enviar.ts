@@ -100,12 +100,12 @@ async function llamarGraph(ruta: string, init: RequestInit) {
   return datos;
 }
 
-async function subirMedio(archivo: Buffer, tipoMime: string, nombre: string): Promise<string> {
+async function subirMedio(archivo: Buffer, tipoMime: string, nombre: string, numeroSubida: string = config.wa.phoneNumberId): Promise<string> {
   const form = new FormData();
   form.append("messaging_product", "whatsapp");
   form.append("type", tipoMime);
   form.append("file", new Blob([new Uint8Array(archivo)], { type: tipoMime }), nombre);
-  const r = await llamarGraph(`${config.wa.phoneNumberId}/media`, { method: "POST", body: form });
+  const r = await llamarGraph(`${numeroSubida}/media`, { method: "POST", body: form });
   return r.id as string;
 }
 
@@ -115,15 +115,23 @@ const DIR_PUBLICO = new URL("../../../public/", import.meta.url).pathname;
 const videosSubidos = new Map<string, { id: string; hasta: number }>();
 export const rutaDeVideoValida = (ruta: string) => /^\/videos\/[a-z0-9-]+\.mp4$/.test(ruta);
 
-async function idDeVideo(ruta: string): Promise<string> {
+async function idDeVideo(ruta: string, numero: string): Promise<string> {
   if (!rutaDeVideoValida(ruta)) throw new Error(`Ruta de video no permitida: ${ruta}`);
-  const guardado = videosSubidos.get(ruta);
+  const clave = `${numero}:${ruta}`;
+  const guardado = videosSubidos.get(clave);
   if (guardado && guardado.hasta > Date.now()) return guardado.id;
   const archivo = await readFile(DIR_PUBLICO + ruta.slice(1));
-  const id = await subirMedio(archivo, "video/mp4", ruta.split("/").pop()!);
-  videosSubidos.set(ruta, { id, hasta: Date.now() + 7 * 86_400_000 });
+  const id = await subirMedio(archivo, "video/mp4", ruta.split("/").pop()!, numero);
+  videosSubidos.set(clave, { id, hasta: Date.now() + 7 * 86_400_000 });
   return id;
 }
+
+// Desde qué número del negocio se le contesta a cada persona: el mismo al que escribió (prueba o real).
+const numeroPorUsuario = new Map<string, string>();
+export function recordarNumeroNegocio(waId: string, numero: string | null) {
+  if (numero && /^\d+$/.test(numero)) numeroPorUsuario.set(waId, numero);
+}
+const numeroDe = (waId: string) => numeroPorUsuario.get(waId) ?? config.wa.phoneNumberId;
 
 async function enviarCloud(waId: string, m: Saliente) {
   const base = { messaging_product: "whatsapp", recipient_type: "individual", to: destinoWhatsApp(waId) };
@@ -166,22 +174,22 @@ async function enviarCloud(waId: string, m: Saliente) {
       break;
     case "imagen": {
       // WhatsApp solo acepta PNG RGB/RGBA de 8 bits; el QR de pey llega en grises de 1 bit (error 131053).
-      const mediaId = await subirMedio(aPngRgb(m.png), "image/png", "cobro.png");
+      const mediaId = await subirMedio(aPngRgb(m.png), "image/png", "cobro.png", numeroDe(waId));
       cuerpo = { ...base, type: "image", image: { id: mediaId, ...(m.pie ? { caption: m.pie } : {}) } };
       break;
     }
     case "documento": {
-      const mediaId = await subirMedio(m.archivo, "application/pdf", m.nombre);
+      const mediaId = await subirMedio(m.archivo, "application/pdf", m.nombre, numeroDe(waId));
       cuerpo = { ...base, type: "document", document: { id: mediaId, filename: m.nombre, ...(m.pie ? { caption: m.pie } : {}) } };
       break;
     }
     case "video": {
-      const mediaId = await idDeVideo(m.ruta);
+      const mediaId = await idDeVideo(m.ruta, numeroDe(waId));
       cuerpo = { ...base, type: "video", video: { id: mediaId, ...(m.pie ? { caption: m.pie.slice(0, 1024) } : {}) } };
       break;
     }
   }
-  await llamarGraph(`${config.wa.phoneNumberId}/messages`, {
+  await llamarGraph(`${numeroDe(waId)}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cuerpo),
